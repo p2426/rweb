@@ -1,0 +1,35 @@
+html {
+    font-family: system-ui;
+
+    /* Tack on some global variables */
+    --global-animation-speed: .5s;
+    --global-animation-speed--fast: .25s;
+    --global-animation-speed--slow: 1s;
+    --global-animation-speed--super-slow: 2s;
+    --global-animation-delay: .5s;
+    --global-animation-delay--fast: .25s;
+    --global-animation-delay--slow: 1s;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.layout {
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+    height: 100vh;
+}
+
+.auto {
+    &--overflow-y {
+        overflow-y: auto;
+    }
+}

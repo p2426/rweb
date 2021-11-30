@@ -1,0 +1,157 @@
+.splash {
+    height: 100vh;
+
+    & .selections {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 30%;
+        left: calc(50% - 500px);
+        transform: translate(0, -50%);
+
+        & .selection {
+            cursor: pointer;
+
+            & line {
+                pointer-events: none;
+                stroke-dasharray: 60;
+                stroke-dashoffset: 60;
+            }
+
+            &--draw line:first-child {
+                animation: SelectionDraw .5s linear 1s forwards;
+            }
+
+            &--highlight {
+                animation: SelectionDraw .25s linear forwards;
+            }
+
+            &--highlight-red    { stroke: red; filter: drop-shadow(0 0 2px red); }
+            &--highlight-orange { stroke: orange; filter: drop-shadow(0 0 2px orange); }
+            &--highlight-blue   { stroke: blue; filter: drop-shadow(0 0 2px blue); }
+            &--highlight-green  { stroke: green; filter: drop-shadow(0 0 2px green); }
+            &--highlight-purple { stroke: purple; filter: drop-shadow(0 0 2px purple); }
+        }
+    }
+
+    & .subject-title {
+        position: absolute;
+        bottom: calc(50% - 216px);
+        left: calc(50% - 400px);
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        animation: SubjectTitleIn .25s linear 1.3s forwards;
+
+        & > h1 {
+            margin: 0;
+            font-weight: 400;
+        }
+    }
+
+    & .subject-load-circle {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+
+        &--loaded circle {
+            animation: LoadCircleDraw .5s ease-out forwards;
+        }
+    }
+
+    & .pentagons {
+        pointer-events: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(3);
+        animation: PentsScaleDown .5s linear .8s forwards;
+
+        & > path {
+            pointer-events: none;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+        }
+
+        &--draw path:not([data='highlight']) {
+            animation: PentDraw .5s linear forwards;
+        }
+
+        & .pentagon {
+            &--draw {
+                animation: PentDraw .5s linear forwards;
+            }
+
+            &--highlight {
+                &-red    { stroke: red; filter: drop-shadow(0 0 2px red); }
+                &-orange { stroke: orange; filter: drop-shadow(0 0 2px orange); }
+                &-blue   { stroke: blue; filter: drop-shadow(0 0 2px blue); }
+                &-green  { stroke: green; filter: drop-shadow(0 0 2px green); }
+                &-purple { stroke: purple; filter: drop-shadow(0 0 2px purple); }
+
+                &-pulse {
+                    &-red    { stroke-dashoffset: 0; animation: PentPulseRed 2s linear 1s infinite; }
+                    &-orange { stroke-dashoffset: 0; animation: PentPulseOrange 2s linear 1s infinite; }
+                    &-blue   { stroke-dashoffset: 0; animation: PentPulseBlue 2s linear 1s infinite; }
+                    &-green  { stroke-dashoffset: 0; animation: PentPulseGreen 2s linear 1s infinite; }
+                    &-purple { stroke-dashoffset: 0; animation: PentPulsePurple 2s linear 1s infinite; }
+                }
+            }
+        }
+    }
+}
+
+// Pentagon SVG animation stages; stages should be played in ascending order,
+// and implement the previous stage's 100% animation for smoothness, if it's important enough
+// Pentagons
+@keyframes PentsScaleDown {
+    0% { transform: translate(-50%, -50%) scale(3); }
+    100% { transform: translate(-50%, -50%) scale(1.5); }
+}
+// Selections
+@keyframes SelectionDraw {
+    0% { stroke-dashoffset: 60; }
+    100% { stroke-dashoffset: 0; }
+}
+// Subject Title
+@keyframes SubjectTitleIn {
+    0% { padding-left: 0; opacity: 0; }
+    100% { padding-left: 4rem; opacity: 1; }
+}
+// Load Circle
+@keyframes LoadCircleDraw {
+    0% { stroke-dashoffset: 100; }
+    100% { stroke-dashoffset: 0; }
+}
+// Pentagon
+@keyframes PentDraw {
+    0% { stroke-dashoffset: 400; }
+    100% { stroke-dashoffset: 0; }
+}
+@keyframes PentPulseRed {
+    0% { filter: drop-shadow(0 0 3px red); stroke: red; }
+    75% { filter: drop-shadow(0 0 3px red); stroke: red; }
+    100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
+}
+@keyframes PentPulseOrange {
+    0% { filter: drop-shadow(0 0 3px orange); stroke: orange; }
+    75% { filter: drop-shadow(0 0 3px orange); stroke: orange; }
+    100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
+}
+@keyframes PentPulseBlue {
+    0% { filter: drop-shadow(0 0 3px blue); stroke: blue; }
+    75% { filter: drop-shadow(0 0 3px blue); stroke: blue; }
+    100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
+}
+@keyframes PentPulseGreen {
+    0% { filter: drop-shadow(0 0 3px green); stroke: green; }
+    75% { filter: drop-shadow(0 0 3px green); stroke: green; }
+    100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
+}
+@keyframes PentPulsePurple {
+    0% { filter: drop-shadow(0 0 3px purple); stroke: purple; }
+    75% { filter: drop-shadow(0 0 3px purple); stroke: purple; }
+    100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
+}
