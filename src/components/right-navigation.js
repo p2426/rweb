@@ -10,29 +10,23 @@ export default function RightNavigation(props) {
     // when the section is scrolled to. This binding should not have dependencies, and be updated
     // on re-render
     useEffect(() => {
-        // Add push/fade animation to items in the list
-        if (Number(props.animateItems)) {
-            // For some reason, there is no nice way to reset a css animation :()
-            ul.current.classList.remove('animate__push-right-fade-in--list');
-            /*eslint no-unused-expressions: 0*/
-            ul.current.offsetWidth;
-            ul.current.classList.add('animate__push-right-fade-in--list');
-        }
         // Store sections in ref to also be used in click event for items
         const main = document.querySelector('main');
         mainSections.current = Array.from(main.querySelectorAll('.section'));
 
         const sectionDimensions = mainSections.current.map(section => {
+            const bounds = section.getBoundingClientRect();
             return {
-                top: section.offsetTop,
-                bottom: section.offsetTop + section.offsetHeight,
-            };
+                // No ways of rounding will make the vertical bounds connect, need to minus 1
+                top: (Math.round(bounds.top) + Math.round(document.documentElement.scrollTop)) - 1,
+                bottom: Math.round(bounds.bottom) + Math.round(document.documentElement.scrollTop)
+            }
         });
 
-        const bindMainScroll = () => {
+        const bindMainScroll = (e) => {
             sectionDimensions.forEach((section, index) => {
                 // In a range; set the active state on the nav item, removing active on any others
-                if (main.scrollTop >= section.top && main.scrollTop < section.bottom && !items.current[index].classList.contains('active')) {
+                if (document.documentElement.scrollTop >= section.top && document.documentElement.scrollTop < section.bottom && !items.current[index].classList.contains('active')) {
                     items.current[index].classList.add('active');
                     const otherItems = items.current.map(x => x);
                     otherItems.splice(index, 1);
@@ -41,8 +35,8 @@ export default function RightNavigation(props) {
             });
         };
 
-        main.addEventListener('scroll', bindMainScroll);
-        return () => main.removeEventListener('scroll', bindMainScroll);
+        document.addEventListener('scroll', bindMainScroll);
+        return () => document.removeEventListener('scroll', bindMainScroll);
     });
 
     const handleItemClick = (e, index) => {
@@ -50,17 +44,12 @@ export default function RightNavigation(props) {
             return;
         }
 
-        mainSections.current[index].scrollIntoView({
-            behaviour: 'smooth',
-            block: 'start'
-        });
+        mainSections.current[index].scrollIntoView({block: 'start'});
     }
 
     return (
         <nav>
-            <ul ref={ul} className={('right ' +
-                                    (Number(props.animateStrip) ? 'animate__after-strip--vertical ' : 'after-strip--vertical ') +
-                                    (Number(props.animateItems) ? 'animate__push-right-fade-in--list' : '')).trim()}>
+            <ul ref={ul} className={('right ' + (Number(props.animateStrip) ? 'animate__after-strip--vertical ' : 'after-strip--vertical ')).trim()}>
                 {props.sections.map((section, index) => {
                     return <li key={index} ref={el => items.current[index] = el} onClick={(e) => { handleItemClick(e, index) }}>{section}</li>
                 })}

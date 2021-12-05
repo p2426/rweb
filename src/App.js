@@ -26,27 +26,22 @@ export default function App() {
             <div className="layout">
                 <Switch>
                     <Route exact path="/web">
-                        <LeftNavigation sections={['Web', 'Games', 'Shaders', 'Other', 'About']}/>
                         <Main sections={mainSections.web}/>
                         <RightNavigation sections={mainSections.web} animateStrip='1' animateItems='1'/>
                     </Route>
                     <Route exact path="/games">
-                        <LeftNavigation sections={['Web', 'Games', 'Shaders', 'Other', 'About']}/>
                         <Main sections={mainSections.games}/>
                         <RightNavigation sections={mainSections.games} animateStrip='1' animateItems='1'/>
                     </Route>
                     <Route exact path="/shaders">
-                        <LeftNavigation sections={['Web', 'Games', 'Shaders', 'Other', 'About']}/>
                         <Main sections={mainSections.shaders}/>
                         <RightNavigation sections={mainSections.shaders} animateStrip='1' animateItems='1'/>
                     </Route>
                     <Route exact path="/other">
-                        <LeftNavigation sections={['Web', 'Games', 'Shaders', 'Other', 'About']}/>
                         <Main sections={mainSections.other}/>
                         <RightNavigation sections={mainSections.other} animateStrip='1' animateItems='1'/>
                     </Route>
                     <Route exact path="/about">
-                        <LeftNavigation sections={['Web', 'Games', 'Shaders', 'Other', 'About']}/>
                         <Main sections={[]}/>
                         <RightNavigation sections={[]} animateStrip='1' animateItems='1'/>
                     </Route>

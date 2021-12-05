@@ -25,7 +25,13 @@ body {
     display: flex;
     flex-direction: row;
     min-width: 100%;
-    height: 100vh;
+    margin-top: 5rem;
+
+    &--web      { background: repeating-linear-gradient(to bottom, #FF3B3F, #FF3B3F 3px, #FF080D 3px, #FF080D 5px); }
+    &--games    { background: repeating-linear-gradient(to bottom, #fffc3b, #fffc3b 3px, #fffb08 3px, #fffb08 5px); }
+    &--shaders  { background: repeating-linear-gradient(to bottom, #3e3bff, #3e3bff 3px, #0c08ff 3px, #0c08ff 5px); }
+    &--other    { background: repeating-linear-gradient(to bottom, #5cff3b, #5cff3b 3px, #31ff08 3px, #31ff08 5px); }
+    &--about    { background: repeating-linear-gradient(to bottom, #b13bff, #b13bff 3px, #8808ff 3px, #8808ff 5px); }
 }
 
 .auto {

@@ -1,5 +1,8 @@
 nav {
-    align-self: center;
+    align-self: flex-start;
+    position: sticky;
+    top: 0;
+    padding-top: 10rem;
     width: 20%;
 
     & ul {

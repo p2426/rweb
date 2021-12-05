@@ -25,16 +25,22 @@ export default function Splash({subjects}) {
     useEffect(() => {
         document.body.addEventListener('mousemove', handleMouseMove);
         document.body.addEventListener('SubjectLoaded', listenToSubjectLoaded);
+        window.addEventListener('beforeunload', handleWindowUnload);
         return () => {
             document.body.removeEventListener('mousemove', handleMouseMove);
             document.body.removeEventListener('SubjectLoaded', listenToSubjectLoaded);
+            window.removeEventListener('beforeunload', handleWindowUnload);
         }
     }, []);
 
     useEffect(() => {
         handlePathChange();
-        return handlePathChange;
     }, [location]);
+
+    const handleWindowUnload = (e) => {
+        document.body.classList.remove('auto--overflow-y');
+        window.scrollTo(0, 0);
+    }
 
     const handleMouseMove = (e) => {
         translateWithMouse(e, subjectSelectionContainer.current, 50, 100, 0, subjectSelectionContainer.current.offsetHeight / 2);
@@ -44,7 +50,8 @@ export default function Splash({subjects}) {
 
     // Any changes in URL reset the current subject and 'unload' it; stopping body from being scrollable until a Main is rendered
     const handlePathChange = () => {
-        const extension = location.pathname.slice(1) || '/';
+        const extension = location.pathname.slice(1) || '';
+        window.scrollTo(0, 0);
         subjectUnload();
         setCurrentSubject(extension);
     }
@@ -67,7 +74,6 @@ export default function Splash({subjects}) {
     }
 
     const subjectUnload = () => {
-        window.scrollTo(0, 0);
         document.body.classList.remove('auto--overflow-y');
         subjectLoadContainer.current.classList.remove('subject-load-circle--loaded');
     }
