@@ -1,14 +1,14 @@
 import '../scss/navigation.scss';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function RightNavigation(props) {
     const ul = useRef();
     const items = useRef([]);
     const mainSections = useRef();
+    let [sectionResized, setSectionResized] = useState(0);
 
     // Bind event to a target element's scroll to update the style of the items in the list,
-    // when the section is scrolled to. This binding should not have dependencies, and be updated
-    // on re-render
+    // when the section is scrolled to.
     useEffect(() => {
         // Store sections in ref to also be used in click event for items
         const main = document.querySelector('main');
@@ -37,7 +37,13 @@ export default function RightNavigation(props) {
 
         document.addEventListener('scroll', bindMainScroll);
         return () => document.removeEventListener('scroll', bindMainScroll);
-    });
+    }, [sectionResized]);
+
+    // For the bolding of items in this component to be accurate to which section is in the viewport,
+    // we should recalculate bounds of sections once they have been loaded and therefore resized
+    useEffect(() => {
+        document.body.addEventListener('SectionResized', () => { setSectionResized(sectionResized++) });
+    }, []);
 
     // const handleItemClick = (e, index) => {
     //     if (!mainSections.current.length) {

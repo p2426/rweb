@@ -9,11 +9,19 @@ export default function Section({section}) {
     let isOnScreen = useOnScreen(container);
 
     useEffect(() => {
+        setFirstVisual(false);
+        setApplyContent(false);
+    }, [section]);
+
+    useEffect(() => {
         if (isOnScreen && !firstVisual) {
             setFirstVisual(isOnScreen);
-            // setTimeout(() => {
-            //     setApplyContent(true);
-            // }, 500);
+            setTimeout(() => {
+                setApplyContent(true);
+                // Broadcast event that this section has rendered, and therefore resized
+                const e = new CustomEvent('SectionResized');
+                document.body.dispatchEvent(e);
+            }, 500);
         }
     }, [isOnScreen]);
 
