@@ -3,7 +3,7 @@ nav {
     position: sticky;
     top: 0;
     padding-top: 10rem;
-    width: 20%;
+    max-width: 20%;
 
     & ul {
         position: relative;
@@ -24,7 +24,7 @@ nav {
         }
 
         & .active {
-            font-weight: bold;
+            -webkit-text-stroke: 1px;
         }
 
         &.left {
@@ -37,8 +37,12 @@ nav {
         }
 
         &.right {
-            margin-right: 40%;
             align-items: end;
+
+            & li {
+                display: inline-block;
+                margin-left: 4rem;
+            }
 
             &::after {
                 left: 0;

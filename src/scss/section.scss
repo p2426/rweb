@@ -4,7 +4,28 @@
     align-items: flex-start;
     margin: 1rem 0;
 
-    & h1 {
-        position: relative;
+    & .placeholder {
+        height: 300px;
+        width: 100%;
+
+        & .header {
+            display: flex;
+
+            & .icon {
+                flex-shrink: 0;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                background-color: red;
+            }
+
+            & .title {
+                align-self: center;
+                height: 10px;
+                width: 100%;
+                margin: 0 4rem;
+                background-color: black;
+            }
+        }
     }
 }

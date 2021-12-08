@@ -11,9 +11,9 @@ export default function Section({section}) {
     useEffect(() => {
         if (isOnScreen && !firstVisual) {
             setFirstVisual(isOnScreen);
-            setTimeout(() => {
-                setApplyContent(true);
-            }, 1000);
+            // setTimeout(() => {
+            //     setApplyContent(true);
+            // }, 500);
         }
     }, [isOnScreen]);
 
@@ -26,7 +26,12 @@ export default function Section({section}) {
 
 export const Placeholder = () => {
     return (
-        <h1>Placeholder</h1>
+        <div className='placeholder'>
+            <div className='header'>
+                <div className='icon'></div>
+                <div className='title'></div>
+            </div>
+        </div>
     );
 }
 

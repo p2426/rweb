@@ -23,7 +23,7 @@ body {
 
 .layout {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
     width: 1440px;
     margin: 5rem auto;
 
