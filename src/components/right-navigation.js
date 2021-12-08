@@ -39,19 +39,20 @@ export default function RightNavigation(props) {
         return () => document.removeEventListener('scroll', bindMainScroll);
     });
 
-    const handleItemClick = (e, index) => {
-        if (!mainSections.current.length) {
-            return;
-        }
+    // const handleItemClick = (e, index) => {
+    //     if (!mainSections.current.length) {
+    //         return;
+    //     }
 
-        mainSections.current[index].scrollIntoView({block: 'start'});
-    }
+    //     mainSections.current[index].scrollIntoView({block: 'start'});
+    // }
 
     return (
         <nav>
             <ul ref={ul} className={('right ' + (Number(props.animateStrip) ? 'animate__after-strip--vertical ' : 'after-strip--vertical ')).trim()}>
                 {props.sections.map((section, index) => {
-                    return <li key={index} ref={el => items.current[index] = el} onClick={(e) => { handleItemClick(e, index) }}>{section}</li>
+                    // return <li key={index} ref={el => items.current[index] = el} onClick={(e) => { handleItemClick(e, index) }}>{section}</li>
+                    return <li key={index} ref={el => items.current[index] = el}>{section}</li>
                 })}
             </ul>
         </nav>

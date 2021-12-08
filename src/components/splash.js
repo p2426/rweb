@@ -50,7 +50,8 @@ export default function Splash({subjects}) {
 
     // Any changes in URL reset the current subject and 'unload' it; stopping body from being scrollable until a Main is rendered
     const handlePathChange = () => {
-        const extension = location.pathname.slice(1) || '';
+        let extension = location.pathname.slice(1) || '';
+        extension = subjects.findIndex(item => item.toLowerCase() === extension) >= 0 ? extension : '';
         window.scrollTo(0, 0);
         subjectUnload();
         setCurrentSubject(extension);

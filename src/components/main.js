@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import Section from './section';
 import '../scss/main.scss';
 
-export default function Main(props) {
+export default function Main({sections}) {
     const main = useRef();
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function Main(props) {
 
     return (
         <main ref={main}>
-            {props.sections.map((section, index) => <Section key={index} section={section}/>)}
+            {sections.map((section, index) => <Section key={index} section={section}/>)}
         </main>
     );
 }

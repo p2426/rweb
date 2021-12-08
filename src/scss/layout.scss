@@ -24,8 +24,8 @@ body {
 .layout {
     display: flex;
     flex-direction: row;
-    min-width: 100%;
-    margin-top: 5rem;
+    width: 1440px;
+    margin: 5rem auto;
 
     &--web      { background: repeating-linear-gradient(to bottom, #FF3B3F, #FF3B3F 3px, #FF080D 3px, #FF080D 5px); }
     &--games    { background: repeating-linear-gradient(to bottom, #fffc3b, #fffc3b 3px, #fffb08 3px, #fffb08 5px); }
