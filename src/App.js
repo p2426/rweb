@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Main from './components/main';
-import RightNavigation from './components/right-navigation';
-import LeftNavigation from './components/left-navigation';
-import MainImage from './components/main-image';
+import RightNavigation from './components/rightNavigation';
+import MainImage from './components/mainImage';
 import Splash from './components/splash';
 import './scss/layout.scss';
 import './scss/animations.scss';

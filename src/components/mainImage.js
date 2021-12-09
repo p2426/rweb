@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import '../scss/main-image.scss';
+import '../scss/mainImage.scss';
 
 export default function MainImage() {
     const image = useRef();
