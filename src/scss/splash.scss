@@ -26,11 +26,11 @@
                 animation: SelectionDraw .25s linear forwards;
             }
 
-            &--highlight-red    { stroke: red; filter: drop-shadow(0 0 2px red); }
-            &--highlight-orange { stroke: orange; filter: drop-shadow(0 0 2px orange); }
-            &--highlight-blue   { stroke: blue; filter: drop-shadow(0 0 2px blue); }
-            &--highlight-green  { stroke: green; filter: drop-shadow(0 0 2px green); }
-            &--highlight-purple { stroke: purple; filter: drop-shadow(0 0 2px purple); }
+            &--highlight-red    { stroke: var(--web); filter: drop-shadow(0 0 2px var(--web)); }
+            &--highlight-orange { stroke: var(--games); filter: drop-shadow(0 0 2px var(--games)); }
+            &--highlight-blue   { stroke: var(--shaders); filter: drop-shadow(0 0 2px var(--shaders)); }
+            &--highlight-green  { stroke: var(--other); filter: drop-shadow(0 0 2px var(--other)); }
+            &--highlight-purple { stroke: var(--about); filter: drop-shadow(0 0 2px var(--about)); }
         }
     }
 
@@ -85,11 +85,11 @@
             }
 
             &--highlight {
-                &-red    { stroke: red; filter: drop-shadow(0 0 2px red); }
-                &-orange { stroke: orange; filter: drop-shadow(0 0 2px orange); }
-                &-blue   { stroke: blue; filter: drop-shadow(0 0 2px blue); }
-                &-green  { stroke: green; filter: drop-shadow(0 0 2px green); }
-                &-purple { stroke: purple; filter: drop-shadow(0 0 2px purple); }
+                &-red    { stroke: var(--web); filter: drop-shadow(0 0 2px var(--web)); }
+                &-orange { stroke: var(--games); filter: drop-shadow(0 0 2px var(--games)); }
+                &-blue   { stroke: var(--shaders); filter: drop-shadow(0 0 2px var(--shaders)); }
+                &-green  { stroke: var(--other); filter: drop-shadow(0 0 2px var(--other)); }
+                &-purple { stroke: var(--about); filter: drop-shadow(0 0 2px var(--about)); }
 
                 &-pulse {
                     &-red    { stroke-dashoffset: 0; animation: PentPulseRed 2s linear 1s infinite; }
@@ -131,27 +131,27 @@
     100% { stroke-dashoffset: 0; }
 }
 @keyframes PentPulseRed {
-    0% { filter: drop-shadow(0 0 3px red); stroke: red; }
-    75% { filter: drop-shadow(0 0 3px red); stroke: red; }
+    0% { filter: drop-shadow(0 0 3px var(--web)); stroke: var(--web); }
+    75% { filter: drop-shadow(0 0 3px var(--web)); stroke: var(--web); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
 @keyframes PentPulseOrange {
-    0% { filter: drop-shadow(0 0 3px orange); stroke: orange; }
-    75% { filter: drop-shadow(0 0 3px orange); stroke: orange; }
+    0% { filter: drop-shadow(0 0 3px var(--games)); stroke: var(--games); }
+    75% { filter: drop-shadow(0 0 3px var(--games)); stroke: var(--games); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
 @keyframes PentPulseBlue {
-    0% { filter: drop-shadow(0 0 3px blue); stroke: blue; }
-    75% { filter: drop-shadow(0 0 3px blue); stroke: blue; }
+    0% { filter: drop-shadow(0 0 3px var(--shaders)); stroke: var(--shaders); }
+    75% { filter: drop-shadow(0 0 3px var(--shaders)); stroke: var(--shaders); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
 @keyframes PentPulseGreen {
-    0% { filter: drop-shadow(0 0 3px green); stroke: green; }
-    75% { filter: drop-shadow(0 0 3px green); stroke: green; }
+    0% { filter: drop-shadow(0 0 3px var(--other)); stroke: var(--other); }
+    75% { filter: drop-shadow(0 0 3px var(--other)); stroke: var(--other); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
 @keyframes PentPulsePurple {
-    0% { filter: drop-shadow(0 0 3px purple); stroke: purple; }
-    75% { filter: drop-shadow(0 0 3px purple); stroke: purple; }
+    0% { filter: drop-shadow(0 0 3px var(--about)); stroke: var(--about); }
+    75% { filter: drop-shadow(0 0 3px var(--about)); stroke: var(--about); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }

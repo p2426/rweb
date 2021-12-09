@@ -8,10 +8,10 @@ import './scss/animations.scss';
 
 export default function App() {
     const mainSections = {
-        web: ['Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', 'Web', ],
-        games: ['Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', 'Games', ],
-        shaders: ['Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', 'Shaders', ],
-        other: ['Other', 'Other', 'Other']
+        web: ['web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', ],
+        games: ['games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', ],
+        shaders: ['shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', ],
+        other: ['other', 'other', 'other']
     };
 
     return (
@@ -21,7 +21,7 @@ export default function App() {
                     <MainImage/>
                 </Route>
             </Switch>
-            <Splash subjects={['Web', 'Games', 'Shaders', 'Other', 'About']}/>
+            <Splash subjects={['web', 'games', 'shaders', 'other', 'about']}/>
             <div className="layout">
                 <Switch>
                     <Route exact path="/web">

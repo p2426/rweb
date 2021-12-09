@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import useOnScreen from '../hooks/useOnScreen';
 import '../scss/section.scss';
 
-export default function Section({section}) {
+export default function Section({index, section}) {
     const container = useRef();
     const [firstVisual, setFirstVisual] = useState(false);
     const [applyContent, setApplyContent] = useState(false);
@@ -34,17 +34,18 @@ export default function Section({section}) {
 
 export const Placeholder = () => {
     return (
-        <div className='placeholder'>
-            <div className='header'>
-                <div className='icon'></div>
-                <div className='title'></div>
-            </div>
+        <div className='header'>
+            <div className='placeholder-icon'></div>
+            <div className='placeholder-line'></div>
         </div>
     );
 }
 
-export const Content= ({title}) => {
+export const Content = ({title}) => {
     return (
-        <h1>{title}</h1>
+        <div className='header'>
+            <div className={'icon' + ' icon--' + title}></div>
+            <h1 className='title'>{title}</h1>
+        </div>
     );
 }

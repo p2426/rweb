@@ -16,7 +16,7 @@ export default function Main({sections}) {
 
     return (
         <main ref={main}>
-            {sections.map((section, index) => <Section key={index} section={section}/>)}
+            {sections.map((section, index) => <Section key={index} index={index} section={section}/>)}
         </main>
     );
 }
