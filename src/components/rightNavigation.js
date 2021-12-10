@@ -42,7 +42,11 @@ export default function RightNavigation({sections}) {
     // For the bolding of items in this component to be accurate to which section is in the viewport,
     // we should recalculate bounds of sections once they have been loaded and therefore resized
     useEffect(() => {
-        document.body.addEventListener('SectionResized', () => { setSectionResized(sectionResized++) });
+        const runSectionResized = () => {
+            setSectionResized(sectionResized++);
+        };
+        document.body.addEventListener('SectionResized', runSectionResized);
+        return () => document.body.removeEventListener('SectionResized', runSectionResized);
     }, []);
 
     return (

@@ -40,10 +40,6 @@ export default function App() {
                         <Main sections={sectionContentMap.other}/>
                         <RightNavigation sections={sectionContentMap.other} animateStrip='1' animateItems='1'/>
                     </Route>
-                    <Route exact path="/about">
-                        <Main sections={[]}/>
-                        <RightNavigation sections={[]} animateStrip='1' animateItems='1'/>
-                    </Route>
                 </Switch>
             </div>
         </Router>

@@ -54,6 +54,14 @@
             }
         }
     }
+
+    & .body {
+        margin-left: calc(30px + 2rem);
+
+        & p {
+            margin-top: 0;
+        }
+    }
 }
 
 @keyframes Flutter {
