@@ -1,7 +1,7 @@
 import '../scss/navigation.scss';
 import { useEffect, useRef, useState } from 'react';
 
-export default function RightNavigation(props) {
+export default function RightNavigation({sections}) {
     const ul = useRef();
     const items = useRef([]);
     const mainSections = useRef();
@@ -45,20 +45,11 @@ export default function RightNavigation(props) {
         document.body.addEventListener('SectionResized', () => { setSectionResized(sectionResized++) });
     }, []);
 
-    // const handleItemClick = (e, index) => {
-    //     if (!mainSections.current.length) {
-    //         return;
-    //     }
-
-    //     mainSections.current[index].scrollIntoView({block: 'start'});
-    // }
-
     return (
         <nav>
             <ul ref={ul} className='right after-strip--vertical'>
-                {props.sections.map((section, index) => {
-                    // return <li key={index} ref={el => items.current[index] = el} onClick={(e) => { handleItemClick(e, index) }}>{section}</li>
-                    return <li key={index} ref={el => items.current[index] = el}>{section}</li>
+                {sections.map((section, index) => {
+                    return <li key={index} ref={el => items.current[index] = el}>{section.props.title}</li>
                 })}
             </ul>
         </nav>

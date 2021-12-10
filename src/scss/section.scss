@@ -8,21 +8,21 @@
     & .header {
         display: flex;
         width: 100%;
+        min-height: 75px;
 
-        & .icon {
+        & .indicator {
             align-self: center;
             flex-shrink: 0;
-            height: 30px;
+            height: 5px;
             width: 30px;
-            border-radius: 50%;
             opacity: 0;
             background-color: black;
-            animation: SectionDropIn .5s ease-out forwards;
+            animation: IndicatorDropIn .5s ease-out forwards;
 
             &--web { background-color: var(--web); }
             &--games { background-color: var(--games); }
             &--shaders { background-color: var(--shaders); }
-            &--others { background-color: var(--others); }
+            &--other { background-color: var(--other); }
             &--about { background-color: var(--about); }
         }
 
@@ -31,16 +31,15 @@
             font-weight: 400;
             margin: 1rem 2rem;
             opacity: 0;
-            animation: SectionDropIn .5s ease-out .1s forwards;
+            animation: TitleDropIn .5s ease-out .1s forwards;
         }
 
         & .placeholder {
             &-icon {
                 align-self: center;
                 flex-shrink: 0;
-                height: 30px;
+                height: 5px;
                 width: 30px;
-                border-radius: 50%;
                 background-color: black;
                 animation: Flutter .5s linear infinite;
             }
@@ -62,7 +61,11 @@
     50% { background-color: rgb(121, 121, 121); }
     100% { background-color: black }
 }
-@keyframes SectionDropIn {
+@keyframes TitleDropIn {
     0% { opacity: 0; transform: translateY(-100%); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes IndicatorDropIn {
+    0% { opacity: 0; transform: translateY(-500%); }
     100% { opacity: 1; transform: translateY(0); }
 }

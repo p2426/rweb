@@ -3,12 +3,12 @@ import Main from './components/main';
 import RightNavigation from './components/rightNavigation';
 import MainImage from './components/mainImage';
 import Splash from './components/splash';
+import { sectionContentMap } from './components/sectionContent/sectionContentMap';
 import './scss/layout.scss';
 import './scss/animations.scss';
 
 export default function App() {
     const mainSections = {
-        web: ['web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', 'web', ],
         games: ['games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', 'games', ],
         shaders: ['shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', 'shaders', ],
         other: ['other', 'other', 'other']
@@ -25,20 +25,20 @@ export default function App() {
             <div className="layout">
                 <Switch>
                     <Route exact path="/web">
-                        <Main sections={mainSections.web}/>
-                        <RightNavigation sections={mainSections.web} animateStrip='1' animateItems='1'/>
+                        <Main sections={sectionContentMap.web}/>
+                        <RightNavigation sections={sectionContentMap.web} animateStrip='1' animateItems='1'/>
                     </Route>
                     <Route exact path="/games">
-                        <Main sections={mainSections.games}/>
-                        <RightNavigation sections={mainSections.games} animateStrip='1' animateItems='1'/>
+                        <Main sections={sectionContentMap.games}/>
+                        <RightNavigation sections={sectionContentMap.games} animateStrip='1' animateItems='1'/>
                     </Route>
                     <Route exact path="/shaders">
-                        <Main sections={mainSections.shaders}/>
-                        <RightNavigation sections={mainSections.shaders} animateStrip='1' animateItems='1'/>
+                        <Main sections={sectionContentMap.shaders}/>
+                        <RightNavigation sections={sectionContentMap.shaders} animateStrip='1' animateItems='1'/>
                     </Route>
                     <Route exact path="/other">
-                        <Main sections={mainSections.other}/>
-                        <RightNavigation sections={mainSections.other} animateStrip='1' animateItems='1'/>
+                        <Main sections={sectionContentMap.other}/>
+                        <RightNavigation sections={sectionContentMap.other} animateStrip='1' animateItems='1'/>
                     </Route>
                     <Route exact path="/about">
                         <Main sections={[]}/>
