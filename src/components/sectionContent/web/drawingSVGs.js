@@ -8,7 +8,7 @@ export default function DrawingSVGs({type, title}) {
             <h1 className='title'>{title}</h1>
         </div>
         <div className='body'>
-            <p className='no-margin-bottom'>SVGs are great for rendering irregular shapes that cannot be achieved easily by manipulating your regular DOM element or <code>{`<div>`}</code>. Or maybe (like me) you just like the ease of creating an SVG in a program like <a href={'//inkscape.org'} target='_blank' rel='noopener noreferrer'>Inkscape</a> or <a href={'//www.figma.com'} target='_blank' rel='noopener noreferrer'>Figma</a> and being able to export it with all its layers and ids intact. Essentially, an <code>{'<svg>'}</code> is similar to the <code>{'<canvas>'}</code>, setting up a viewport for rendering.</p>
+            <p className='no-margin-bottom'>SVGs are great for rendering irregular shapes that cannot be achieved easily by manipulating your regular DOM element or <code>{`<div>`}</code>. Or maybe (like me) you just like the ease of creating an SVG in a program like <a href={'//inkscape.org'} target='_blank' rel='noopener noreferrer'>Inkscape</a> or <a href={'//www.figma.com'} target='_blank' rel='noopener noreferrer'>Figma</a> and being able to export it with all its layers and ids intact. Essentially, an <code>{'<svg>'}</code> is similar to the <code>{'<canvas>'}</code>, setting up a viewport for rendering into.</p>
             <div className='flex flex--centre-vertical'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
                     <path d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
@@ -41,7 +41,7 @@ export default function DrawingSVGs({type, title}) {
                 </code></pre>
             </div>
             <p>So what's going on? Using <code>stroke-dasharray</code> we can define the length of a dash along the stroke - and by <i>knowing</i> that the whole path is 375 pixels, we're setting the whole length of the path to be a single dash.</p>
-            <p>We can then use <code>stroke-dashoffset</code> to limit each dash in the array, or eventually, the whole shape. So by offsetting the dash to the length of the dasharray, nothing will be rendered - moving the offset to 0, the whole dash will be rendered. In the class <code>.drawing-example-two</code> we are simply offsetting the dash by 3 sides, or 75 * 3 = 225.</p>
+            <p>We can then use <code>stroke-dashoffset</code> to limit each dash in the array, or eventually, the whole shape. So by offsetting the dash to the length of the dasharray, nothing will be rendered - moving the offset to 0, the whole dash will be rendered. In the class <code>.drawing-example-two</code> we are simply offsetting the dash by 3 sides, or (375 / 5) * 3 = 225.</p>
             <div className='flex flex--centre-vertical'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
                     <path className='drawing-example-three' d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
