@@ -19,7 +19,7 @@ export default function DrawingSVGs({type, title}) {
 </svg>`}
                 </code></pre>
             </div>
-            <p>Considering the above HTML, we can see the <code>{'<path>'}</code> is drawn in order of instructions, from <code>M30.6646</code> {'>'} <code>75.7909L90</code> and so on - as opposed to trying to control the border of a <code>{'<div>'}</code> element; there is no 'order' in how it is rendered, it <i>just</i> is. Knowing this, we can apply 2 styles to the <code>{'<path>'}</code> itself to get the ordered drawing effect.</p>
+            <p>Considering the above HTML, we can see the <code>{'<path>'}</code> is drawn in order of instructions, from <code>M30.6646</code> {'>'} <code>75.7909L90</code> and so on - as opposed to trying to control the border of a <code>{'<div>'}</code> element where there is no 'order' in how it is rendered, it <i>just</i> is. Knowing this, we can apply 2 styles to the <code>{'<path>'}</code> itself to get the ordered drawing effect.</p>
             <div className='flex flex--centre-vertical'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
                     <path className='drawing-example' d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
@@ -55,7 +55,7 @@ export default function DrawingSVGs({type, title}) {
 .drawing-example-three {
     stroke-dasharray: 375;
     stroke-dashoffset: 375;
-    animation: SVGDrawingExample 1s linear forwards infinite;
+    animation: SVGDrawingExample 1s linear infinite;
 }
 
 @keyframes SVGDrawingExample {
