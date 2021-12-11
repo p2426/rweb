@@ -20,7 +20,12 @@ export default function Section({section}) {
             // and codesplitting happens at compile time, so we must give some static nature to the import path.
             // Babel will codesplit everything at the static path, which is good enough for what we are using it for
             import(`./sectionContent/${section.props.type}/${section.filename}`)
-                .then(module => setContentComponent(module.default(section.props)));
+                .then(module => {
+                    setContentComponent(module.default(section.props));
+                    // Broadcast SectionResized so the RightNavigation can correctly calculate bounds
+                    const e = new CustomEvent('SectionResized');
+                    document.body.dispatchEvent(e);
+                });
         }
     }, [isOnScreen]);
 

@@ -8,6 +8,9 @@ export const sectionContentMap = {
     web: [{
         props: { type: 'web', title: '"drawing" SVGs' },
         filename: 'drawingSVGs',
+    }, {
+        props: { type: 'web', title: 'SPA subdirectory handling' },
+        filename: 'SPASubdirectoryHandling',
     }],
     games: [{
         props: { type: 'games', title: 'placeholder' },
@@ -20,5 +23,6 @@ export const sectionContentMap = {
     other: [{
         props: { type: 'other', title: 'placeholder' },
         filename: 'placeholder',
-    }]
+    }],
+    about: ''
 }
