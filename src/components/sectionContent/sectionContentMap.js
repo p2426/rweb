@@ -1,16 +1,13 @@
-import Placeholder from "./placeholder";
-
-// Contains a map of component and their props, to render to the main section.
-// App, RightNavigation components expect the objects with in each section to have a
-// 'title' in the props object.
-// IMPORTANT: a URL extension will render components to the Main component expecting the key of the extension to exist, ie.
+// Contains a map of components to render, by hinting to the filename to import.
+// A URL extension will render components to the Main component expecting the key of the extension to exist, ie.
 // phoenixmee.com/web will render components in the key 'web', etc
-// IMPORTANT: Sections will dynamically import a default component from location:
+// Sections will dynamically import a default component from location:
 // `./sectionContent/${section.props.type}/${section.filename}`
+// RightNavigation component uses 'title' to render/highlight section while scrolling.
 export const sectionContentMap = {
     web: [{
-        props: { type: 'web', title: 'placeholder' },
-        filename: 'placeholder',
+        props: { type: 'web', title: '"drawing" SVGs' },
+        filename: 'drawingSVGs',
     }],
     games: [{
         props: { type: 'games', title: 'placeholder' },

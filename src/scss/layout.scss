@@ -44,3 +44,26 @@ code {
         overflow-y: auto;
     }
 }
+
+.flex {
+    display: flex;
+
+    &--column {
+        flex-direction: column;
+    }
+
+    &--centre-all {
+        justify-content: center;
+        align-items: center;
+    }
+
+    &--centre-vertical {
+        align-items: center;
+    }
+}
+
+.no {
+    &-margin-bottom {
+        margin-bottom: 0;
+    }
+}

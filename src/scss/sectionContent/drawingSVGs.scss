@@ -1,0 +1,22 @@
+.section .body {
+    .drawing-example {
+        stroke-dasharray: 375;
+        stroke-dashoffset: 0;
+    }
+
+    .drawing-example-two {
+        stroke-dasharray: 375;
+        stroke-dashoffset: 150;
+    }
+
+    .drawing-example-three {
+        stroke-dasharray: 375;
+        stroke-dashoffset: 375;
+        animation: SVGDrawingExample 1s linear forwards infinite;
+    }
+}
+
+@keyframes SVGDrawingExample {
+    0% { stroke-dashoffset: 375; }
+    100% { stroke-dashoffset: 0; }
+}

@@ -18,7 +18,7 @@ export default function Section({section}) {
             setFirstVisual(isOnScreen);
             // NOTE: We cannot 'truely' dynamically import with a variable, because it could be anything
             // and codesplitting happens at compile time, so we must give some static nature to the import path.
-            // Babel will codesplit everything at the static path, which is good enough for this use case
+            // Babel will codesplit everything at the static path, which is good enough for what we are using it for
             import(`./sectionContent/${section.props.type}/${section.filename}`)
                 .then(module => setContentComponent(module.default(section.props)));
         }
