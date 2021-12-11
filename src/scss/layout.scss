@@ -18,14 +18,18 @@ html {
     --global-animation-delay--slow: 1s;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     overflow-x: hidden;
     overflow-y: hidden;
     margin: 0;
 }
 
-* {
-    box-sizing: border-box;
+code {
+    background-color: rgb(221, 221, 211);
 }
 
 .layout {

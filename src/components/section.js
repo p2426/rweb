@@ -5,29 +5,28 @@ import '../scss/section.scss';
 export default function Section({section}) {
     const container = useRef();
     const [firstVisual, setFirstVisual] = useState(false);
-    const [applyContent, setApplyContent] = useState(false);
+    const [contentComponent, setContentComponent] = useState(false);
     let isOnScreen = useOnScreen(container);
 
     useEffect(() => {
         setFirstVisual(false);
-        setApplyContent(false);
+        setContentComponent(null);
     }, [section]);
 
     useEffect(() => {
         if (isOnScreen && !firstVisual) {
             setFirstVisual(isOnScreen);
-            setTimeout(() => {
-                setApplyContent(true);
-                // Broadcast event that this section has rendered, and therefore resized
-                const e = new CustomEvent('SectionResized');
-                document.body.dispatchEvent(e);
-            }, 500);
+            // NOTE: We cannot 'truely' dynamically import with a variable, because it could be anything
+            // and codesplitting happens at compile time, so we must give some static nature to the import path.
+            // Babel will codesplit everything at the static path, which is good enough for this use case
+            import(`./sectionContent/${section.props.type}/${section.filename}`)
+                .then(module => setContentComponent(module.default(section.props)));
         }
     }, [isOnScreen]);
 
     return (
         <div ref={container} className='section'>
-            {applyContent ? section.component(section.props) : <Placeholder/>}
+            {contentComponent ? contentComponent : <Placeholder/>}
         </div>
     );
 }
