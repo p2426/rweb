@@ -36,12 +36,12 @@ export default function DrawingSVGs({type, title}) {
                 <pre><code>
 {`.drawing-example-two {
     stroke-dasharray: 375;
-    stroke-dashoffset: 225;
+    stroke-dashoffset: 150;
 }`}
                 </code></pre>
             </div>
             <p>So what's going on? Using <code>stroke-dasharray</code> we can define the length of a dash along the stroke - and by <i>knowing</i> that the whole path is 375 pixels, we're setting the whole length of the path to be a single dash.</p>
-            <p>We can then use <code>stroke-dashoffset</code> to limit each dash in the array, or eventually, the whole shape. So by offsetting the dash to the length of the dasharray, nothing will be rendered - moving the offset to 0, the whole dash will be rendered. In the class <code>.drawing-example-two</code> we are simply offsetting the dash by 3 sides, or (375 / 5) * 3 = 225.</p>
+            <p>We can then use <code>stroke-dashoffset</code> to limit each dash in the array, or eventually, the whole shape. So by offsetting the dash to the length of the dasharray, nothing will be rendered - moving the offset to 0, the whole dash will be rendered. In the class <code>.drawing-example-two</code> we are simply offsetting the dash by 2 sides, or (375 / 5) * 2 = 150.</p>
             <div className='flex flex--centre-vertical'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
                     <path className='drawing-example-three' d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
