@@ -57,21 +57,6 @@ export class SceneObject {
         this.id = string;
     }
 
-    // Note that, if the function 'behaviour' uses 'this' inside itself,
-    // 'behaviour' should bind 'this' as the parameter is passed through
-    addToUpdate(behaviour) {
-        this.update = (function() {
-            let cachedUpdate = this.update;
-            this.updateBehaviour[behaviour.name] = behaviour;
-
-            return function() {
-                this.updateBehaviour[behaviour.name]();
-
-                return cachedUpdate.apply(this, arguments);
-            }
-        }).bind(this)();
-    }
-
     removeFromUpdate(functionName) {
         this.updateBehaviour[functionName] = () => {return};
     }
@@ -83,5 +68,9 @@ export class SceneObject {
             }
         });
         document.body.dispatchEvent(e);
+    }
+
+    setUpdate(behaviour = () => {}) {
+        this.properties.update = behaviour;
     }
 };

@@ -13,8 +13,8 @@ export const sectionContentMap = {
         filename: 'SPASubdirectoryHandling',
     }],
     games: [{
-        props: { type: 'games', title: 'placeholder' },
-        filename: 'placeholder',
+        props: { type: 'games', title: 'wrapping three.js' },
+        filename: 'wrappingThreeJS',
     }],
     shaders: [{
         props: { type: 'shaders', title: 'placeholder' },

@@ -80,9 +80,9 @@ export class Scene {
 
     attachEvents(eventSettings = { enableContentMenu: false }) {
         // Resize is essential
-        window.addEventListener("resize", () => {
-            this.resetSceneDimensions();
-        });
+        // window.addEventListener("resize", () => {
+        //     this.resetSceneDimensions();
+        // });
 
         // An object is created, add it to scene
         document.body.addEventListener('ObjectCreated', (e) => {
@@ -106,9 +106,9 @@ export class Scene {
     }
 
     applyStyleSettings(styleSettings = { position: 'absolute', bottom: 0, zIndex: 4 }) {
-        this.renderer.domElement.style.position = styleSettings.position;
-        this.renderer.domElement.style.bottom = styleSettings.bottom;
-        this.renderer.domElement.style.zIndex = styleSettings.zIndex;
+        // this.renderer.domElement.style.position = styleSettings.position;
+        // this.renderer.domElement.style.bottom = styleSettings.bottom;
+        // this.renderer.domElement.style.zIndex = styleSettings.zIndex;
     }
 
     // Render loop
