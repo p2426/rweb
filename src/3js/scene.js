@@ -1,9 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-// Main
 export class Scene {
-    // Classes
+    // Main objects
     scene;
     camera;
     renderer;

@@ -21,7 +21,7 @@ export default function WrappingThreeJS({type, title}) {
 
 export const SceneDemoOne = () => {
     const container = useRef();
-    const isOnScreen = useOnScreen(container);
+    let isOnScreen = useOnScreen(container);
     let scene = useRef();
 
     useEffect(() => {
