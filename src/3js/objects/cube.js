@@ -5,7 +5,6 @@ export class Cube extends SceneObject {
     properties = {
         id: "unset",
         shader: undefined,
-        material: new THREE.MeshBasicMaterial({ color: 0x87ceeb }),
         scale: {x: 1, y: 1, z: 1},
         segments: {x: 1, y: 1, z: 1},
         position: {x: 0, y: 0, z: 0},
@@ -17,9 +16,10 @@ export class Cube extends SceneObject {
     constructor(settings) {
         super();
 
-        if (settings) { 
-            Object.keys(settings).map(x => this.properties[x] = settings[x]);
-        }
+        this.properties = {
+            ...this.properties,
+            ...settings
+        };
 
         this.geometry = new THREE.BoxGeometry(
             this.properties.scale.x, 
@@ -37,13 +37,11 @@ export class Cube extends SceneObject {
                 fragmentShader: this.properties.shader.fragmentShader.getContent()
             });
             this.properties.shader.init(this.geometry);
-        } else {
-            this.setColour(
-                this.properties.colour.r, 
-                this.properties.colour.g, 
-                this.properties.colour.b);
         }
 
+        this.properties.material = new THREE.MeshBasicMaterial({
+            color: new THREE.Color(...Object.values(this.properties.colour).map(c => c / 255))
+        });
         this.mesh = new THREE.Mesh(this.geometry, this.properties.material);
         this.mesh.receiveShadow = true;
         this.mesh.castShadow = true;

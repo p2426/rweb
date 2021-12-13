@@ -1,22 +1,18 @@
 import * as THREE from 'three';
 
 export class SceneObject {
-    updateBehaviour = [];
+    properties;
+    mesh;
+    geometry;
+    id;
 
-    constructor() {
-
-    }
+    constructor() {}
 
     getMesh() { return this.mesh; }
-
     getColour() { return this.material.color; }
-
     getPosition() { return this.mesh.position; }
-
     getRotation() { return this.mesh.rotation; }
-
     getScale() { return this.mesh.scale; }
-
     getId() { return this.id; }
 
     setColour(r, g, b) {
@@ -55,10 +51,6 @@ export class SceneObject {
 
     setId(string) {
         this.id = string;
-    }
-
-    removeFromUpdate(functionName) {
-        this.updateBehaviour[functionName] = () => {return};
     }
 
     addObjectToScene() {
