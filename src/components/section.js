@@ -6,7 +6,7 @@ export default function Section({section}) {
     const container = useRef();
     const [firstVisual, setFirstVisual] = useState(false);
     const [contentComponent, setContentComponent] = useState(false);
-    let isOnScreen = useOnScreen(container);
+    const isOnScreen = useOnScreen(container);
 
     useEffect(() => {
         setFirstVisual(false);

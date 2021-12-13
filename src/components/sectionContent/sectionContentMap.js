@@ -11,6 +11,9 @@ export const sectionContentMap = {
     }, {
         props: { type: 'web', title: 'SPA subdirectory handling' },
         filename: 'SPASubdirectoryHandling',
+    }, {
+        props: { type: 'web', title: 'useOnScreen' },
+        filename: 'useOnScreen',
     }],
     games: [{
         props: { type: 'games', title: 'wrapping three.js' },
