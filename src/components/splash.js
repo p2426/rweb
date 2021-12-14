@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import translateWithMouse from '../global/translateWithMouse';
+import useOnScreen from '../hooks/useOnScreen';
 import '../scss/splash.scss';
 
 const colourMap = {
@@ -15,23 +16,30 @@ const colourMap = {
 export default function Splash({subjects}) {
     const history = useHistory();
     const location = useLocation();
+    const splash = useRef();
     const subjectSelectionContainer = useRef();
     const subjectTitleContainer = useRef();
     const subjectLoadContainer = useRef();
     const [currentSubject, setCurrentSubject] = useState(history.location.pathname.slice(1));
     const currentPath = history.location.pathname.slice(1);
+    const isOnScreen = useOnScreen(splash);
 
     // Bind translations of various elements to document body on mousemove, and listen for any Subject content loading
     useEffect(() => {
-        document.body.addEventListener('mousemove', handleMouseMove);
         document.body.addEventListener('SubjectLoaded', listenToSubjectLoaded);
         window.addEventListener('beforeunload', handleWindowUnload);
         return () => {
-            document.body.removeEventListener('mousemove', handleMouseMove);
             document.body.removeEventListener('SubjectLoaded', listenToSubjectLoaded);
             window.removeEventListener('beforeunload', handleWindowUnload);
         }
     }, []);
+
+    useEffect(() => {
+        if (isOnScreen) {
+            document.body.addEventListener('mousemove', handleMouseMove);
+        }
+        return () => document.body.removeEventListener('mousemove', handleMouseMove);
+    }, [isOnScreen]);
 
     useEffect(() => {
         handlePathChange();
@@ -88,7 +96,7 @@ export default function Splash({subjects}) {
     }
 
     return (
-        <div className='splash'>
+        <div ref={splash} className='splash'>
             <div ref={subjectSelectionContainer} className='selections'>
                 {subjects.map((subject, index) => {
                     return <SubjectExtension key={index}
