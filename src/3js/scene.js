@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 export class Scene {
-    // Main objects
+    // Instances
     scene;
     camera;
     renderer;
@@ -21,6 +21,9 @@ export class Scene {
         alpha: true
     };
     cameraSettings = {
+        fov: 50,
+        near: 0.1,
+        far: 1000,
         enableKeys: true,
         enableZoom: false,
         leftKey: 65,
@@ -44,42 +47,37 @@ export class Scene {
     pause = false;
 
     constructor(sceneSettings, cameraSettings) {
-        this.createScene(sceneSettings);
-        this.setCameraSettings(cameraSettings);
+        // Overwrite existing keys in default settings objects
+        this.sceneSettings = { ...this.sceneSettings, ...sceneSettings };
+        this.cameraSettings = { ...this.cameraSettings, ...cameraSettings };
+
+        // Instances
+        this.scene = new THREE.Scene();
+        this.renderer = new THREE.WebGLRenderer({
+            antialias: this.sceneSettings.antialias,
+            alpha: this.sceneSettings.alpha
+        });
+        this.camera = new THREE.PerspectiveCamera(this.cameraSettings.fov, this.sceneSettings.width / this.sceneSettings.height, this.cameraSettings.near, this.cameraSettings.far);
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+
+        // Setup
+        this.setupRenderer();
+        this.setupCamera();
         this.attachEvents();
 
         // Start render loop
         this.update();
     }
 
-    createScene(sceneSettings) {
-        // Any settings on construction will overwrite keys in the default set and be used for this object
-        this.sceneSettings = {
-            ...this.sceneSettings,
-            ...sceneSettings
-        };
-
-        this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(50, this.sceneSettings.width / this.sceneSettings.height, 0.1, 1000);
-        this.renderer = new THREE.WebGLRenderer({
-            antialias: this.sceneSettings.antialias,
-            alpha: this.sceneSettings.alpha
-        });
-        this.renderer.setSize(this.sceneSettings.width, this.sceneSettings.height);
-        this.sceneSettings.parent.appendChild(this.renderer.domElement);
-
-        this.sceneSettings.alpha ? this.renderer.setClearColor(this.sceneSettings.colour, 0) : this.scene.background = this.sceneSettings.colour;
+    setupRenderer() {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.setSize(this.sceneSettings.width, this.sceneSettings.height);
+        this.sceneSettings.alpha ? this.renderer.setClearColor(this.sceneSettings.colour, 0) : this.scene.background = this.sceneSettings.colour;
+        this.sceneSettings.parent.appendChild(this.renderer.domElement);
     }
 
-    setCameraSettings(cameraSettings) {
-        this.cameraSettings = {
-            ...this.cameraSettings,
-            ...cameraSettings
-        };
-
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    setupCamera() {
         this.controls.enableKeys = this.cameraSettings.enableKeys;
         this.controls.enableZoom = this.cameraSettings.enableZoom;
         this.controls.keys = {
@@ -94,8 +92,8 @@ export class Scene {
             RIGHT: this.cameraSettings.rightMouse
         }
         this.controls.target = new THREE.Vector3(...this.cameraSettings.cameraTarget);
-        this.setCameraPosition(...this.cameraSettings.cameraPosition);
         this.controls.update();
+        this.setCameraPosition(...this.cameraSettings.cameraPosition);
     }
 
     attachEvents() {
@@ -130,13 +128,13 @@ export class Scene {
             });
 
             // Refresh scene
-            this.reRenderScene();
+            this.renderScene();
 
             this.time.then = performance.now();
         }
     }
 
-    reRenderScene() {
+    renderScene() {
         this.renderer.render(this.scene, this.camera);
     }
 

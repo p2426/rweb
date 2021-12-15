@@ -33,7 +33,7 @@ export const SceneDemoOne = () => {
             antialias: false,
             alpha: false
         }, {
-            cameraPosition: [0, 0, -5],
+            cameraPosition: [0, 0, 5],
         });
 
         const cube = new Cube({
