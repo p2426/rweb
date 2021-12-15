@@ -16,7 +16,7 @@ export class Scene {
         parent: document.body,
         width: window.innerWidth,
         height: window.innerHeight,
-        colour: new THREE.Color(),
+        colour: 'rgb(0, 0, 0)',
         antialias: true,
         alpha: true
     };
@@ -73,7 +73,7 @@ export class Scene {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setSize(this.sceneSettings.width, this.sceneSettings.height);
-        this.sceneSettings.alpha ? this.renderer.setClearColor(this.sceneSettings.colour, 0) : this.scene.background = this.sceneSettings.colour;
+        this.sceneSettings.alpha ? this.renderer.setClearColor(new THREE.Color(this.sceneSettings.colour), 0) : this.scene.background = new THREE.Color(this.sceneSettings.colour);
         this.sceneSettings.parent.appendChild(this.renderer.domElement);
     }
 
