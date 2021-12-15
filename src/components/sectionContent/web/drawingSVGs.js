@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import { useEffect } from 'react/cjs/react.development';
 import useOnScreen from '../../../hooks/useOnScreen';
 import '../../../scss/sectionContent/drawingSVGs.scss';
 

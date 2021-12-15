@@ -14,6 +14,9 @@ export const sectionContentMap = {
     }, {
         props: { type: 'web', title: 'useOnScreen' },
         filename: 'useOnScreen',
+    }, {
+        props: { type: 'web', title: 'orphaned elements' },
+        filename: 'orphanedElements',
     }],
     games: [{
         props: { type: 'games', title: 'wrapping three.js' },

@@ -1,0 +1,27 @@
+.section .body {
+    .usage {
+        &-container {
+            display: flex;
+            justify-content: space-between;
+            width: 500px;
+            margin: 2rem;
+        }
+        &-stats-container {
+            display: flex;
+            flex-direction: column;
+            font-size: .85rem;
+            margin: 0 1rem;
+            width: 200px;
+        }
+        &-stat {
+            display: flex;
+            justify-content: space-between;
+
+            &--text-red { color: red }
+            &--text-blue { color: blue }
+            &--text-darkgreen { color: darkgreen }
+            &--text-green { color: green }
+            &--text-magenta { color: magenta }
+        }
+    }
+}
