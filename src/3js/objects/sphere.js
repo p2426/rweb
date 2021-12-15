@@ -46,7 +46,5 @@ export class Sphere extends SceneObject {
         this.setPosition(this.properties.position.x, this.properties.position.y, this.properties.position.z);
         this.setRotation(this.properties.rotation.x, this.properties.rotation.y, this.properties.rotation.z);
         this.setScale(this.properties.scale.x, this.properties.scale.y, this.properties.scale.z);
-
-        this.addObjectToScene();
     }
 }

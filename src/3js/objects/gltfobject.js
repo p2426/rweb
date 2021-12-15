@@ -42,31 +42,20 @@ export class GLTFObject extends SceneObject {
             // Animations
             this.animations = gltf.animations.filter(a => a.name.includes(this.properties.gltfChildName));
 
-            this.addObjectToScene();
-            
             this.setId(this.properties.id);
             this.setScale(this.properties.scale.x, this.properties.scale.y, this.properties.scale.z);
             this.setPosition(this.properties.position.x, this.properties.position.y, this.properties.position.z);
             this.setRotation(this.properties.rotation.x, this.properties.rotation.y, this.properties.rotation.z);
 
             this.start();
-                
+
         }, (xhr) => {
-            
+
         }, (error) => {
-            
+
         });
     }
 
     // To be called by extensions after the OBJ has been loaded in constructor
     start() {}
-
-    addObjectToScene() {
-        const e = new CustomEvent('ObjectCreated', {
-            detail: {
-                obj: this
-            }
-        });
-        document.body.dispatchEvent(e);
-    }
 }

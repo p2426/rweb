@@ -53,15 +53,6 @@ export class SceneObject {
         this.id = string;
     }
 
-    addObjectToScene() {
-        const e = new CustomEvent('ObjectCreated', {
-            detail: {
-                obj: this
-            }
-        });
-        document.body.dispatchEvent(e);
-    }
-
     setUpdate(behaviour = () => {}) {
         this.properties.update = behaviour;
     }

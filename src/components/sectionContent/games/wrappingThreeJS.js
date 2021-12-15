@@ -37,6 +37,7 @@ export const SceneDemoOne = () => {
         });
 
         const cube = new Cube({
+            id: 'cubey',
             colour: [128, 0, 32]
         });
         cube.setUpdate((time, res) => {

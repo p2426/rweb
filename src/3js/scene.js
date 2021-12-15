@@ -16,7 +16,7 @@ export class Scene {
         parent: document.body,
         width: window.innerWidth,
         height: window.innerHeight,
-        colour: 'rgb(0, 0, 0)',
+        colour: [221, 221, 211],
         antialias: true,
         alpha: true
     };
@@ -47,6 +47,13 @@ export class Scene {
     }
     paused = false;
 
+    get sceneResolution() {
+        return {
+            x: this.sceneSettings.width,
+            y: this.sceneSettings.height
+        }
+    }
+
     constructor(sceneSettings, cameraSettings) {
         // Overwrite existing keys in default settings objects
         this.sceneSettings = { ...this.sceneSettings, ...sceneSettings };
@@ -61,15 +68,15 @@ export class Scene {
         this.camera = new THREE.PerspectiveCamera(this.cameraSettings.fov, this.sceneSettings.width / this.sceneSettings.height, this.cameraSettings.near, this.cameraSettings.far);
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-        // Setup
-        this.setupRenderer();
-        this.setupCamera();
+        // Initialise
+        this.initRenderer();
+        this.initCamera();
 
         // Start render loop
         this.update();
     }
 
-    setupRenderer() {
+    initRenderer() {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setSize(this.sceneSettings.width, this.sceneSettings.height);
@@ -78,7 +85,7 @@ export class Scene {
         this.sceneSettings.alpha ? this.renderer.setClearColor(colour, 0) : this.scene.background = colour;
     }
 
-    setupCamera() {
+    initCamera() {
         this.controls.enableKeys = this.cameraSettings.enableKeys;
         this.controls.enableZoom = this.cameraSettings.enableZoom;
         this.controls.keys = {
@@ -97,13 +104,8 @@ export class Scene {
         this.setCameraPosition(...this.cameraSettings.cameraPosition);
     }
 
-    resetSceneDimensions() {
-        this.camera.aspect = this.sceneSettings.width / this.sceneSettings.height;
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(this.sceneSettings.width, this.sceneSettings.height);
-    }
-
-    // Render loop
+    // Rendering
+    // Main loop
     update() {
         this.frameRequest = requestAnimationFrame(() => {
             this.update();
@@ -129,25 +131,25 @@ export class Scene {
         this.paused ? cancelAnimationFrame(this.frameRequest) : this.update();
     }
 
+    resetSceneDimensions() {
+        this.renderer.setSize(this.sceneSettings.width, this.sceneSettings.height);
+        this.camera.aspect = this.sceneSettings.width / this.sceneSettings.height;
+        this.camera.updateProjectionMatrix();
+    }
+
     renderScene() {
         this.renderer.render(this.scene, this.camera);
     }
 
-    get sceneResolution() {
-        return {
-            x: this.sceneSettings.width,
-            y: this.sceneSettings.height
-        }
-    }
-
+    // Adding/removing objects to scene
     addObjectToScene(obj) {
         this.objects.push(obj);
         this.scene.add(obj.getMesh());
     }
 
     removeObjectById(id) {
-        let obj = this.objects.find(obj => obj.id === id);
-        let index = this.objects.findIndex(obj => obj.id === id);
+        const obj = this.objects.find(obj => obj.id === id);
+        const index = this.objects.findIndex(obj => obj.id === id);
         this.objects.splice(index, 1);
         this.removeObject(obj);
     }
@@ -156,6 +158,7 @@ export class Scene {
         this.scene.remove(obj.getMesh());
     }
 
+    // Camera control
     getCameraPosition() {
         return this.camera.position;
     }

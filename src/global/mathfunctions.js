@@ -1,4 +1,4 @@
-export class MathFunctions {
+export default class MathFunctions {
     static lerp(a, b, v) {
         return a + (b - a) * v;
     }

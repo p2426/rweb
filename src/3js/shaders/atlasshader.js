@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { CustomShader } from "./customshader";
-import { MathFunctions } from '../mathfunctions';
 
 export class AtlasShader {
 
