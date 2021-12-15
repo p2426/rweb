@@ -38,9 +38,14 @@ export default function Section({section}) {
 
 export const Placeholder = () => {
     return (
+        <>
         <div className='header'>
             <div className='placeholder-icon'></div>
             <div className='placeholder-line'></div>
         </div>
+        <div className='body'>
+            <p>Downloading content..</p>
+        </div>
+        </>
     );
 }

@@ -54,7 +54,7 @@ export default function OrphanedElements({type, title}) {
                     </div>
                     <div className='usage-stat'>
                         <p>JS event listeners</p>
-                        <p className='usage-stat--text-green'>166</p>
+                        <p className='usage-stat--text-green'>156</p>
                     </div>
                     <div className='usage-stat'>
                         <p>Style recalcs / sec</p>
