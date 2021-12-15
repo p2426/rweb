@@ -29,7 +29,7 @@ export const SceneDemoOne = () => {
             parent: container.current,
             width: container.current.clientWidth,
             height: 600,
-            colour: 'rgb(221, 221, 211)',
+            colour: [221, 221, 211],
             antialias: false,
             alpha: false
         }, {
@@ -37,10 +37,10 @@ export const SceneDemoOne = () => {
         });
 
         const cube = new Cube({
-            colour: {r: 99, g: 202, b: 223}
+            colour: [128, 0, 32]
         });
         cube.setUpdate((time, res) => {
-            cube.addRotation(0.0025, 0.005, 0);
+            cube.addRotation(0.005, 0.01, 0);
         });
         scene.current.addObjectToScene(cube);
     }, []);

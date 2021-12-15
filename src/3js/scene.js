@@ -64,7 +64,6 @@ export class Scene {
         // Setup
         this.setupRenderer();
         this.setupCamera();
-        this.attachEvents();
 
         // Start render loop
         this.update();
@@ -74,8 +73,9 @@ export class Scene {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.renderer.setSize(this.sceneSettings.width, this.sceneSettings.height);
-        this.sceneSettings.alpha ? this.renderer.setClearColor(new THREE.Color(this.sceneSettings.colour), 0) : this.scene.background = new THREE.Color(this.sceneSettings.colour);
         this.sceneSettings.parent.appendChild(this.renderer.domElement);
+        const colour = new THREE.Color(`rgb(${this.sceneSettings.colour.toString()})`);
+        this.sceneSettings.alpha ? this.renderer.setClearColor(colour, 0) : this.scene.background = colour;
     }
 
     setupCamera() {
@@ -95,15 +95,6 @@ export class Scene {
         this.controls.target = new THREE.Vector3(...this.cameraSettings.cameraTarget);
         this.controls.update();
         this.setCameraPosition(...this.cameraSettings.cameraPosition);
-    }
-
-    attachEvents() {
-        // An object is created, add it to scene
-        document.body.addEventListener('ObjectCreated', (e) => {
-            if (e.detail.obj) {
-                this.addObjectToScene(e.detail.obj);
-            }
-        });
     }
 
     resetSceneDimensions() {
@@ -127,7 +118,7 @@ export class Scene {
             object.properties.update(this.time, this.sceneResolution);
         });
 
-        // Refresh scene
+        // Re-render scene
         this.renderScene();
 
         this.time.then = performance.now();

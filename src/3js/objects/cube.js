@@ -9,7 +9,7 @@ export class Cube extends SceneObject {
         segments: {x: 1, y: 1, z: 1},
         position: {x: 0, y: 0, z: 0},
         rotation: {x: 0, y: 0, z: 0},
-        colour: {r: 135, g: 206, b: 235},
+        colour: [135, 206, 235],
         update: () => {},
     }
 
@@ -40,7 +40,7 @@ export class Cube extends SceneObject {
         }
 
         this.properties.material = new THREE.MeshBasicMaterial({
-            color: new THREE.Color(...Object.values(this.properties.colour).map(c => c / 255))
+            color: new THREE.Color(`rgb(${this.properties.colour.toString()})`)
         });
         this.mesh = new THREE.Mesh(this.geometry, this.properties.material);
         this.mesh.receiveShadow = true;
