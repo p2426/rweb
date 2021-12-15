@@ -33,7 +33,7 @@ export const SceneDemoOne = () => {
             antialias: false,
             alpha: false
         }, {
-            cameraPosition: [0, 0, 5],
+            cameraPosition: [0, 0, 4],
         });
 
         const cube = new Cube({
@@ -46,7 +46,7 @@ export const SceneDemoOne = () => {
     }, []);
 
     useEffect(() => {
-        scene.current.pause = !isOnScreen;
+        scene.current.pause(!isOnScreen);
     }, [isOnScreen]);
 
     return (

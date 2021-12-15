@@ -38,13 +38,14 @@ export class Scene {
     };
 
     // Rendering
+    frameRequest;
     time = {
         now: 0,
         then: 0,
         delta: 0,
         deltaTime: 0,
     }
-    pause = false;
+    paused = false;
 
     constructor(sceneSettings, cameraSettings) {
         // Overwrite existing keys in default settings objects
@@ -113,25 +114,28 @@ export class Scene {
 
     // Render loop
     update() {
-        requestAnimationFrame(() => {
-            this.update(); 
+        this.frameRequest = requestAnimationFrame(() => {
+            this.update();
         });
 
-        if (!this.pause) {
-            this.time.now = performance.now();
-            this.time.delta = this.time.now - this.time.then;
-            this.time.deltaTime += !this.pause ? (this.time.now - this.time.then) / 1000 : 0;
+        this.time.now = performance.now();
+        this.time.delta = this.time.now - this.time.then;
+        this.time.deltaTime += !this.pause ? (this.time.now - this.time.then) / 1000 : 0;
 
-            // Run object logic
-            this.objects.forEach((object) => {
-                object.properties.update(this.time, this.sceneResolution);
-            });
+        // Run object logic
+        this.objects.forEach((object) => {
+            object.properties.update(this.time, this.sceneResolution);
+        });
 
-            // Refresh scene
-            this.renderScene();
+        // Refresh scene
+        this.renderScene();
 
-            this.time.then = performance.now();
-        }
+        this.time.then = performance.now();
+    }
+
+    pause(state) {
+        this.paused = state;
+        this.paused ? cancelAnimationFrame(this.frameRequest) : this.update();
     }
 
     renderScene() {
