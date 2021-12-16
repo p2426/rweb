@@ -22,6 +22,8 @@ export default function Section({section}) {
             import(`./sectionContent/${section.props.type}/${section.filename}`)
                 .then(module => {
                     setContentComponent(module.default(section.props));
+                })
+                .finally(() => {
                     // Broadcast SectionResized so the RightNavigation can correctly calculate bounds
                     const e = new CustomEvent('SectionResized');
                     document.body.dispatchEvent(e);

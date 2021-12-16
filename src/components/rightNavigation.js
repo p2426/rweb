@@ -43,7 +43,7 @@ export default function RightNavigation({sections}) {
     // we should recalculate bounds of sections once they have been loaded and therefore resized
     useEffect(() => {
         const runSectionResized = () => {
-            setSectionResized(sectionResized++);
+            setSectionResized(sectionResized += 1);
         };
         document.body.addEventListener('SectionResized', runSectionResized);
         return () => document.body.removeEventListener('SectionResized', runSectionResized);

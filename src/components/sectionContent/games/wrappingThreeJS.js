@@ -131,7 +131,6 @@ export const SceneDemoOne = () => {
     const container = useRef();
     let isOnScreen = useOnScreen(container);
     let scene = useRef();
-    let visualCount = 0;
 
     useEffect(() => {
         scene.current = new Scene({
@@ -146,24 +145,16 @@ export const SceneDemoOne = () => {
         });
 
         const cube = new Cube({
-            id: 'cubey',
             colour: [128, 0, 32]
         });
         cube.setUpdate((time, res) => {
             cube.addRotation(time.delta / 600, time.delta / 1000, 0);
         });
         scene.current.addObjectToScene(cube);
-        visualCount++;
     }, []);
 
     useEffect(() => {
         scene.current.pause(!isOnScreen);
-        // Because of the way the section is rendered when this script is downloaded,
-        // the useOnScreen hook doesn't always update only for the first time when the scene is instantiated and in the viewport
-        if (visualCount === 1 && !isOnScreen) {
-            scene.current.pause(false);
-            visualCount++;
-        }
     }, [isOnScreen]);
 
     return (
