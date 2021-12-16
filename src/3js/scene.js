@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 export class Scene {
-    // Instances
+    // Main objects
     scene;
     camera;
     renderer;
@@ -43,7 +43,7 @@ export class Scene {
         now: 0,
         then: 0,
         delta: 0,
-        deltaTime: 0,
+        elapsed: 0,
     }
     paused = false;
 
@@ -100,7 +100,6 @@ export class Scene {
             RIGHT: this.cameraSettings.rightMouse
         }
         this.controls.target = new THREE.Vector3(...this.cameraSettings.cameraTarget);
-        this.controls.update();
         this.setCameraPosition(...this.cameraSettings.cameraPosition);
     }
 
@@ -113,7 +112,7 @@ export class Scene {
 
         this.time.now = performance.now();
         this.time.delta = this.time.now - this.time.then;
-        this.time.deltaTime += !this.pause ? (this.time.now - this.time.then) / 1000 : 0;
+        this.time.elapsed += this.time.delta / 1000;
 
         // Run object logic
         this.objects.forEach((object) => {
@@ -121,7 +120,7 @@ export class Scene {
         });
 
         // Re-render scene
-        this.renderScene();
+        this.renderer.render(this.scene, this.camera);
 
         this.time.then = performance.now();
     }
@@ -135,10 +134,6 @@ export class Scene {
         this.renderer.setSize(this.sceneSettings.width, this.sceneSettings.height);
         this.camera.aspect = this.sceneSettings.width / this.sceneSettings.height;
         this.camera.updateProjectionMatrix();
-    }
-
-    renderScene() {
-        this.renderer.render(this.scene, this.camera);
     }
 
     // Adding/removing objects to scene

@@ -5,10 +5,11 @@ export class Cube extends SceneObject {
     properties = {
         id: "unset",
         shader: undefined,
-        scale: {x: 1, y: 1, z: 1},
-        segments: {x: 1, y: 1, z: 1},
-        position: {x: 0, y: 0, z: 0},
-        rotation: {x: 0, y: 0, z: 0},
+        material: undefined,
+        scale: [1, 1, 1],
+        segments: [1, 1, 1],
+        position: [0, 0, 0],
+        rotation: [0, 0, 0],
         colour: [135, 206, 235],
         update: () => {},
     }
@@ -16,18 +17,9 @@ export class Cube extends SceneObject {
     constructor(settings) {
         super();
 
-        this.properties = {
-            ...this.properties,
-            ...settings
-        };
+        this.properties = { ...this.properties, ...settings};
 
-        this.geometry = new THREE.BoxGeometry(
-            this.properties.scale.x, 
-            this.properties.scale.y, 
-            this.properties.scale.z,
-            this.properties.segments.x, 
-            this.properties.segments.y, 
-            this.properties.segments.z );
+        this.geometry = new THREE.BoxGeometry(...this.properties.scale, ...this.properties.segments);
 
         if (this.properties.shader) {
             this.properties.material = new THREE.ShaderMaterial({
@@ -37,23 +29,22 @@ export class Cube extends SceneObject {
                 fragmentShader: this.properties.shader.fragmentShader.getContent()
             });
             this.properties.shader.init(this.geometry);
+        } else {
+            this.properties.material = new THREE.MeshBasicMaterial({
+                color: new THREE.Color(`rgb(${this.properties.colour.toString()})`)
+            });
         }
 
-        this.properties.material = new THREE.MeshBasicMaterial({
-            color: new THREE.Color(`rgb(${this.properties.colour.toString()})`)
-        });
         this.mesh = new THREE.Mesh(this.geometry, this.properties.material);
         this.mesh.receiveShadow = true;
         this.mesh.castShadow = true;
-        // Give mesh a reference to this class for ease of Raycasting
-        this.mesh.classRef = this;
 
         this.setId(this.properties.id);
-        this.setPosition(this.properties.position.x, this.properties.position.y, this.properties.position.z);
-        this.setRotation(this.properties.rotation.x, this.properties.rotation.y, this.properties.rotation.z);
+        this.setPosition(...this.properties.position);
+        this.setRotation(...this.properties.rotation);
     }
 
     getScale() {
-        return {x: this.geometry.parameters.width, y: this.geometry.parameters.height, z: this.geometry.parameters.depth};
+        return [this.geometry.parameters.width, this.geometry.parameters.height, this.geometry.parameters.depth];
     }
 }

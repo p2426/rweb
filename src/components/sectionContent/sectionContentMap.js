@@ -19,8 +19,17 @@ export const sectionContentMap = {
         filename: 'orphanedElements',
     }],
     games: [{
-        props: { type: 'games', title: 'wrapping three.js' },
+        props: { type: 'games', title: 'start: wrapping three.js' },
         filename: 'wrappingThreeJS',
+    }, {
+        props: { type: 'games', title: 'init functions' },
+        filename: 'initFunctions',
+    }, {
+        props: { type: 'games', title: 'update loop' },
+        filename: 'updateLoop',
+    }, {
+        props: { type: 'games', title: 'end: the cube' },
+        filename: 'theCube',
     }],
     shaders: [{
         props: { type: 'shaders', title: 'placeholder' },
