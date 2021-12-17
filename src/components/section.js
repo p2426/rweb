@@ -5,12 +5,12 @@ import '../scss/section.scss';
 export default function Section({section}) {
     const container = useRef();
     const [firstVisual, setFirstVisual] = useState(false);
-    const [contentComponent, setContentComponent] = useState(false);
+    const [contentComponent, setContentComponent] = useState({ component: null });
     const isOnScreen = useOnScreen(container);
 
     useEffect(() => {
         setFirstVisual(false);
-        setContentComponent(null);
+        setContentComponent({ component: null });
     }, [section]);
 
     useEffect(() => {
@@ -19,9 +19,10 @@ export default function Section({section}) {
             // NOTE: We cannot 'truely' dynamically import with a variable, because it could be anything
             // and codesplitting happens at compile time, so we must give some static nature to the import path.
             // Babel will codesplit everything at the static path, which is good enough for what we are using it for
+            
             import(`./sectionContent/${section.props.type}/${section.filename}`)
                 .then(module => {
-                    setContentComponent(module.default(section.props));
+                    setContentComponent({ component: module.default });
                 })
                 .finally(() => {
                     // Broadcast SectionResized so the RightNavigation can correctly calculate bounds
@@ -33,7 +34,7 @@ export default function Section({section}) {
 
     return (
         <div ref={container} className='section'>
-            {contentComponent ? contentComponent : <Placeholder/>}
+            {contentComponent.component ? <contentComponent.component type={section.props.type} title={section.props.title}/> : <Placeholder/>}
         </div>
     );
 }

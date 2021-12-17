@@ -30,6 +30,9 @@ export const sectionContentMap = {
     }, {
         props: { type: 'games', title: 'end: the cube' },
         filename: 'theCube',
+    }, {
+        props: { type: 'games', title: 'the royal game of ur' },
+        filename: 'theRoyalGameOfUr',
     }],
     shaders: [{
         props: { type: 'shaders', title: 'placeholder' },

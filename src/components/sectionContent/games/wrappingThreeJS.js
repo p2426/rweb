@@ -4,6 +4,35 @@ import { Scene } from "../../../3js/scene";
 import useOnScreen from "../../../hooks/useOnScreen";
 
 export default function WrappingThreeJS({type, title}) {
+    const sceneContainer = useRef();
+    let isOnScreen = useOnScreen(sceneContainer);
+    let scene = useRef();
+
+    useEffect(() => {
+        scene.current = new Scene({
+            parent: sceneContainer.current,
+            width: sceneContainer.current.clientWidth,
+            height: 600,
+            colour: [221, 221, 211],
+            antialias: false,
+            alpha: false
+        }, {
+            cameraPosition: [0, 0, 4],
+        });
+
+        const cube = new Cube({
+            colour: [128, 0, 32]
+        });
+        cube.setUpdate((time, res) => {
+            cube.addRotation(time.delta / 600, time.delta / 1000, 0);
+        });
+        scene.current.addObjectToScene(cube);
+    }, []);
+
+    useEffect(() => {
+        scene.current.pause(!isOnScreen);
+    }, [isOnScreen]);
+
     return (
         <>
         <div className='header'>
@@ -13,7 +42,7 @@ export default function WrappingThreeJS({type, title}) {
         <div className='body'>
             <p><a href={'//threejs.org'} target='_blank' rel='noopener noreferrer'>Three.js</a> is a high-level general purpose 3D graphics library for the web, based on WebGL. It makes creating WebGL applications simple and abstracts a lot of the complexities in creating 3D graphics. There are some useful extensions to it that include audio, particle systems, physics - if you're looking for an all-in-one package for creating games on the web, this is your best bet, though not everything comes out-the-box. It's an amazing and still well maintained package, even after 10 years.</p>
             <p>Using 3JS is pretty straight forward, but let's begin by creating some wrapper classes to bend it into being even easier to use.</p>
-            <SceneDemoOne/>
+            <div ref={sceneContainer} className='standard-margin-bottom'></div>
             <pre><code>
 {`
 const scene = new Scene({
@@ -124,40 +153,5 @@ constructor(sceneSettings, cameraSettings) {
             </code></pre>
         </div>
         </>
-    );
-}
-
-export const SceneDemoOne = () => {
-    const container = useRef();
-    let isOnScreen = useOnScreen(container);
-    let scene = useRef();
-
-    useEffect(() => {
-        scene.current = new Scene({
-            parent: container.current,
-            width: container.current.clientWidth,
-            height: 600,
-            colour: [221, 221, 211],
-            antialias: false,
-            alpha: false
-        }, {
-            cameraPosition: [0, 0, 4],
-        });
-
-        const cube = new Cube({
-            colour: [128, 0, 32]
-        });
-        cube.setUpdate((time, res) => {
-            cube.addRotation(time.delta / 600, time.delta / 1000, 0);
-        });
-        scene.current.addObjectToScene(cube);
-    }, []);
-
-    useEffect(() => {
-        scene.current.pause(!isOnScreen);
-    }, [isOnScreen]);
-
-    return (
-        <div ref={container} className='standard-margin-bottom'></div>
     );
 }
