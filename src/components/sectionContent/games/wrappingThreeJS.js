@@ -40,9 +40,9 @@ export default function WrappingThreeJS({type, title}) {
             <h1 className='title'>{title}</h1>
         </div>
         <div className='body'>
-            <p><a href={'//threejs.org'} target='_blank' rel='noopener noreferrer'>Three.js</a> is a high-level general purpose 3D graphics library for the web, based on WebGL. It makes creating WebGL applications simple and abstracts a lot of the complexities in creating 3D graphics. There are some useful extensions to it that include audio, particle systems, physics - if you're looking for an all-in-one package for creating games on the web, this is your best bet, though not everything comes out-the-box. It's an amazing and still well maintained package, even after 10 years.</p>
+            <p><a href={'//threejs.org'} target='_blank' rel='noopener noreferrer'>Three.js</a> is a high-level general purpose 3D graphics library for the web, based on <a href={'//www.khronos.org/webgl/'} target='_blank' rel='noopener noreferrer'>WebGL</a>. It makes creating WebGL applications simple and abstracts a lot of the complexities in creating 3D graphics. There are some useful extensions to it that include audio, particle systems, physics - if you're looking for an all-in-one package for creating games on the web, this is your best bet, though not everything comes out-the-box. It's an amazing and still well maintained package, even after 10 years.</p>
             <p>Using 3JS is pretty straight forward, but let's begin by creating some wrapper classes to bend it into being even easier to use.</p>
-            <div ref={sceneContainer} className='standard-margin-bottom'></div>
+            <div ref={sceneContainer} className='canvas-container standard-margin-bottom' style={{ height: '600px' }}></div>
             <pre><code>
 {`
 const scene = new Scene({

@@ -34,7 +34,7 @@ code {
 
 .layout {
     display: flex;
-    justify-content: space-between;
+
     width: 1440px;
     margin: 5rem auto;
 }
@@ -66,10 +66,25 @@ code {
     &-margin-bottom {
         margin-bottom: 0;
     }
+    &-display {
+        display: none;
+    }
 }
 
 .standard {
     &-margin-bottom {
         margin-bottom: 1rem;
+    }
+}
+
+.canvas-container {
+    height: 600px;
+
+    &--loading {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(221, 221, 211);
     }
 }
