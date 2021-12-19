@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import useOnScreen from "../../../hooks/useOnScreen";
 import RoyalGameOfUr from "../../../3js/royalGameOfUr";
 import { Cube } from "../../../3js/objects/cube";
 import '../../../scss/sectionContent/royalGameOfUr.scss';
 
 export default function TheRoyalGameOfUr({type, title}) {
     const sceneContainer = useRef();
-    const isOnScreen = useOnScreen(sceneContainer);
     const [isReady, setIsReady] = useState(false);
     let scene = useRef();
 
@@ -29,11 +27,8 @@ export default function TheRoyalGameOfUr({type, title}) {
             cube.addRotation(time.delta / 600, time.delta / 1000, 0);
         });
         scene.current.addObjectToScene(cube);
+        return () => scene.current?.dispose();
     }, []);
-
-    useEffect(() => {
-        scene.current.pause(!isOnScreen);
-    }, [isOnScreen]);
 
     return (
         <>

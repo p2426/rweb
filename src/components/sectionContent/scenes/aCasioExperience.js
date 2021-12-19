@@ -107,6 +107,7 @@ export default function CasioExperience({type, title}) {
         </div>
         <div className='body'>
             <p>It's the early 90s - just before the Japanese economic bubble collapse, and Casio are promoting their new wrist watch with advanced features, longer battery life, and a metallic wrist strap. The future is now.</p>
+            <p><i><b>Currently working on</b></i></p>
             {isLoading.state && <div ref={sceneContainer} className={'canvas-container standard-margin-bottom' + (isReady ? '' : ' no-display')}></div>}
             {!isReady && <LoadingOverlay progress={isLoading.progress} click={startLoading}/>}
         </div>
