@@ -9,8 +9,6 @@ export class OBJObject extends SceneObject {
     mtlLoader = new MTLLoader();
     textureLoader = new TextureLoader();
 
-    material;
-
     properties = {
         id: "unset",
         objectName: "",
@@ -44,12 +42,15 @@ export class OBJObject extends SceneObject {
 
                     const diffuseMap = this.textureLoader.load(this.properties.diffuseMapPath);
                     materials.materials[this.properties.objectName].map = diffuseMap;
+                    this.textures.push(diffuseMap);
 
                     const normalMap = this.textureLoader.load(this.properties.normalMapPath);
                     materials.materials[this.properties.objectName].normalMap = normalMap;
+                    this.textures.push(normalMap);
 
                     const specularMap = this.textureLoader.load(this.properties.specularMapPath);
                     materials.materials[this.properties.objectName].specularMap = specularMap;
+                    this.textures.push(specularMap);
 
                     // Load Model
                     this.loadMesh(scene, materials);
@@ -75,16 +76,20 @@ export class OBJObject extends SceneObject {
 
                 const diffuseMap = this.textureLoader.load(this.properties.diffuseMapPath, xhr => this.properties.progressCallback(xhr));
                 this.material.map = diffuseMap;
+                this.textures.push(diffuseMap);
 
                 const normalMap = this.textureLoader.load(this.properties.normalMapPath, xhr => this.properties.progressCallback(xhr));
                 this.material.normalMap = normalMap;
+                this.textures.push(normalMap);
 
                 const roughnessMap = this.textureLoader.load(this.properties.roughnessMapPath, xhr => this.properties.progressCallback(xhr));
                 this.material.roughnessMap = roughnessMap;
                 this.material.metalness = .6;
+                this.textures.push(roughnessMap);
 
                 const metalnessMap = this.textureLoader.load(this.properties.metalnessMapPath, xhr => this.properties.progressCallback(xhr));
                 this.material.metalnessMap = metalnessMap;
+                this.textures.push(metalnessMap);
                 break;
             default:
                 break;

@@ -4,6 +4,8 @@ export class SceneObject {
     properties;
     mesh;
     geometry;
+    material;
+    textures = [];
     id;
 
     constructor() {}
@@ -55,5 +57,11 @@ export class SceneObject {
 
     setUpdate(behaviour = () => {}) {
         this.properties.update = behaviour;
+    }
+
+    dispose() {
+        this.mesh.geometry.dispose();
+        this.mesh.material.dispose();
+        this.textures.map(tex => tex.dispose());
     }
 };

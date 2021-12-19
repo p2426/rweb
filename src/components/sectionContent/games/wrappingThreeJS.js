@@ -27,6 +27,7 @@ export default function WrappingThreeJS({type, title}) {
             cube.addRotation(time.delta / 600, time.delta / 1000, 0);
         });
         scene.current.addObjectToScene(cube);
+        return () => scene.current.dispose();
     }, []);
 
     useEffect(() => {

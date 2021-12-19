@@ -4,13 +4,18 @@ import CasioScene from "../../../3js/casioScene";
 import { OBJObject } from "../../../3js/objects/objobject";
 import '../../../scss/sectionContent/aCasioExperience.scss';
 
-export default function ACasioExperience({type, title}) {
+export default function CasioExperience({type, title}) {
     const [isReady, setIsReady] = useState(false);
     const [isLoading, setIsLoading] = useState({ state: false, progress: 0 });
-    const resourceCount = 5;
     const sceneContainer = useRef();
-    // const isOnScreen = useOnScreen(sceneContainer);
     let scene = useRef();
+    let graphicQuality = useRef('Ultra');
+    const resourceCount = 5;
+
+    // Clean up scene on unmount
+    useEffect(() => {
+        return () => scene.current.dispose();
+    }, []);
 
     // Only called when isLoading has it's state set to true AND progress is 0,
     // then we need to create the scene and load resources
@@ -36,10 +41,10 @@ export default function ACasioExperience({type, title}) {
             objectName: "Digital_Wristwatch",
             objectPath: "./models/casioWatch.obj",
             material: "standard",
-            diffuseMapPath: "./textures/DigitalWristwatch_New_Time_Diffuse.png",
-            normalMapPath: "./textures/DigitalWristwatch_New_NormalOGL8.png",
-            roughnessMapPath: "./textures/DigitalWristwatch_New_Roughness.png",
-            metalnessMapPath: "./textures/DigitalWristwatch_New_Metallic.png",
+            diffuseMapPath: `./textures/casioDiffuse_${graphicQuality.current}.png`,
+            normalMapPath: `./textures/casioNormal_${graphicQuality.current}.png`,
+            roughnessMapPath: `./textures/casioRoughness_${graphicQuality.current}.png`,
+            metalnessMapPath: `./textures/casioMetallic_${graphicQuality.current}.png`,
             scale: {x: 45, y: 45, z: 45},
             position: {x: 0, y: .5, z: 0},
             rotation: {x: 0, y: 0, z: 0},
@@ -72,19 +77,21 @@ export default function ACasioExperience({type, title}) {
                     progress: isLoading.progress += (100 / resourceCount)
                 });
             }
-            return;
+        } else {
+            setIsLoading({
+                state: true,
+                progress: isLoading.progress += (100 / resourceCount)
+            });
         }
-        setIsLoading({
-            state: true,
-            progress: isLoading.progress += (100 / resourceCount)
-        });
         if (isLoading.progress === 100) {
             setIsReady(true);
         }
     }
 
-    const startLoading = (e) => {
+    const startLoading = (e, quality) => {
         if (isLoading.state) return;
+
+        graphicQuality.current = quality;
 
         setIsLoading({
             state: true,
@@ -101,17 +108,22 @@ export default function ACasioExperience({type, title}) {
         <div className='body'>
             <p>It's the early 90s - just before the Japanese economic bubble collapse, and Casio are promoting their new wrist watch with advanced features, longer battery life, and a metallic wrist strap.</p>
             {isLoading.state && <div ref={sceneContainer} className={'canvas-container standard-margin-bottom' + (isReady ? '' : ' no-display')}></div>}
-            {!isReady && <LoadingOverlay loading={isLoading} click={startLoading}/>}
+            {!isReady && <LoadingOverlay progress={isLoading.progress} click={startLoading}/>}
         </div>
         </>
     );
 }
 
-const LoadingOverlay = ({ loading, click }) => {
+const LoadingOverlay = ({ progress, click }) => {
     return (
-        <div onClick={click} className='canvas-container canvas-container--loading'>
-            <p>Click to load scene</p>
-            <div className='casio-loading-bar' style={{ width: (loading.progress * 2) + 'px' }}></div>
+        <div className='canvas-container canvas-container--loading'>
+            <p>Load scene with graphic quality:</p>
+            <div className='casio-settings'>
+                <button onClick={(e) => click(e, 'Low')}>Low</button>
+                <button onClick={(e) => click(e, 'Standard')}>Standard</button>
+                <button onClick={(e) => click(e, 'Ultra')}>Ultra</button>
+            </div>
+            <div className='casio-loading-bar' style={{ width: (progress * 6) + 'px' }}></div>
         </div>
     );
 }

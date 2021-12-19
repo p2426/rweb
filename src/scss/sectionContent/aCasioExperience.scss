@@ -1,9 +1,30 @@
 .section .body {
     .casio {
         &-loading-bar {
-            max-width: 200px;
+            max-width: 600px;
             height: 5px;
             background-color: black;
+        }
+
+        &-settings {
+            display: flex;
+            margin-bottom: 1rem;
+
+            & button {
+                background-color: transparent;
+                cursor: pointer;
+                font-family: system-ui;
+                font-size: 1rem;
+                outline: none;
+                appearance: none;
+                border: 0;
+                padding: 2rem;
+                margin: 2rem;
+
+                &:hover {
+                    -webkit-text-stroke: 1px;
+                }
+            }
         }
     }
 }

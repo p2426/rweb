@@ -9,7 +9,8 @@ export class Scene {
     controls;
 
     // Scene objects
-    objects = [];
+    miscObjects = [];
+    sceneObjects = [];
 
     // Settings
     sceneSettings = {
@@ -115,7 +116,7 @@ export class Scene {
         this.time.elapsed += this.time.delta / 1000;
 
         // Run object logic
-        this.objects.forEach((object) => {
+        this.sceneObjects.forEach((object) => {
             object.properties.update(this.time, this.sceneResolution);
         });
 
@@ -138,23 +139,37 @@ export class Scene {
 
     // Adding/removing objects to scene
     addObjectToScene(obj) {
-        this.objects.push(obj);
+        this.sceneObjects.push(obj);
         this.scene.add(obj.getMesh());
     }
 
     addToScene(obj) {
+        this.miscObjects.push(obj);
         this.scene.add(obj);
     }
 
     removeObjectById(id) {
-        const obj = this.objects.find(obj => obj.id === id);
-        const index = this.objects.findIndex(obj => obj.id === id);
-        this.objects.splice(index, 1);
+        const obj = this.sceneObjects.find(obj => obj.id === id);
+        const index = this.sceneObjects.findIndex(obj => obj.id === id);
+        this.sceneObjects.splice(index, 1);
         this.removeObject(obj);
     }
 
     removeObject(obj) {
         this.scene.remove(obj.getMesh());
+    }
+
+    dispose() {
+        this.sceneObjects.map(obj => {
+            obj.dispose();
+            this.removeObject(obj);
+        });
+        this.miscObjects.map(obj => {
+            obj.dispose();
+        });
+        this.renderer.renderLists.dispose();
+        this.renderer.dispose();
+        this.controls.dispose();
     }
 
     // Camera control
