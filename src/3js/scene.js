@@ -152,6 +152,7 @@ export class Scene {
         const obj = this.sceneObjects.find(obj => obj.id === id);
         const index = this.sceneObjects.findIndex(obj => obj.id === id);
         this.sceneObjects.splice(index, 1);
+        obj.dispose();
         this.removeObject(obj);
     }
 
