@@ -14,7 +14,7 @@ export default function CasioExperience({type, title}) {
 
     // Clean up scene on unmount
     useEffect(() => {
-        return () => scene.current.dispose();
+        return () => scene.current?.dispose();
     }, []);
 
     // Only called when isLoading has it's state set to true AND progress is 0,
@@ -106,7 +106,7 @@ export default function CasioExperience({type, title}) {
             <h1 className='title'>{title}</h1>
         </div>
         <div className='body'>
-            <p>It's the early 90s - just before the Japanese economic bubble collapse, and Casio are promoting their new wrist watch with advanced features, longer battery life, and a metallic wrist strap.</p>
+            <p>It's the early 90s - just before the Japanese economic bubble collapse, and Casio are promoting their new wrist watch with advanced features, longer battery life, and a metallic wrist strap. The future is now.</p>
             {isLoading.state && <div ref={sceneContainer} className={'canvas-container standard-margin-bottom' + (isReady ? '' : ' no-display')}></div>}
             {!isReady && <LoadingOverlay progress={isLoading.progress} click={startLoading}/>}
         </div>

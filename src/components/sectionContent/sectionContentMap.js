@@ -18,6 +18,10 @@ export const sectionContentMap = {
         props: { type: 'web', title: 'orphaned elements' },
         filename: 'orphanedElements',
     }],
+    scenes: [{
+        props: { type: 'scenes', title: 'a casio experience' },
+        filename: 'aCasioExperience',
+    }],
     games: [{
         props: { type: 'games', title: 'start: wrapping three.js' },
         filename: 'wrappingThreeJS',
@@ -37,10 +41,6 @@ export const sectionContentMap = {
     shaders: [{
         props: { type: 'shaders', title: 'placeholder' },
         filename: 'placeholder',
-    }],
-    scenes: [{
-        props: { type: 'scenes', title: 'a casio experience' },
-        filename: 'aCasioExperience',
     }],
     about: ''
 }

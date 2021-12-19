@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Cube } from "../../../3js/objects/cube";
 import { Scene } from "../../../3js/scene";
-import useOnScreen from "../../../hooks/useOnScreen";
 
 export default function WrappingThreeJS({type, title}) {
     const sceneContainer = useRef();
-    let isOnScreen = useOnScreen(sceneContainer);
     let scene = useRef();
 
     useEffect(() => {
@@ -27,12 +25,8 @@ export default function WrappingThreeJS({type, title}) {
             cube.addRotation(time.delta / 600, time.delta / 1000, 0);
         });
         scene.current.addObjectToScene(cube);
-        return () => scene.current.dispose();
+        return () => scene.current?.dispose();
     }, []);
-
-    useEffect(() => {
-        scene.current.pause(!isOnScreen);
-    }, [isOnScreen]);
 
     return (
         <>

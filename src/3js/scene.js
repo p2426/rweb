@@ -12,6 +12,9 @@ export class Scene {
     miscObjects = [];
     sceneObjects = [];
 
+    // Auto-pauser
+    autoPauser = new IntersectionObserver(([entry]) => this.pause(!entry.isIntersecting));
+
     // Settings
     sceneSettings = {
         parent: document.body,
@@ -69,11 +72,15 @@ export class Scene {
         this.camera = new THREE.PerspectiveCamera(this.cameraSettings.fov, this.sceneSettings.width / this.sceneSettings.height, this.cameraSettings.near, this.cameraSettings.far);
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
+        // Auto-pauser
+        this.autoPauser.observe(this.renderer.domElement);
+
         // Initialise
         this.initRenderer();
         this.initCamera();
 
         // Start render loop
+        this.pause(false);
         this.update();
     }
 
@@ -161,6 +168,8 @@ export class Scene {
     }
 
     dispose() {
+        this.autoPauser.disconnect();
+        this.pause(true);
         this.sceneObjects.map(obj => {
             obj.dispose();
             this.removeObject(obj);
