@@ -1,0 +1,9 @@
+.section .body {
+    .casio {
+        &-loading-bar {
+            max-width: 200px;
+            height: 5px;
+            background-color: black;
+        }
+    }
+}

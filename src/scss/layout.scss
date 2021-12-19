@@ -5,7 +5,7 @@ html {
     --web: rgb(245, 136, 63);
     --games: rgb(99, 202, 223);
     --shaders: rgb(170, 85, 38);
-    --other: rgb(22, 161, 171);
+    --scenes: rgb(22, 161, 171);
     --about: rgb(244, 118, 33);
 
     /* Tack on some global variables */
@@ -83,6 +83,7 @@ code {
     &--loading {
         position: relative;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         background-color: rgb(221, 221, 211);

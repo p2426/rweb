@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect, useRef, useState } from "react";
 import useOnScreen from "../../../hooks/useOnScreen";
 import RoyalGameOfUr from "../../../3js/royalGameOfUr";
 import { Cube } from "../../../3js/objects/cube";
@@ -14,7 +13,7 @@ export default function TheRoyalGameOfUr({type, title}) {
     useEffect(() => {
         scene.current = new RoyalGameOfUr({
             parent: sceneContainer.current,
-            width: sceneContainer.current.clientWidth,
+            width: sceneContainer.current.parentElement.clientWidth,
             height: 600,
             colour: [221, 221, 211],
             antialias: false,
@@ -46,7 +45,7 @@ export default function TheRoyalGameOfUr({type, title}) {
             <p>AKA. the 'Game of Twenty Squares' is a two-player race-to-the-finish style board game first played (we think) 4500 years ago amongst the Kings and Queens of Ur in ancient Mesopotamia, now southern Iraq. This is one of five board games found by Sir Leonard Woolley in the Royal Cemertary at Ur, now held in the British Museum. Not only is it fascinating for a board game to exist at this period of early civilisation, but the game requires an intense balance of luck and skill to win.</p>
             <div ref={sceneContainer} className={'canvas-container standard-margin-bottom' + (isReady ? '' : ' no-display')}></div>
             {!isReady && <div className='canvas-container canvas-container--loading'>
-                <p>Loading Scene</p>
+                <p>Under construction</p>
             </div>}
         </div>
         </>

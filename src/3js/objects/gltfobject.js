@@ -11,7 +11,7 @@ export class GLTFObject extends SceneObject {
         scale: {x: 1, y: 1, z: 1},
         position: {x: 0, y: 0, z: 0},
         rotation: {x: 0, y: 0, z: 0},
-        update: this.update.bind(this),
+        update: () => {},
     }
 
     constructor(settings) {
@@ -26,9 +26,11 @@ export class GLTFObject extends SceneObject {
         gltfLoader.load(this.properties.gltfPath, (gltf) => {
 
             // Mesh
+            console.log(gltf.scene.children);
             this.mesh = gltf.scene.children.filter(o => o.name === this.properties.gltfChildName)[0];
-            this.mesh.geometry.computeVertexNormals(true);
-            this.mesh.geometry.computeFaceNormals(true);
+            console.log(this.mesh);
+            // this.mesh.geometry.computeVertexNormals(true);
+            // this.mesh.geometry.computeFaceNormals(true);
             this.mesh.receiveShadow = true;
             this.mesh.castShadow = true;
             // Give mesh a reference to this class for ease of Raycasting
@@ -50,9 +52,9 @@ export class GLTFObject extends SceneObject {
             this.start();
 
         }, (xhr) => {
-
+            console.log('xhr', xhr);
         }, (error) => {
-
+            console.log('error', error);
         });
     }
 

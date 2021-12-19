@@ -30,9 +30,9 @@ export default function App() {
                         <Main sections={sectionContentMap.shaders}/>
                         <RightNavigation sections={sectionContentMap.shaders}/>
                     </Route>
-                    <Route exact path="/other">
-                        <Main sections={sectionContentMap.other}/>
-                        <RightNavigation sections={sectionContentMap.other}/>
+                    <Route exact path="/scenes">
+                        <Main sections={sectionContentMap.scenes}/>
+                        <RightNavigation sections={sectionContentMap.scenes}/>
                     </Route>
                 </Switch>
             </div>

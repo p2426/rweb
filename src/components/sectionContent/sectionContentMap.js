@@ -38,9 +38,9 @@ export const sectionContentMap = {
         props: { type: 'shaders', title: 'placeholder' },
         filename: 'placeholder',
     }],
-    other: [{
-        props: { type: 'other', title: 'placeholder' },
-        filename: 'placeholder',
+    scenes: [{
+        props: { type: 'scenes', title: 'a casio experience' },
+        filename: 'aCasioExperience',
     }],
     about: ''
 }

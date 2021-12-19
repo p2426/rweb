@@ -142,6 +142,10 @@ export class Scene {
         this.scene.add(obj.getMesh());
     }
 
+    addToScene(obj) {
+        this.scene.add(obj);
+    }
+
     removeObjectById(id) {
         const obj = this.objects.find(obj => obj.id === id);
         const index = this.objects.findIndex(obj => obj.id === id);

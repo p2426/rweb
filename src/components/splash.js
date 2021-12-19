@@ -9,7 +9,7 @@ const colourMap = {
     'web': 'red',
     'games': 'orange',
     'shaders': 'blue',
-    'other': 'green',
+    'scenes': 'green',
     'about': 'purple',
 };
 
