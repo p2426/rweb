@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { useEffect, useRef, useState } from "react";
-import CasioScene from "../../../3js/casioScene";
+import CasioScene from "../../../3js/aCasioExperience";
 import { OBJObject } from "../../../3js/objects/objobject";
 import '../../../scss/sectionContent/aCasioExperience.scss';
 

@@ -1,15 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Cube } from "../../../3js/objects/cube";
 import { Scene } from "../../../3js/scene";
 
 export default function WrappingThreeJS({type, title}) {
     const sceneContainer = useRef();
+    const [isReady, setIsReady] = useState(false);
     let scene = useRef();
 
+    // Clean up scene on unmount
     useEffect(() => {
+        return () => scene.current?.dispose();
+    }, []);
+
+    useEffect(() => {
+        if (!isReady) return;
+
         scene.current = new Scene({
             parent: sceneContainer.current,
-            width: sceneContainer.current.clientWidth,
+            width: sceneContainer.current.parentElement.clientWidth,
             height: 600,
             colour: [221, 221, 211],
             antialias: false,
@@ -25,8 +33,7 @@ export default function WrappingThreeJS({type, title}) {
             cube.addRotation(time.delta / 600, time.delta / 1000, 0);
         });
         scene.current.addObjectToScene(cube);
-        return () => scene.current?.dispose();
-    }, []);
+    }, [isReady]);
 
     return (
         <>
@@ -37,7 +44,8 @@ export default function WrappingThreeJS({type, title}) {
         <div className='body'>
             <p><a href={'//threejs.org'} target='_blank' rel='noopener noreferrer'>Three.js</a> is a high-level general purpose 3D graphics library for the web, based on <a href={'//www.khronos.org/webgl/'} target='_blank' rel='noopener noreferrer'>WebGL</a>. It makes creating WebGL applications simple and abstracts a lot of the complexities in creating 3D graphics. There are some useful extensions to it that include audio, particle systems, physics - if you're looking for an all-in-one package for creating games on the web, this is your best bet, though not everything comes out-the-box. It's an amazing and still well maintained package, even after 10 years.</p>
             <p>Using 3JS is pretty straight forward, but let's begin by creating some wrapper classes to bend it into being even easier to use.</p>
-            <div ref={sceneContainer} className='canvas-container standard-margin-bottom' style={{ height: '600px' }}></div>
+            {isReady && <div ref={sceneContainer} className='canvas-container standard-margin-bottom' style={{ height: '600px' }}></div>}
+            {!isReady && <LoadingOverlay click={() => setIsReady(true)}/>}
             <pre><code>
 {`
 const scene = new Scene({
@@ -148,5 +156,13 @@ constructor(sceneSettings, cameraSettings) {
             </code></pre>
         </div>
         </>
+    );
+}
+
+const LoadingOverlay = ({ click }) => {
+    return (
+        <div onClick={click} className='canvas-container canvas-container--loading'>
+            <p>Click to start scene</p>
+        </div>
     );
 }

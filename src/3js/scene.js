@@ -12,9 +12,6 @@ export class Scene {
     miscObjects = [];
     sceneObjects = [];
 
-    // Auto-pauser
-    autoPauser = new IntersectionObserver(([entry]) => this.pause(!entry.isIntersecting));
-
     // Settings
     sceneSettings = {
         parent: document.body,
@@ -50,6 +47,7 @@ export class Scene {
         elapsed: 0,
     }
     paused = false;
+    autoPauser = new IntersectionObserver(([entry]) => this.pause(!entry.isIntersecting));
 
     get sceneResolution() {
         return {
@@ -72,9 +70,6 @@ export class Scene {
         this.camera = new THREE.PerspectiveCamera(this.cameraSettings.fov, this.sceneSettings.width / this.sceneSettings.height, this.cameraSettings.near, this.cameraSettings.far);
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-        // Auto-pauser
-        this.autoPauser.observe(this.renderer.domElement);
-
         // Initialise
         this.initRenderer();
         this.initCamera();
@@ -82,6 +77,9 @@ export class Scene {
         // Start render loop
         this.pause(false);
         this.update();
+
+        // Auto-pauser
+        this.autoPauser.observe(this.sceneSettings.parent);
     }
 
     initRenderer() {
@@ -115,7 +113,9 @@ export class Scene {
     // Main loop
     update() {
         this.frameRequest = requestAnimationFrame(() => {
-            this.update();
+            if (!this.paused) {
+                this.update();
+            }
         });
 
         this.time.now = performance.now();
@@ -126,12 +126,16 @@ export class Scene {
         this.sceneObjects.forEach((object) => {
             object.properties.update(this.time, this.sceneResolution);
         });
+        // Scene logic
+        this.sceneUpdate();
 
         // Re-render scene
         this.renderer.render(this.scene, this.camera);
 
         this.time.then = performance.now();
     }
+
+    sceneUpdate() {}
 
     pause(state) {
         this.paused = state;
