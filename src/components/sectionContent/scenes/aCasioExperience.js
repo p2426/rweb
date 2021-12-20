@@ -91,7 +91,7 @@ export default function CasioExperience({type, title}) {
         }
     }
 
-    const startLoading = (e, quality) => {
+    const startLoading = (quality) => {
         if (isLoading.state) return;
 
         graphicQuality.current = quality;
@@ -103,8 +103,9 @@ export default function CasioExperience({type, title}) {
     }
 
     // Stepper being the angles and 'state' to put the scene in
-    const stepperClick = (pos) => {
-        console.log(pos);
+    const stepperClick = (pos, buttonSelectedCallback) => {
+        buttonSelectedCallback();
+        scene.current.setCameraAngleState(pos);
     }
 
     return (
@@ -129,9 +130,9 @@ const LoadingOverlay = ({ progress, click }) => {
         <div className='canvas-container canvas-container--loading'>
             <p>Load scene with graphic quality:</p>
             <div className='casio-settings'>
-                <button onClick={(e) => click(e, 'Low')}>Low</button>
-                <button onClick={(e) => click(e, 'Standard')}>Standard</button>
-                <button onClick={(e) => click(e, 'Ultra')}>Ultra</button>
+                <button onClick={() => click('Low')}>Low</button>
+                <button onClick={() => click('Standard')}>Standard</button>
+                <button onClick={() => click('Ultra')}>Ultra</button>
             </div>
             <div className='casio-loading-bar' style={{ width: (progress * 6) + 'px' }}></div>
         </div>
@@ -141,11 +142,28 @@ const LoadingOverlay = ({ progress, click }) => {
 const Stepper = ({ stepperCount, click }) => {
     const buttons = useRef([]);
     const buttonCount = new Array(stepperCount).fill(0);
+    let currentPos = 0;
+
+    useEffect(() => {
+        cycleStepper(currentPos);
+    }, []);
 
     const handleClick = (pos) => {
+        click(pos, () => setButtonSelected(pos));
+        currentPos = pos;
+        currentPos = currentPos === buttons.current.length - 1 ? 0 : pos + 1;
+    }
+
+    const cycleStepper = (pos) => {
+        handleClick(currentPos);
+        setTimeout(() => {
+            cycleStepper(currentPos);
+        }, 6000);
+    }
+
+    const setButtonSelected = (pos) => {
         buttons.current.forEach(button => button.classList.remove('selected'));
         buttons.current[pos].classList.add('selected');
-        click(pos);
     }
 
     return (

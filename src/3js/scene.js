@@ -208,6 +208,10 @@ export class Scene {
         this.controls.update();
     }
 
+    getCameraTarget() {
+        return this.controls.target;
+    }
+
     setCameraTarget(x, y, z) {
         this.controls.target = new THREE.Vector3(x, y, z);
         this.controls.update();
