@@ -11,12 +11,15 @@ export default function UpdateLoop({type, title}) {
 {`
 update() {
     this.frameRequest = requestAnimationFrame(() => {
-        this.update();
+        if (!this.paused) {
+            this.update();
+        }
     });
 
     this.time.now = performance.now();
     this.time.delta = this.time.now - this.time.then;
-    this.time.elapsed += this.time.delta / 1000;
+    this.time.deltaTime = this.time.delta / 1000;
+    this.time.elapsed += this.time.deltaTime;
 
     // Run object logic
     this.objects.forEach((object) => {

@@ -30,7 +30,7 @@ export default function WrappingThreeJS({type, title}) {
             colour: [128, 0, 32]
         });
         cube.setUpdate((time, res) => {
-            cube.addRotation(time.delta / 600, time.delta / 1000, 0);
+            cube.addRotation(time.deltaTime, time.deltaTime, 0);
         });
         scene.current.addObjectToScene(cube);
     }, [isReady]);
@@ -64,7 +64,7 @@ const cube = new Cube({
 });
 
 cube.setUpdate((time, res) => {
-    cube.addRotation(time.delta / 600, time.delta / 1000, 0);
+    cube.addRotation(time.deltaTime, time.deltaTime, 0);
 });
 
 scene.addObjectToScene(cube);
@@ -162,7 +162,7 @@ constructor(sceneSettings, cameraSettings) {
 const LoadingOverlay = ({ click }) => {
     return (
         <div onClick={click} className='canvas-container canvas-container--loading'>
-            <p>Click to start scene</p>
+            <p>Click to load scene</p>
         </div>
     );
 }

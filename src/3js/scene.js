@@ -44,6 +44,7 @@ export class Scene {
         now: 0,
         then: 0,
         delta: 0,
+        deltaTime: 0,
         elapsed: 0,
     }
     paused = false;
@@ -71,6 +72,7 @@ export class Scene {
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
         // Initialise
+        this.initScene();
         this.initRenderer();
         this.initCamera();
 
@@ -81,6 +83,9 @@ export class Scene {
         // Auto-pauser
         this.autoPauser.observe(this.sceneSettings.parent);
     }
+
+    // Used for extending classes to set values before update loop
+    initScene() {}
 
     initRenderer() {
         this.renderer.shadowMap.enabled = true;
@@ -120,7 +125,8 @@ export class Scene {
 
         this.time.now = performance.now();
         this.time.delta = this.time.now - this.time.then;
-        this.time.elapsed += this.time.delta / 1000;
+        this.time.deltaTime = this.time.delta / 1000;
+        this.time.elapsed += this.time.deltaTime;
 
         // Run object logic
         this.sceneObjects.forEach((object) => {
@@ -139,7 +145,13 @@ export class Scene {
 
     pause(state) {
         this.paused = state;
-        this.paused ? cancelAnimationFrame(this.frameRequest) : this.update();
+        if (this.paused) {
+            cancelAnimationFrame(this.frameRequest);
+        } else {
+            this.time.now = performance.now();
+            this.time.then = performance.now();
+            this.update();
+        }
     }
 
     resetSceneDimensions() {

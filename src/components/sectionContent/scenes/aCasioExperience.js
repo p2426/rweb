@@ -32,7 +32,9 @@ export default function CasioExperience({type, title}) {
             alpha: false
         }, {
             cameraPosition: [0, 0, 4],
-            enableZoom: true
+            enableZoom: false,
+            enableKeys: false,
+            leftMouse: null
         });
 
         // Watch
