@@ -32,6 +32,15 @@ code {
     background-color: rgb(221, 221, 211);
 }
 
+button {
+    cursor: pointer;
+    font-family: system-ui;
+    font-size: 1rem;
+    outline: none;
+    appearance: none;
+    border: 0;
+}
+
 .layout {
     display: flex;
 

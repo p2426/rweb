@@ -10,8 +10,8 @@ export default class CasioScene extends Scene {
     }
 
     initScene() {
-        this.cameraLerpPosition = [0, 0, 2.5];
-        this.cameraLerpSpeed = 5;
+        this.setCameraLerpPosition(0, 0, 2.5);
+        this.setCameraLerpSpeed(1);
     }
 
     sceneUpdate() {

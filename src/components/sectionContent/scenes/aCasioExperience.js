@@ -11,6 +11,7 @@ export default function CasioExperience({type, title}) {
     let scene = useRef();
     let graphicQuality = useRef('Ultra');
     const resourceCount = 5;
+    const stepperCount = 6;
 
     // Clean up scene on unmount
     useEffect(() => {
@@ -101,6 +102,11 @@ export default function CasioExperience({type, title}) {
         });
     }
 
+    // Stepper being the angles and 'state' to put the scene in
+    const stepperClick = (pos) => {
+        console.log(pos);
+    }
+
     return (
         <>
         <div className='header'>
@@ -112,6 +118,7 @@ export default function CasioExperience({type, title}) {
             <p><i><b>Currently working on</b></i></p>
             {isLoading.state && <div ref={sceneContainer} className={'canvas-container standard-margin-bottom' + (isReady ? '' : ' no-display')}></div>}
             {!isReady && <LoadingOverlay progress={isLoading.progress} click={startLoading}/>}
+            {isReady && <Stepper stepperCount={stepperCount} click={stepperClick}/>}
         </div>
         </>
     );
@@ -127,6 +134,25 @@ const LoadingOverlay = ({ progress, click }) => {
                 <button onClick={(e) => click(e, 'Ultra')}>Ultra</button>
             </div>
             <div className='casio-loading-bar' style={{ width: (progress * 6) + 'px' }}></div>
+        </div>
+    );
+}
+
+const Stepper = ({ stepperCount, click }) => {
+    const buttons = useRef([]);
+    const buttonCount = new Array(stepperCount).fill(0);
+
+    const handleClick = (pos) => {
+        buttons.current.forEach(button => button.classList.remove('selected'));
+        buttons.current[pos].classList.add('selected');
+        click(pos);
+    }
+
+    return (
+        <div className='casio-stepper'>
+            {buttonCount.map((b, index) => 
+                <button key={index} ref={el => buttons.current[index] = el} onClick={() => handleClick(index)}></button>
+            )}
         </div>
     );
 }
