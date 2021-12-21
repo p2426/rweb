@@ -87,6 +87,7 @@ button {
 }
 
 .canvas-container {
+    position: relative;
     height: 600px;
 
     &--loading {

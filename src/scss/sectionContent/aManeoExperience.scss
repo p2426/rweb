@@ -1,0 +1,157 @@
+.section .body {
+    .maneo {
+        &-loading-bar {
+            max-width: 600px;
+            height: 5px;
+            background-color: black;
+        }
+
+        &-settings {
+            display: flex;
+            margin-bottom: 1rem;
+
+            & button {
+                background-color: transparent;
+                padding: 2rem;
+                margin: 2rem;
+
+                &:hover {
+                    -webkit-text-stroke: 1px;
+                }
+            }
+        }
+
+        &-stepper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 25px;
+            width: 100%;
+
+            & button {
+                background-color: rgb(22, 22, 22);
+                height: 5px;
+                width: 30px;
+                margin: 0 .5rem;
+
+                &.selected {
+                    background-color: var(--scenes);
+                    box-shadow: 0px 0px 5px 1px var(--scenes);
+                }
+            }
+        }
+
+        &-ui {
+            & div {
+                position: absolute;
+                display: flex;
+
+                & span {
+                    max-width: 150px;
+                    opacity: 0;
+                    margin: -10px 0.5rem 0 0.5rem;
+                    color: var(--scenes);
+                    animation: ManeoInfoIn .5s linear 1.5s forwards;
+                }
+
+                & svg {
+                    stroke-dasharray: 145;
+                    stroke-dashoffset: 145;
+                    animation: ManeoLineIn 1s linear 1s forwards;
+                }
+            }
+
+            &-stage-one {
+                &--one {
+                    bottom: 18px;
+                    left: 723px;
+                }
+
+                &--two {
+                    text-align: end;
+                    top: 118px;
+                    left: 12px;
+
+                    & span {
+                        margin-top: 32px !important;
+                    }
+                }
+
+                &--three {
+                    text-align: end;
+                    top: 21px;
+                    left: 100px;
+
+                    & span {
+                        margin-top: 0 !important;
+                    }
+                }
+            }
+
+            &-stage-two {
+                &--one {
+                    top: 50%;
+                    right: 57px;
+                }
+            }
+
+            &-stage-three {
+                &--one {
+                    bottom: 92px;
+                    left: 723px;
+                }
+
+                &--two {
+                    text-align: end;
+                    top: 138px;
+                    left: 40px;
+
+                    & span {
+                        margin-top: 32px !important;
+                    }
+                }
+            }
+
+            &-stage-four {
+                &--one {
+                    text-align: end;
+                    top: 333px;
+                    right: 298px;
+                }
+
+                &--two {
+                    top: 93px;
+                    left: 332px;
+
+                    & span {
+                        margin-top: 60px !important;
+                    }
+                }
+            }
+
+            &-stage-five {
+                &--one {
+                    top: 315px;
+                    left: 625px;
+                }
+            }
+        }
+    }
+}
+
+@keyframes ManeoLineIn {
+    0% { stroke-dashoffset: 145; opacity: 1; }
+    50%, 79% { stroke-dashoffset: 0; opacity: 1; }
+    80% { stroke-dashoffset: 0; opacity: 0; }
+    85% { stroke-dashoffset: 0; opacity: 1; }
+    95% { stroke-dashoffset: 0; opacity: 0; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes ManeoInfoIn {
+    0%, 49% { opacity: 1; }
+    50% { opacity: 0; }
+    60% { opacity: 1; }
+    90% { opacity: 0; }
+    100% { opacity: 1; }
+}

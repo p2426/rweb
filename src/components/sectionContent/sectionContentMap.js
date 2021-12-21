@@ -19,8 +19,8 @@ export const sectionContentMap = {
         filename: 'orphanedElements',
     }],
     scenes: [{
-        props: { type: 'scenes', title: 'a casio experience' },
-        filename: 'aCasioExperience',
+        props: { type: 'scenes', title: 'a manéo experience' },
+        filename: 'aManeoExperience',
     }],
     games: [{
         props: { type: 'games', title: 'start: wrapping three.js' },

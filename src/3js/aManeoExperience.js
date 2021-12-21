@@ -1,7 +1,7 @@
 import { Scene } from "./scene";
 import MathFunctions from '../global/mathfunctions';
 
-export default class CasioScene extends Scene {
+export default class ManeoScene extends Scene {
     cameraLerpPosition;
     cameraLerpPositionSpeed;
     cameraLerpTarget;
