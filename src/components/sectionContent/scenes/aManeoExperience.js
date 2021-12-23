@@ -121,7 +121,6 @@ export default function ManeoExperience({type, title}) {
         </div>
         <div className='body'>
             <p>It's the early 90s - just before the Japanese economic bubble collapse, and Manéo are promoting their new wrist watch with advanced features, longer battery life, and a metallic wrist strap. The future is now.</p>
-            <p><i><b>Currently working on</b></i></p>
             {isLoading.state && <div ref={sceneContainer} className={'canvas-container standard-margin-bottom' + (isReady ? '' : ' no-display')}>
                 <div className='maneo-ui'>
                     {stepperPos === 1 && <InfoStageOne_One/>}
