@@ -13,7 +13,6 @@
             & button {
                 background-color: transparent;
                 padding: 2rem;
-                margin: 2rem;
 
                 &:hover {
                     -webkit-text-stroke: 1px;
@@ -33,6 +32,8 @@
                 height: 5px;
                 width: 30px;
                 margin: 0 .5rem;
+                cursor: default;
+                pointer-events: none;
 
                 &.selected {
                     background-color: var(--scenes);

@@ -10,6 +10,7 @@ export default function ManeoExperience({type, title}) {
     const sceneContainer = useRef();
     let scene = useRef();
     let graphicQuality = useRef('Ultra');
+    let cameraType = useRef('Auto-play');
     const resourceCount = 5;
     const stepperCount = 6;
     const [stepperPos, setStepperPos] = useState(null);
@@ -25,7 +26,8 @@ export default function ManeoExperience({type, title}) {
         if (!isLoading.state && isLoading.progress === 0 || isLoading.progress > 0) return;
 
         // Scene
-        scene.current = new ManeoScene({
+        scene.current = new ManeoScene(cameraType.current === 'Auto-play',
+        {
             parent: sceneContainer.current,
             width: sceneContainer.current.parentElement.clientWidth,
             height: 600,
@@ -34,9 +36,9 @@ export default function ManeoExperience({type, title}) {
             alpha: false
         }, {
             cameraPosition: [0, 0, 4],
-            enableZoom: false,
+            enableZoom: cameraType.current === 'Auto-play' ? false : true,
             enableKeys: false,
-            leftMouse: null
+            leftMouse: cameraType.current === 'Auto-play' ? null : THREE.MOUSE.ROTATE
         });
 
         // Watch
@@ -92,10 +94,11 @@ export default function ManeoExperience({type, title}) {
         }
     }
 
-    const startLoading = (quality) => {
+    const startLoading = (quality, cameraTypes) => {
         if (isLoading.state) return;
 
         graphicQuality.current = quality;
+        cameraType.current = cameraTypes;
 
         setIsLoading({
             state: true,
@@ -133,20 +136,35 @@ export default function ManeoExperience({type, title}) {
                 </div>
             </div>}
             {!isReady && <LoadingOverlay progress={isLoading.progress} click={startLoading}/>}
-            {isReady && <Stepper stepperCount={stepperCount} click={stepperClick}/>}
+            {(isReady && cameraType.current === 'Auto-play') && <Stepper stepperCount={stepperCount} click={stepperClick}/>}
         </div>
         </>
     );
 }
 
 const LoadingOverlay = ({ progress, click }) => {
+    const [quality, setQuality] = useState('Ultra');
+    const [cameraType, setCameraType] = useState('Auto-play');
+
     return (
         <div className='canvas-container canvas-container--loading'>
-            <p>Load scene with graphic quality:</p>
+            <p>Settings:</p>
             <div className='maneo-settings'>
-                <button onClick={() => click('Low')}>Low</button>
-                <button onClick={() => click('Standard')}>Standard</button>
-                <button onClick={() => click('Ultra')}>Ultra</button>
+                <input type="radio" name="setting1" value="Low" onChange={() => setQuality('Low')}/>
+                <label htmlFor="setting1">Low</label>
+                <input type="radio" name="setting1" value="Standard" onChange={() => setQuality('Standard')}/>
+                <label htmlFor="setting1">Standard</label>
+                <input type="radio" name="setting1" value="Ultra" onChange={() => setQuality('Ultra')} defaultChecked={true}/>
+                <label htmlFor="setting1">Ultra</label>
+            </div>
+            <div className='maneo-settings'>
+                <input type="radio" name="setting2" value="Standard" onChange={() => setCameraType('Free-roam')}/>
+                <label htmlFor="setting2">Free-roam</label>
+                <input type="radio" name="setting2" value="Ultra" onChange={() => setCameraType('Auto-play')} defaultChecked={true}/>
+                <label htmlFor="setting2">Auto-play</label>
+            </div>
+            <div className='maneo-settings'>
+                <button onClick={() => click(quality, cameraType)}>Click to load scene</button>
             </div>
             <div className='maneo-loading-bar' style={{ width: (progress * 6) + 'px' }}></div>
         </div>

@@ -6,9 +6,11 @@ export default class ManeoScene extends Scene {
     cameraLerpPositionSpeed;
     cameraLerpTarget;
     cameraLerpTargetSpeed;
+    cameraLerp = true;
 
-    constructor(...args) {
+    constructor(cameraLerp, ...args) {
         super(...args);
+        this.cameraLerp = cameraLerp;
     }
 
     initScene() {
@@ -19,12 +21,14 @@ export default class ManeoScene extends Scene {
     }
 
     sceneUpdate() {
-        this.setCameraPosition(MathFunctions.lerp(this.getCameraPosition().x, this.cameraLerpPosition[0], this.time.deltaTime * this.cameraLerpPositionSpeed),
-                               MathFunctions.lerp(this.getCameraPosition().y, this.cameraLerpPosition[1], this.time.deltaTime * this.cameraLerpPositionSpeed),
-                               MathFunctions.lerp(this.getCameraPosition().z, this.cameraLerpPosition[2], this.time.deltaTime * this.cameraLerpPositionSpeed));
-        this.setCameraTarget(MathFunctions.lerp(this.getCameraTarget().x, this.cameraLerpTarget[0], this.time.deltaTime * this.cameraLerpTargetSpeed),
-                             MathFunctions.lerp(this.getCameraTarget().y, this.cameraLerpTarget[1], this.time.deltaTime * this.cameraLerpTargetSpeed),
-                             MathFunctions.lerp(this.getCameraTarget().z, this.cameraLerpTarget[2], this.time.deltaTime * this.cameraLerpTargetSpeed));
+        if (this.cameraLerp) {
+            this.setCameraPosition(MathFunctions.lerp(this.getCameraPosition().x, this.cameraLerpPosition[0], this.time.deltaTime * this.cameraLerpPositionSpeed),
+            MathFunctions.lerp(this.getCameraPosition().y, this.cameraLerpPosition[1], this.time.deltaTime * this.cameraLerpPositionSpeed),
+            MathFunctions.lerp(this.getCameraPosition().z, this.cameraLerpPosition[2], this.time.deltaTime * this.cameraLerpPositionSpeed));
+            this.setCameraTarget(MathFunctions.lerp(this.getCameraTarget().x, this.cameraLerpTarget[0], this.time.deltaTime * this.cameraLerpTargetSpeed),
+            MathFunctions.lerp(this.getCameraTarget().y, this.cameraLerpTarget[1], this.time.deltaTime * this.cameraLerpTargetSpeed),
+            MathFunctions.lerp(this.getCameraTarget().z, this.cameraLerpTarget[2], this.time.deltaTime * this.cameraLerpTargetSpeed));
+        }
     }
 
     setCameraLerpPosition(x, y, z) {
