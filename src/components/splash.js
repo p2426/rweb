@@ -87,7 +87,7 @@ export default function Splash({subjects}) {
     }
 
     return (
-        <div ref={splash} className='splash'>
+        <div ref={splash} className={'splash' + (currentPath === 'about' ? ' no-display' : '')}>
             <div ref={subjectSelectionContainer} className='selections'>
                 {subjects.map((subject, index) => {
                     return <SubjectExtension key={index}
