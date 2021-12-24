@@ -4,15 +4,6 @@ import translateWithMouse from '../global/translateWithMouse';
 import useOnScreen from '../hooks/useOnScreen';
 import '../scss/splash.scss';
 
-const colourMap = {
-    'default': 'black',
-    'web': 'red',
-    'games': 'orange',
-    'shaders': 'blue',
-    'scenes': 'green',
-    'about': 'purple',
-};
-
 export default function Splash({subjects}) {
     const history = useHistory();
     const location = useLocation();
@@ -142,7 +133,7 @@ export const SubjectExtension = ({index, subject, currentSubject, whenMouseOver,
     return (
         <svg ref={element} className='selection selection--draw' onClick={(e) => whenClicked(e, subject)} xmlns="http://www.w3.org/2000/svg" width="94" height="30" viewBox="0 0 94 30" fill="none">
             <line x1="17" y1="15" x2="77" y2="15" stroke="black" strokeWidth="4"/>
-            <line className={currentSubject === subject ? `selection--highlight selection--highlight-${colourMap[subject]}` : ''} x1="17" y1="15" x2="77" y2="15" stroke="black" strokeWidth="4"/>
+            <line className={currentSubject === subject ? `selection--highlight selection--highlight-${subject}` : ''} x1="17" y1="15" x2="77" y2="15" stroke="black" strokeWidth="4"/>
         </svg>
     );
 }
@@ -176,7 +167,7 @@ export const Pentagons = ({subjects, currentSubject, isOnScreen}) => {
         switch(e.animationName) {
             case 'PentDraw':
                 e.target.classList.remove('pentagon--draw');
-                e.target.classList.add(`pentagon--highlight-pulse-${colourMap[currentSubject]}`);
+                e.target.classList.add(`pentagon--highlight-pulse-${currentSubject}`);
                 break;
             default:
                 break;
@@ -184,17 +175,31 @@ export const Pentagons = ({subjects, currentSubject, isOnScreen}) => {
     };
 
     return (
-        <svg className='pentagons pentagons--draw' xmlns="http://www.w3.org/2000/svg" width="628" height="216" viewBox="0 0 628 216" fill="none">
+        // <svg className='pentagons pentagons--draw' xmlns="http://www.w3.org/2000/svg" width="628" height="216" viewBox="0 0 628 216" fill="none">
+        //     <path d="M455.246 69.9769L514 25.2567L572.754 69.9769L550.294 142.395H477.706L455.246 69.9769Z" stroke="black" strokeWidth="2"/>
+        //     <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[4] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M455.246 69.9769L514 25.2567L572.754 69.9769L550.294 142.395H477.706L455.246 69.9769Z" stroke="black" strokeWidth="2"/>
+        //     <path d="M472.86 146.124L414.106 190.844L355.352 146.124L377.812 73.7059H450.4L472.86 146.124Z" stroke="black" strokeWidth="2"/>
+        //     <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[3] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M472.86 146.124L414.106 190.844L355.352 146.124L377.812 73.7059H450.4L472.86 146.124Z" stroke="black" strokeWidth="2"/>
+        //     <path d="M255.246 69.9769L314 25.2567L372.754 69.9769L350.294 142.395H277.706L255.246 69.9769Z" stroke="black" strokeWidth="2"/>
+        //     <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[2] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M255.246 69.9769L314 25.2567L372.754 69.9769L350.294 142.395H277.706L255.246 69.9769Z" stroke="black" strokeWidth="2"/>
+        //     <path d="M272.86 146.124L214.106 190.844L155.352 146.124L177.812 73.7059H250.4L272.86 146.124Z" stroke="black" strokeWidth="2"/>
+        //     <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[1] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M272.86 146.124L214.106 190.844L155.352 146.124L177.812 73.7059H250.4L272.86 146.124Z" stroke="black" strokeWidth="2"/>
+        //     <path d="M55.2458 69.9769L114 25.2567L172.754 69.9769L150.294 142.395H77.7064L55.2458 69.9769Z" stroke="black" strokeWidth="2"/>
+        //     <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[0] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M55.2458 69.9769L114 25.2567L172.754 69.9769L150.294 142.395H77.7064L55.2458 69.9769Z" stroke="black" strokeWidth="2"/>
+        // </svg>
+        <svg className='pentagons pentagons--draw' xmlns="http://www.w3.org/2000/svg" width="734" height="216" viewBox="0 0 734 216" fill="none">
+            <path d="M672.86 146.124L614.106 190.844L555.352 146.124L577.812 73.7059H650.4L672.86 146.124Z" stroke="black" strokeWidth="2"/>
+            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[5] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M672.86 146.124L614.106 190.844L555.352 146.124L577.812 73.7059H650.4L672.86 146.124Z" stroke="black" strokeWidth="2"/>
             <path d="M455.246 69.9769L514 25.2567L572.754 69.9769L550.294 142.395H477.706L455.246 69.9769Z" stroke="black" strokeWidth="2"/>
-            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[4] && isOnScreen ? `pentagon--draw pentagon--highlight-${colourMap[currentSubject]}` : ''} d="M455.246 69.9769L514 25.2567L572.754 69.9769L550.294 142.395H477.706L455.246 69.9769Z" stroke="black" strokeWidth="2"/>
+            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[4] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M455.246 69.9769L514 25.2567L572.754 69.9769L550.294 142.395H477.706L455.246 69.9769Z" stroke="black" strokeWidth="2"/>
             <path d="M472.86 146.124L414.106 190.844L355.352 146.124L377.812 73.7059H450.4L472.86 146.124Z" stroke="black" strokeWidth="2"/>
-            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[3] && isOnScreen ? `pentagon--draw pentagon--highlight-${colourMap[currentSubject]}` : ''} d="M472.86 146.124L414.106 190.844L355.352 146.124L377.812 73.7059H450.4L472.86 146.124Z" stroke="black" strokeWidth="2"/>
+            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[3] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M472.86 146.124L414.106 190.844L355.352 146.124L377.812 73.7059H450.4L472.86 146.124Z" stroke="black" strokeWidth="2"/>
             <path d="M255.246 69.9769L314 25.2567L372.754 69.9769L350.294 142.395H277.706L255.246 69.9769Z" stroke="black" strokeWidth="2"/>
-            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[2] && isOnScreen ? `pentagon--draw pentagon--highlight-${colourMap[currentSubject]}` : ''} d="M255.246 69.9769L314 25.2567L372.754 69.9769L350.294 142.395H277.706L255.246 69.9769Z" stroke="black" strokeWidth="2"/>
+            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[2] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M255.246 69.9769L314 25.2567L372.754 69.9769L350.294 142.395H277.706L255.246 69.9769Z" stroke="black" strokeWidth="2"/>
             <path d="M272.86 146.124L214.106 190.844L155.352 146.124L177.812 73.7059H250.4L272.86 146.124Z" stroke="black" strokeWidth="2"/>
-            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[1] && isOnScreen ? `pentagon--draw pentagon--highlight-${colourMap[currentSubject]}` : ''} d="M272.86 146.124L214.106 190.844L155.352 146.124L177.812 73.7059H250.4L272.86 146.124Z" stroke="black" strokeWidth="2"/>
+            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[1] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M272.86 146.124L214.106 190.844L155.352 146.124L177.812 73.7059H250.4L272.86 146.124Z" stroke="black" strokeWidth="2"/>
             <path d="M55.2458 69.9769L114 25.2567L172.754 69.9769L150.294 142.395H77.7064L55.2458 69.9769Z" stroke="black" strokeWidth="2"/>
-            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[0] && isOnScreen ? `pentagon--draw pentagon--highlight-${colourMap[currentSubject]}` : ''} d="M55.2458 69.9769L114 25.2567L172.754 69.9769L150.294 142.395H77.7064L55.2458 69.9769Z" stroke="black" strokeWidth="2"/>
+            <path data='highlight' onAnimationEnd={animationEnd} className={currentSubject === subjects[0] && isOnScreen ? `pentagon--draw pentagon--highlight-${currentSubject}` : ''} d="M55.2458 69.9769L114 25.2567L172.754 69.9769L150.294 142.395H77.7064L55.2458 69.9769Z" stroke="black" strokeWidth="2"/>
         </svg>
     );
 }

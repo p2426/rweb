@@ -18,23 +18,24 @@ export const sectionContentMap = {
         props: { type: 'web', title: 'orphaned elements' },
         filename: 'orphanedElements',
     }],
+    threejs: [{
+        props: { type: 'threejs', title: 'wrapping three.js' },
+        filename: 'wrappingThreeJS',
+    }, {
+        props: { type: 'threejs', title: 'init functions' },
+        filename: 'initFunctions',
+    }, {
+        props: { type: 'threejs', title: 'update loop' },
+        filename: 'updateLoop',
+    }, {
+        props: { type: 'threejs', title: 'the cube' },
+        filename: 'theCube',
+    }],
     scenes: [{
         props: { type: 'scenes', title: 'a manéo experience' },
         filename: 'aManeoExperience',
     }],
     games: [{
-        props: { type: 'games', title: 'start: wrapping three.js' },
-        filename: 'wrappingThreeJS',
-    }, {
-        props: { type: 'games', title: 'init functions' },
-        filename: 'initFunctions',
-    }, {
-        props: { type: 'games', title: 'update loop' },
-        filename: 'updateLoop',
-    }, {
-        props: { type: 'games', title: 'end: the cube' },
-        filename: 'theCube',
-    }, {
         props: { type: 'games', title: 'the royal game of ur' },
         filename: 'theRoyalGameOfUr',
     }],

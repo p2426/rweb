@@ -20,6 +20,7 @@
             animation: IndicatorDropIn .5s ease-out forwards;
 
             &--web { background-color: var(--web); }
+            &--threejs { background-color: var(--threejs); }
             &--games { background-color: var(--games); }
             &--shaders { background-color: var(--shaders); }
             &--scenes { background-color: var(--scenes); }

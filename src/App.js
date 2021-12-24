@@ -22,6 +22,10 @@ export default function App() {
                         <Main sections={sectionContentMap.web}/>
                         <RightNavigation sections={sectionContentMap.web}/>
                     </Route>
+                    <Route exact path="/threejs">
+                        <Main sections={sectionContentMap.threejs}/>
+                        <RightNavigation sections={sectionContentMap.threejs}/>
+                    </Route>
                     <Route exact path="/scenes">
                         <Main sections={sectionContentMap.scenes}/>
                         <RightNavigation sections={sectionContentMap.scenes}/>

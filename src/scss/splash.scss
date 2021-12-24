@@ -26,11 +26,12 @@
                 animation: SelectionDraw .25s linear forwards;
             }
 
-            &--highlight-red    { stroke: var(--web); filter: drop-shadow(0 0 2px var(--web)); }
-            &--highlight-orange { stroke: var(--games); filter: drop-shadow(0 0 2px var(--games)); }
-            &--highlight-blue   { stroke: var(--shaders); filter: drop-shadow(0 0 2px var(--shaders)); }
-            &--highlight-green  { stroke: var(--scenes); filter: drop-shadow(0 0 2px var(--scenes)); }
-            &--highlight-purple { stroke: var(--about); filter: drop-shadow(0 0 2px var(--about)); }
+            &--highlight-web    { stroke: var(--web); filter: drop-shadow(0 0 2px var(--web)); }
+            &--highlight-threejs    { stroke: var(--threejs); filter: drop-shadow(0 0 2px var(--threejs)); }
+            &--highlight-games { stroke: var(--games); filter: drop-shadow(0 0 2px var(--games)); }
+            &--highlight-shaders   { stroke: var(--shaders); filter: drop-shadow(0 0 2px var(--shaders)); }
+            &--highlight-scenes  { stroke: var(--scenes); filter: drop-shadow(0 0 2px var(--scenes)); }
+            &--highlight-about { stroke: var(--about); filter: drop-shadow(0 0 2px var(--about)); }
         }
     }
 
@@ -85,18 +86,20 @@
             }
 
             &--highlight {
-                &-red    { stroke: var(--web); filter: drop-shadow(0 0 2px var(--web)); }
-                &-orange { stroke: var(--games); filter: drop-shadow(0 0 2px var(--games)); }
-                &-blue   { stroke: var(--shaders); filter: drop-shadow(0 0 2px var(--shaders)); }
-                &-green  { stroke: var(--scenes); filter: drop-shadow(0 0 2px var(--scenes)); }
-                &-purple { stroke: var(--about); filter: drop-shadow(0 0 2px var(--about)); }
+                &-web    { stroke: var(--web); filter: drop-shadow(0 0 2px var(--web)); }
+                &-threejs { stroke: var(--threejs); filter: drop-shadow(0 0 2px var(--threejs)); }
+                &-games { stroke: var(--games); filter: drop-shadow(0 0 2px var(--games)); }
+                &-shaders   { stroke: var(--shaders); filter: drop-shadow(0 0 2px var(--shaders)); }
+                &-scenes  { stroke: var(--scenes); filter: drop-shadow(0 0 2px var(--scenes)); }
+                &-about { stroke: var(--about); filter: drop-shadow(0 0 2px var(--about)); }
 
                 &-pulse {
-                    &-red    { stroke-dashoffset: 0; animation: PentPulseRed 2s linear 1s infinite; }
-                    &-orange { stroke-dashoffset: 0; animation: PentPulseOrange 2s linear 1s infinite; }
-                    &-blue   { stroke-dashoffset: 0; animation: PentPulseBlue 2s linear 1s infinite; }
-                    &-green  { stroke-dashoffset: 0; animation: PentPulseGreen 2s linear 1s infinite; }
-                    &-purple { stroke-dashoffset: 0; animation: PentPulsePurple 2s linear 1s infinite; }
+                    &-web    { stroke-dashoffset: 0; animation: PentPulseWeb 2s linear 1s infinite; }
+                    &-threejs    { stroke-dashoffset: 0; animation: PentPulseThreejs 2s linear 1s infinite; }
+                    &-games { stroke-dashoffset: 0; animation: PentPulseGames 2s linear 1s infinite; }
+                    &-shaders   { stroke-dashoffset: 0; animation: PentPulseShaders 2s linear 1s infinite; }
+                    &-scenes  { stroke-dashoffset: 0; animation: PentPulseScenes 2s linear 1s infinite; }
+                    &-about { stroke-dashoffset: 0; animation: PentPulseAbout 2s linear 1s infinite; }
                 }
             }
         }
@@ -130,27 +133,32 @@
     0% { stroke-dashoffset: 400; }
     100% { stroke-dashoffset: 0; }
 }
-@keyframes PentPulseRed {
+@keyframes PentPulseWeb {
     0% { filter: drop-shadow(0 0 3px var(--web)); stroke: var(--web); }
     75% { filter: drop-shadow(0 0 3px var(--web)); stroke: var(--web); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
-@keyframes PentPulseOrange {
+@keyframes PentPulseThreejs {
+    0% { filter: drop-shadow(0 0 3px var(--threejs)); stroke: var(--threejs); }
+    75% { filter: drop-shadow(0 0 3px var(--threejs)); stroke: var(--threejs); }
+    100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
+}
+@keyframes PentPulseGames {
     0% { filter: drop-shadow(0 0 3px var(--games)); stroke: var(--games); }
     75% { filter: drop-shadow(0 0 3px var(--games)); stroke: var(--games); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
-@keyframes PentPulseBlue {
+@keyframes PentPulseShaders {
     0% { filter: drop-shadow(0 0 3px var(--shaders)); stroke: var(--shaders); }
     75% { filter: drop-shadow(0 0 3px var(--shaders)); stroke: var(--shaders); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
-@keyframes PentPulseGreen {
+@keyframes PentPulseScenes {
     0% { filter: drop-shadow(0 0 3px var(--scenes)); stroke: var(--scenes); }
     75% { filter: drop-shadow(0 0 3px var(--scenes)); stroke: var(--scenes); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
-@keyframes PentPulsePurple {
+@keyframes PentPulseAbout {
     0% { filter: drop-shadow(0 0 3px var(--about)); stroke: var(--about); }
     75% { filter: drop-shadow(0 0 3px var(--about)); stroke: var(--about); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
