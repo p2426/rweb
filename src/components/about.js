@@ -4,12 +4,11 @@ import '../scss/about.scss';
 export default function About() {
     const image = useRef();
     const container = useRef();
-    const imageCount = 23;
     // Allow for a random image on creation
     const imageMap = ['IMG_3040', 'IMG_3063', 'IMG_3088', 'IMG_3091', 'IMG_3434', 'IMG_3449', 'IMG_3571', 'IMG_3885', 'IMG_3977', 'IMG_3984', 'IMG_4047',
                       'IMG_4075', 'IMG_4078', 'IMG_4117', 'IMG_4124', 'IMG_4127', 'IMG_4294', 'IMG_4304', 'IMG_6445', 'IMG_6450', 'IMG_6474', 'IMG_6531',
                       'P7120040', 'P7210003'];
-    const rand = Math.round(Math.random() * (imageMap.length - 1));
+    let currentImageIndex = Math.round(Math.random() * (imageMap.length - 1));
 
     const handleMouseOver = (e) => {
         if (!image.current) return;
@@ -40,45 +39,26 @@ export default function About() {
         // that store images as styles directly on the element and not in a class stops this from re-requesting constantly
         // (╯°□°）╯︵ ┻━┻
         image.current.style.webkitMaskImage = 'url(https://phoenixmee.com/images/watercolour-mask.png)';
-        image.current.style.backgroundImage = `url(https://phoenixmee.com/images/${imageMap[rand]}.jpg)`;
+        image.current.style.backgroundImage = `url(https://phoenixmee.com/images/${imageMap[currentImageIndex]}.jpg)`;
         document.body.addEventListener('mousemove', handleMouseOver);
         return () => document.body.removeEventListener('mousemove', handleMouseOver);
     }, []);
 
-    const buttonSelectorClick = (index) => {
-        image.current.style.backgroundImage = `url(https://phoenixmee.com/images/${imageMap[index]}.jpg)`;
+    const imageSelectorClick = (index) => {
+        currentImageIndex = index;
+        if (currentImageIndex > imageMap.length - 1) {
+            currentImageIndex = 0;
+        } else if (currentImageIndex < 0) {
+            currentImageIndex = imageMap.length - 1;
+        }
+        image.current.style.backgroundImage = `url(https://phoenixmee.com/images/${imageMap[currentImageIndex]}.jpg)`;
     }
 
     return (
         <div ref={container} className='about__container'>
-            <ImageSelector click={buttonSelectorClick} imageCount={imageCount} selectedIndex={rand}/>
+            <button className='about__image-selector about__image-selector--previous' onClick={() => imageSelectorClick(currentImageIndex - 1)}></button>
             <div ref={image} className='about__image'></div>
-        </div>
-    );
-}
-
-const ImageSelector = ({ click, imageCount, selectedIndex }) => {
-    const buttons = useRef([]);
-
-    useEffect(() => {
-        setButtonSelected(selectedIndex);
-    }, []);
-
-    const handleClick = (index) => {
-        setButtonSelected(index);
-        click(index);
-    }
-
-    const setButtonSelected = (index) => {
-        buttons.current.forEach(button => button.classList.remove('selected'));
-        buttons.current[index].classList.add('selected');
-    }
-
-    return (
-        <div className='about__image-selector'>
-            {new Array(imageCount).fill(0).map((iter, index) => {
-                return <button key={index} ref={el => buttons.current[index] = el} onClick={() => handleClick(index)}></button>
-            })}
+            <button className='about__image-selector about__image-selector--next' onClick={() => imageSelectorClick(currentImageIndex + 1)}></button>
         </div>
     );
 }

@@ -14,6 +14,7 @@ export default function Splash({subjects}) {
     const [currentSubject, setCurrentSubject] = useState(history.location.pathname.slice(1));
     const currentPath = history.location.pathname.slice(1);
     const isOnScreen = useOnScreen(splash);
+    const isPathAbout = currentPath === 'about';
 
     // Bind translations of various elements to document body on mousemove, and listen for any Subject content loading
     useEffect(() => {
@@ -87,8 +88,8 @@ export default function Splash({subjects}) {
     }
 
     return (
-        <div ref={splash} className={'splash' + (currentPath === 'about' ? ' no-display' : '')}>
-            <div ref={subjectSelectionContainer} className='selections'>
+        <div ref={splash} className={'splash' + (isPathAbout ? ' no-visibility' : '')}>
+            <div ref={subjectSelectionContainer} className={'selections' + (isPathAbout ? ' selections--about' : '')}>
                 {subjects.map((subject, index) => {
                     return <SubjectExtension key={index}
                                              index={index}

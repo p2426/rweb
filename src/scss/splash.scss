@@ -9,6 +9,16 @@
         left: calc(50% - 500px);
         transform: translate(0, -50%);
 
+        &--about {
+            visibility: visible !important;
+            transform: none !important;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            top: 15%;
+            left: 5%;
+        }
+
         & .selection {
             cursor: pointer;
 
