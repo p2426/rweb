@@ -30,9 +30,9 @@ constructor(settings) {
     if (this.properties.shader) {
         this.properties.material = new THREE.ShaderMaterial({
             side: THREE.DoubleSide,
-            uniforms: this.properties.shader.getUniforms(),
-            vertexShader: this.properties.shader.vertexShader.getContent(),
-            fragmentShader: this.properties.shader.fragmentShader.getContent()
+            uniforms: this.properties.shader.uniforms,
+            vertexShader: this.properties.shader.vertexShader.vertexContent,
+            fragmentShader: this.properties.shader.fragmentShader.fragmentContent
         });
         this.properties.shader.init(this.geometry);
     } else {

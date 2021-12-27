@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 
 export class CustomShader {
-    // Uniforms
+    geometry;
+    vertexPositions;
+
     uniforms = {
         u_time: {
             value: 0.0
@@ -11,15 +13,8 @@ export class CustomShader {
         }
     };
 
-    // Vertex Shader
     vertexContent = ``;
-
-    // Fragment Shader
     fragmentContent = ``;
-
-    // Object
-    geometry;
-    vertexPositions;
 
     constructor(geometry) {
         this.geometry = geometry;
@@ -31,17 +26,5 @@ export class CustomShader {
         this.uniforms.u_time.value = time.elapsed;
         this.uniforms.u_resolution.value.x = resolution.x + 0.001;
         this.uniforms.u_resolution.value.y = resolution.y + 0.001;
-    }
-
-    getVertexContent() {
-        return this.vertexContent;
-    }
-
-    getFragmentContent() {
-        return this.fragmentContent;
-    }
-
-    getUniforms() {
-        return this.uniforms;
     }
 }

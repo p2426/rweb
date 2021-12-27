@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { SceneObject } from './sceneobject';
-import { CustomShader } from '../shaders/customshader';
 import { SinShader } from '../shaders/sinShader';
 
 export class ShaderObject extends SceneObject {
@@ -28,9 +27,9 @@ export class ShaderObject extends SceneObject {
 
         this.properties.material = new THREE.ShaderMaterial({
             side: THREE.FrontSide,
-            uniforms: this.properties.shader.getUniforms(),
-            vertexShader: this.properties.shader.getVertexContent(),
-            fragmentShader: this.properties.shader.getFragmentContent()
+            uniforms: this.properties.shader.uniforms,
+            vertexShader: this.properties.shader.vertexContent,
+            fragmentShader: this.properties.shader.fragmentContent
         });
         this.properties.material.transparent = true;
 

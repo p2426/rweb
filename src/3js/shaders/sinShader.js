@@ -17,7 +17,6 @@ export class SinShader extends CustomShader {
         #define PI 3.14159265359
 
         uniform vec2 u_resolution;  // Canvas size in pixels
-        uniform vec2 u_cursor;      // Cursor position
         uniform float u_time;       // Elapsed time since instantiated
 
         float makeLine(float x, float y) {
