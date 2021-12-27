@@ -14,6 +14,7 @@ export default class ManeoScene extends Scene {
     }
 
     initScene() {
+        super.initScene();
         this.setCameraLerpPosition(0, 0, 2.5);
         this.setCameraLerpPositionSpeed(1);
         this.setCameraLerpTarget(0, 0, 0);

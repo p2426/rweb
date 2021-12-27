@@ -48,7 +48,11 @@ export class Scene {
         elapsed: 0,
     }
     paused = false;
-    autoPauser = new IntersectionObserver(([entry]) => this.pause(!entry.isIntersecting));
+    inView;
+    autoPauser = new IntersectionObserver(([entry]) => {
+        this.pause(!entry.isIntersecting);
+        this.inView = entry.isIntersecting;
+    });
 
     get sceneResolution() {
         return {
@@ -84,8 +88,13 @@ export class Scene {
         this.autoPauser.observe(this.sceneSettings.parent);
     }
 
-    // Used for extending classes to set values before update loop
-    initScene() {}
+    initScene() {
+        document.addEventListener('visibilitychange', () => {
+            if (!this.inView) return;
+
+            this.pause(document.visibilityState === 'hidden');
+        }, false);
+    }
 
     initRenderer() {
         this.renderer.shadowMap.enabled = true;
@@ -143,6 +152,7 @@ export class Scene {
     sceneUpdate() {}
 
     pause(state) {
+        console.log('paused:', state);
         this.paused = state;
         if (this.paused) {
             cancelAnimationFrame(this.frameRequest);
