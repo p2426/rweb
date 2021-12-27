@@ -64,7 +64,7 @@ export default function About() {
             <button className='about__image-selector about__image-selector--previous' onClick={() => imageSelectorClick(currentImageIndex - 1)}></button>
             <div ref={image} className='about__image'></div>
             <button className='about__image-selector about__image-selector--next' onClick={() => imageSelectorClick(currentImageIndex + 1)}></button>
-            <p ref={info} className='about__info'>My name is Phoenix. I am a game and web developer living in London. Feel free to <a href={'//www.linkedin.com/in/phoenixmee/'} target='_blank' rel='noopener noreferrer'>get in touch</a>. Here is the <a href={'//github.com/p2426/rweb'} target='_blank' rel='noopener noreferrer'>source code</a>. In the meantime, enjoy some photos of my time in Japan.</p>
+            <p ref={info} className='about__info'>My name is Phoenix. I am a game and web developer living in London. Feel free to <a href={'//www.linkedin.com/in/phoenixmee/'} target='_blank' rel='noopener noreferrer'>get in touch</a>. In the meantime, enjoy some photos of my time in Japan.</p>
         </div>
     );
 }
