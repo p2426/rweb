@@ -28,6 +28,9 @@ export const sectionContentMap = {
         props: { type: 'threejs', title: 'update loop' },
         filename: 'updateLoop',
     }, {
+        props: { type: 'threejs', title: 'stopping time' },
+        filename: 'stoppingTime',
+    }, {
         props: { type: 'threejs', title: 'the cube' },
         filename: 'theCube',
     }],
