@@ -6,7 +6,7 @@ export default function StoppingTime({type, title}) {
             <h1 className='title'>{title}</h1>
         </div>
         <div className='body'>
-            <p>There will be times you want to stop or pause the loop - maybe a pause menu in a game, or just to not have too many scenes on a page taking up a plethora of resources. Ultimately, we need a condition continuously running in the loop to detect when to stop requesting new frames and break the update loop.</p>
+            <p>There will be times you want to stop or pause the loop - maybe a pause menu in a game, or just to not have too many scenes on a page taking up a plethora of resources. Ultimately, we need some condition continuously running in the loop to detect when to break the update loop.</p>
             <pre><code>
 {`update() {
     this.frameRequest = requestAnimationFrame(() => {

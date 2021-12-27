@@ -63,7 +63,7 @@ export default function Splash({subjects}) {
         if (extension === currentPath) {
             return;
         }
-        history.push(extension);
+        history.push({ pathname: '/' + extension });
     }
 
     const subjectExtensionMouseOver = (e, subject) => {
