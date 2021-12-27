@@ -43,8 +43,8 @@ export default function About() {
         // and cause a load of pile-up requests. Controlling caching on the server to no avail; simply setting the values
         // that store images as styles directly on the element and not in a class stops this from re-requesting constantly
         // (╯°□°）╯︵ ┻━┻
-        image.current.style.webkitMaskImage = 'url(https://phoenixmee.com/images/watercolour-mask.png)';
-        image.current.style.backgroundImage = `url(https://phoenixmee.com/images/${imageMap[currentImageIndex]}.jpg)`;
+        image.current.style.webkitMaskImage = 'url(./images/watercolour-mask.png)';
+        image.current.style.backgroundImage = `url(./images/${imageMap[currentImageIndex]}.jpg)`;
         document.body.addEventListener('mousemove', handleMouseOver);
         return () => document.body.removeEventListener('mousemove', handleMouseOver);
     }, []);
