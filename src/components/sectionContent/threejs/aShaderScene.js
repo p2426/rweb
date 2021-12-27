@@ -99,7 +99,7 @@ update(time, resolution) {
 }
 `}
             </code></pre>
-            <p>Standard stuff, though there are 2 important things going on. Firstly, we instantiate a new shader based on the <code>shaderMap</code> variable, <i>and</i> apply some of it's properties inside the constructor of the <code>ShaderMaterial</code>. For the purposes of setting up a simple shader scene, the <code>side</code> can stay as <code>FrontSide</code>. The heart of the shader itself is the <code>vertexShader</code> and <code>fragmentShader</code>, this is the code that is executed to get the desired effect - and the <code>uniforms</code> are non-static variables that the shader code uses in its rendering, like time or resolution.</p>
+            <p>Standard stuff, though there are 2 important things going on. Firstly, we instantiate a new shader based on the <code>shaderMap</code> variable, <i>and</i> apply some of it's properties inside the constructor of the <code>ShaderMaterial</code>. For the purposes of setting up a simple shader scene, the <code>side</code> can stay as <code>FrontSide</code>. The heart of the shader itself is the <code>vertexContent</code> and <code>fragmentContent</code>, this is the code that is executed to get the desired effect - and the <code>uniforms</code> are non-static variables that the shader code uses in its rendering, like time or resolution.</p>
             <p>Before we get to the <code>SinShader</code> we should create a class for all our shaders to inherit from, largely echoing the properties that are applied to the <code>ShaderMaterial</code> above.</p>
             <pre><code>
 {`export class CustomShader {
