@@ -152,7 +152,6 @@ export class Scene {
     sceneUpdate() {}
 
     pause(state) {
-        console.log('paused:', state);
         this.paused = state;
         if (this.paused) {
             cancelAnimationFrame(this.frameRequest);
