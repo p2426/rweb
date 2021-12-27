@@ -36,6 +36,9 @@ export const sectionContentMap = {
     }, {
         props: { type: 'threejs', title: 'the cube' },
         filename: 'theCube',
+    }, {
+        props: { type: 'threejs', title: 'a shader scene' },
+        filename: 'aShaderScene',
     }],
     scenes: [{
         props: { type: 'scenes', title: 'a manéo experience' },
