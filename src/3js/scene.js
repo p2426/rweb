@@ -50,8 +50,8 @@ export class Scene {
     paused = false;
     inView;
     autoPauser = new IntersectionObserver(([entry]) => {
-        this.pause(!entry.isIntersecting);
         this.inView = entry.isIntersecting;
+        this.pause(!this.inView);
     });
 
     get sceneResolution() {
