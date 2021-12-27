@@ -8,8 +8,7 @@ export default function TheCube({type, title}) {
         <div className='body'>
             <p>We need something to render! Let's close on the most basic of shapes - the cube. There are many classes in 3JS for rendering simple shapes, and we will piggyback of the <a href={'//threejs.org/docs/#api/en/geometries/BoxGeometry'} target='_blank' rel='noopener noreferrer'><code>THREE.BoxGeometry</code></a> for our cube. This class is an extension on <code>BufferGeometry</code>, which is what it sounds like, just an array of points in space that can represent anything, from a single line to a huge natural environment.</p>
             <pre><code>
-{`
-properties = {
+{`properties = {
     id: "unset",
     shader: undefined,
     material: undefined,

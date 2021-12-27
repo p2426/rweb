@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react';
+import translateWithMouse from '../global/translateWithMouse';
 import '../scss/about.scss';
 
 export default function About() {
     const image = useRef();
     const container = useRef();
+    const info = useRef();
+
     // Allow for a random image on creation
     const imageMap = ['IMG_3040', 'IMG_3063', 'IMG_3088', 'IMG_3091', 'IMG_3434', 'IMG_3449', 'IMG_3571', 'IMG_3885', 'IMG_3977', 'IMG_3984', 'IMG_4047',
                       'IMG_4075', 'IMG_4078', 'IMG_4117', 'IMG_4124', 'IMG_4127', 'IMG_4294', 'IMG_4304', 'IMG_6445', 'IMG_6450', 'IMG_6474', 'IMG_6531',
@@ -30,6 +33,8 @@ export default function About() {
 
         image.current.style.backgroundPosition = `${x * imageXPosScalar}px ${y * imageYPosScalar}px`;
         image.current.style.transform = `perspective(10px) translate3d(${x * translateXScalar}px, ${y * translateYScalar}px, ${(y * translateZScalar)}px)`;
+
+        translateWithMouse(e, info.current, 50, 50, info.current.offsetWidth / 2, info.current.offsetHeight / 2);
     }
 
     useEffect(() => {
@@ -59,6 +64,7 @@ export default function About() {
             <button className='about__image-selector about__image-selector--previous' onClick={() => imageSelectorClick(currentImageIndex - 1)}></button>
             <div ref={image} className='about__image'></div>
             <button className='about__image-selector about__image-selector--next' onClick={() => imageSelectorClick(currentImageIndex + 1)}></button>
+            <p ref={info} className='about__info'>my name is Phoenix. I am a game and web developer living in London. Feel free to <a href={'//www.linkedin.com/in/phoenixmee/'} target='_blank' rel='noopener noreferrer'>get in touch</a>. In the meantime, enjoy some photos of my time in Japan.</p>
         </div>
     );
 }

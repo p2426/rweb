@@ -64,8 +64,7 @@ export default function OrphanedElements({type, title}) {
             </div>
             <p>The stats above are coming from the infinitely animated SVG path in the "drawings" SVGs section - of course it's rare to have infinitely animated elements on a page, but the point still stands. With a little bit of code, we can reduce the resource usage of the page, most notable here, the CPU usage and the Style recalcs / sec. This is a huge win, to reduce the CPU usage from 14%~ to 0% (while completely idle) and 144~ style recalcs / sec in all circumstances (which, I assume, will differ based on your monitor refresh rate and frame cap of your GPU/embedded graphics), should never be overlooked - as developers we must get into the habit of cleaning up after ourselves and creating the best possible experience for users.</p>
             <pre><code>
-{`
-const AnimatedPath = () => {
+{`const AnimatedPath = () => {
     const svg = useRef();
     const isOnScreen = useOnScreen(svg);
 

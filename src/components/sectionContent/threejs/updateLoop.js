@@ -8,8 +8,7 @@ export default function UpdateLoop({type, title}) {
         <div className='body'>
             <p>The classic loop - the beating heart of any Game Engine. Unfortunately applications inside browsers are single threaded and any loops must be incredibly optimised and tweaked constantly to ensure a smooth experience. Triple A Game Engines will have dedicated threads for all kinds of update loops, one for rendering, one for physics, etc, to allow for more efficient (parallel) processing, while synchronising them to a targeted frame rate. 3D graphics itself is incredibly resource intensive, running millions of calculations a second, thus the reason for a GPU - at the lowest level, it's specifically tuned to deal with math operations and dealing with triplets (vectors), representing a world in 3D space. With that said, your experience of 3D graphics relies heavily on the hardware you use, so it's important to try and make logic <i>frame agnostic</i> wherever possible.</p>
             <pre><code>
-{`
-update() {
+{`update() {
     this.frameRequest = requestAnimationFrame(() => {
         if (!this.paused) {
             this.update();

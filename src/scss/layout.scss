@@ -29,6 +29,11 @@ body {
     margin: 0;
 }
 
+pre {
+    background-color: rgb(221, 221, 211);
+    padding: 5px;
+}
+
 code {
     font-size: 12px;
     background-color: rgb(221, 221, 211);
@@ -94,6 +99,15 @@ button {
 .canvas-container {
     position: relative;
     height: 600px;
+
+    &--clickable {
+        padding: 1rem;
+        cursor: pointer;
+
+        &:hover {
+            -webkit-text-stroke: 1px;
+        }
+    }
 
     &--loading {
         position: relative;
