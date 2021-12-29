@@ -1,11 +1,13 @@
 import * as THREE from 'three';
 import { SceneObject } from './sceneobject';
 import { SinShader } from '../shaders/sinShader';
+import { MandelbrotShader } from '../shaders/mandelbrot';
 
 export class ShaderObject extends SceneObject {
     properties = {
         id: "unset",
         shader: null,
+        shaderDefinitions: {},
         material: null,
         scale: [1, 1, 1],
         position: [0, 0, 0],
@@ -14,7 +16,8 @@ export class ShaderObject extends SceneObject {
     }
 
     shaderMap = {
-        sinShader: SinShader
+        sinShader: SinShader,
+        mandelbrot: MandelbrotShader
     }
 
     constructor(settings) {
@@ -27,6 +30,7 @@ export class ShaderObject extends SceneObject {
 
         this.properties.material = new THREE.ShaderMaterial({
             side: THREE.FrontSide,
+            defines: this.properties.shaderDefinitions,
             uniforms: this.properties.shader.uniforms,
             vertexShader: this.properties.shader.vertexContent,
             fragmentShader: this.properties.shader.fragmentContent

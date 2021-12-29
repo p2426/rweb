@@ -49,8 +49,8 @@ export const sectionContentMap = {
         filename: 'theRoyalGameOfUr',
     }],
     shaders: [{
-        props: { type: 'shaders', title: 'placeholder' },
-        filename: 'placeholder',
+        props: { type: 'shaders', title: 'mandelbrot set' },
+        filename: 'mandelbrotSet',
     }],
     about: ''
 }

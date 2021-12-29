@@ -14,8 +14,6 @@ export class SinShader extends CustomShader {
         precision mediump float;
         #endif
 
-        #define PI 3.14159265359
-
         uniform vec2 u_resolution;  // Canvas size in pixels
         uniform float u_time;       // Elapsed time since instantiated
 

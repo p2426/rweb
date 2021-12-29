@@ -24,7 +24,8 @@ export default function Placeholder({type, title}) {
         });
 
         const shaderObject = new ShaderObject({
-            shader: 'sinShader'
+            shader: 'sinShader',
+            shaderDefinitions: { PI: 3.14159265359 }
         });
 
         scene.current.addObjectToScene(shaderObject);
