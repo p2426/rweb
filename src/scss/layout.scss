@@ -117,4 +117,9 @@ button {
         align-items: center;
         background-color: rgb(221, 221, 211);
     }
+
+    &__ui {
+        position: absolute;
+        width: 100%;
+    }
 }

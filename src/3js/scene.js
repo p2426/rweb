@@ -19,7 +19,8 @@ export class Scene {
         height: window.innerHeight,
         colour: [221, 221, 211],
         antialias: true,
-        alpha: true
+        alpha: true,
+        pausedCallback: () => {}
     };
     cameraSettings = {
         fov: 50,
@@ -79,6 +80,7 @@ export class Scene {
         this.initScene();
         this.initRenderer();
         this.initCamera();
+        this.resetSceneDimensions();
 
         // Start render loop
         this.pause(false);
@@ -160,6 +162,7 @@ export class Scene {
             this.time.then = performance.now();
             this.update();
         }
+        this.sceneSettings.pausedCallback(this.paused);
     }
 
     resetSceneDimensions() {

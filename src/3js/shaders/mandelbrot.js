@@ -9,8 +9,11 @@ export class MandelbrotShader extends CustomShader {
         u_resolution: {
             value: new THREE.Vector2(0.0, 0.0)
         },
-        u_posScale: {
-            value: new THREE.Vector4(0.0, 0.0, 4.0, 4.0)
+        u_pos: {
+            value: new THREE.Vector2(0.0, 0.0)
+        },
+        u_scale: {
+            value: new THREE.Vector2(4.0, 4.0)
         }
     };
 
@@ -26,15 +29,17 @@ export class MandelbrotShader extends CustomShader {
 
     // Fragment Shader
     fragmentContent = `
+        precision highp float;
         #define MAX_ITERATIONS 255.0
 
         uniform vec2 u_resolution;  // Canvas size in pixels
         uniform float u_time;       // Elapsed time since instantiated
-        uniform vec4 u_posScale;
+        uniform vec2 u_pos;
+        uniform vec2 u_scale;
         varying vec2 vUv;
 
         void main() {
-            vec2 transform = vec2(u_posScale.xy + (vUv - 0.5) * u_posScale.zw);
+            vec2 transform = vec2(u_pos + (vUv - 0.5) * u_scale);
             vec2 z = vec2(0, 0);
             float i;
             for (i = 0.0; i < MAX_ITERATIONS; i++) {
