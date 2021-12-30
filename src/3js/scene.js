@@ -105,6 +105,8 @@ export class Scene {
         this.sceneSettings.parent.appendChild(this.renderer.domElement);
         const colour = new THREE.Color(`rgb(${this.sceneSettings.colour.toString()})`);
         this.sceneSettings.alpha ? this.renderer.setClearColor(colour, 0) : this.scene.background = colour;
+        // Disable right click menu
+        this.renderer.domElement.setAttribute('oncontextmenu', 'return false;');
     }
 
     initCamera() {

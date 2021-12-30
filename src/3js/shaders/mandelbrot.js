@@ -14,6 +14,9 @@ export class MandelbrotShader extends CustomShader {
         },
         u_scale: {
             value: new THREE.Vector2(4.0, 4.0)
+        },
+        u_angle: {
+            value: 0.0
         }
     };
 
@@ -36,10 +39,25 @@ export class MandelbrotShader extends CustomShader {
         uniform float u_time;       // Elapsed time since instantiated
         uniform vec2 u_pos;
         uniform vec2 u_scale;
+        uniform float u_angle;
         varying vec2 vUv;
+
+        // Rotate around a point in 2D space
+        vec2 rotate(vec2 p, vec2 pivot, float a) {
+            float s = sin(a);
+            float c = cos(a);
+
+            p -= pivot;
+            p = vec2(p.x * c - p.y * s, p.x * s + p.y * c);
+            p += pivot;
+
+            return p;
+        }
 
         void main() {
             vec2 transform = vec2(u_pos + (vUv - 0.5) * u_scale);
+            transform = rotate(transform, u_pos, u_angle);
+
             vec2 z = vec2(0, 0);
             float i;
             for (i = 0.0; i < MAX_ITERATIONS; i++) {

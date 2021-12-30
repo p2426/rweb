@@ -10,7 +10,10 @@ export default function MandelbrotSet({type, title}) {
     let shaderObject = useRef();
 
     useEffect(() => {
-        return () => scene.current?.dispose();
+        return () => {
+            scene.current?.dispose();
+            sceneContainer.current?.removeEventListener('wheel', sceneOnWheel);
+        }
     }, []);
 
     useEffect(() => {
@@ -22,8 +25,7 @@ export default function MandelbrotSet({type, title}) {
             height: 1090,
             colour: [0, 0, 0],
             antialias: false,
-            alpha: false,
-            pausedCallback: whenScenePaused
+            alpha: false
         });
 
         shaderObject.current = new MandelbrotShaderObject({
@@ -31,41 +33,22 @@ export default function MandelbrotSet({type, title}) {
         });
 
         scene.current.addObjectToScene(shaderObject.current);
+
+        sceneContainer.current.addEventListener('wheel', sceneOnWheel);
     }, [isReady]);
 
-    const whenScenePaused = (state) => {
-        state ? document.removeEventListener('keydown', bindControls) : document.addEventListener('keydown', bindControls);
+    const sceneMouseMove = (e) => {
+        if (e.buttons === 1) {
+            shaderObject.current.addPos(-e.movementX / 1000, e.movementY / 1000);
+        } else if (e.buttons === 2) {
+            shaderObject.current.addAngle(e.movementX / 360);
+        }
     }
 
-    const bindControls = (e) => {
-        switch (e.keyCode) {
-            case 65: // a
-                e.preventDefault();
-                shaderObject.current.addPos(-0.1, 0);
-                break;
-            case 68: // d
-                e.preventDefault();
-                shaderObject.current.addPos(0.1, 0);
-                break;
-            case 87: // w
-                e.preventDefault();
-                shaderObject.current.addPos(0, 0.1);
-                break;
-            case 83: // s
-                e.preventDefault();
-                shaderObject.current.addPos(0, -0.1);
-                break;
-            case 82: // r
-                e.preventDefault();
-                shaderObject.current.multiplyScale(0.9, 0.9);
-                break;
-            case 84: // t
-                e.preventDefault();
-                shaderObject.current.multiplyScale(1.1, 1.1);
-                break;
-            default:
-                break;
-        }
+    const sceneOnWheel = (e) => {
+        e.preventDefault();
+        const scaleFactor = e.deltaY < 0 ? 0.8 : 1.2;
+        shaderObject.current.addScale(scaleFactor, scaleFactor);
     }
 
     return (
@@ -76,8 +59,8 @@ export default function MandelbrotSet({type, title}) {
         </div>
         <div className='body'>
             <p>The Mandelbrot set has become popular outside mathematics both for its aesthetic appeal and as an example of a complex structure arising from the application of simple rules. It is one of the best-known examples of mathematical visualization, mathematical beauty, and motif.</p>
-            {isReady && <div ref={sceneContainer} className='canvas-container standard-margin-bottom' style={{ height: '1090px' }}>
-                <div ref={sceneUI} className='canvas-container canvas-container__ui' style={{ height: '1090px' }}></div>
+            {isReady && <div ref={sceneContainer} onMouseMove={sceneMouseMove} className='canvas-container standard-margin-bottom' style={{ height: '1090px' }}>
+                {/* <div ref={sceneUI} className='canvas-container canvas-container__ui' style={{ height: '1090px' }}></div> */}
             </div>}
             {!isReady && <LoadingOverlay click={() => setIsReady(true)}/>}
         </div>
