@@ -18,9 +18,9 @@ export class MandelbrotShader extends CustomShader {
         u_angle: {
             value: 0.0
         },
-        u_palette: {
-            value: new THREE.TextureLoader().load('./textures/pal.png')
-        }
+        // u_palette: {
+        //     value: new THREE.TextureLoader().load('./textures/pal.png')
+        // }
     };
 
     // Vertex Shader
@@ -43,7 +43,7 @@ export class MandelbrotShader extends CustomShader {
         uniform vec2 u_pos;
         uniform vec2 u_scale;
         uniform float u_angle;
-        uniform sampler2D u_palette;
+        // uniform sampler2D u_palette;
         varying vec2 vUv;
 
         // Rotate around a point in 2D space
