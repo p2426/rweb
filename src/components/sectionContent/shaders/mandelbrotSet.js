@@ -71,6 +71,10 @@ export default function MandelbrotSet({type, title}) {
 const LoadingOverlay = ({ click }) => {
     return (
         <div onClick={click} className='canvas-container canvas-container--loading' style={{ height: '1090px' }}>
+            <p>Controls:</p>
+            <p>Pan: Left click and drag</p>
+            <p>Rotate: Right click and drag</p>
+            <p>Zoom: Mouse wheel</p>
             <p className='canvas-container--clickable'>Click to load scene</p>
         </div>
     );

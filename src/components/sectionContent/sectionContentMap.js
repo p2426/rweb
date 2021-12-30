@@ -40,6 +40,10 @@ export const sectionContentMap = {
         props: { type: 'threejs', title: 'a shader scene' },
         filename: 'aShaderScene',
     }],
+    shaders: [{
+        props: { type: 'shaders', title: 'mandelbrot fractal' },
+        filename: 'mandelbrotSet',
+    }],
     scenes: [{
         props: { type: 'scenes', title: 'a manéo experience' },
         filename: 'aManeoExperience',
@@ -47,10 +51,6 @@ export const sectionContentMap = {
     games: [{
         props: { type: 'games', title: 'the royal game of ur' },
         filename: 'theRoyalGameOfUr',
-    }],
-    shaders: [{
-        props: { type: 'shaders', title: 'mandelbrot set' },
-        filename: 'mandelbrotSet',
     }],
     about: ''
 }

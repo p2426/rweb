@@ -24,6 +24,12 @@ export default function App() {
                             <RightNavigation sections={sectionContentMap.threejs}/>
                         </div>
                     </Route>
+                    <Route exact path="/shaders">
+                        <div className="layout">
+                            <Main sections={sectionContentMap.shaders}/>
+                            <RightNavigation sections={sectionContentMap.shaders}/>
+                        </div>
+                    </Route>
                     <Route exact path="/scenes">
                         <div className="layout">
                             <Main sections={sectionContentMap.scenes}/>
@@ -34,12 +40,6 @@ export default function App() {
                         <div className="layout">
                             <Main sections={sectionContentMap.games}/>
                             <RightNavigation sections={sectionContentMap.games}/>
-                        </div>
-                    </Route>
-                    <Route exact path="/shaders">
-                        <div className="layout">
-                            <Main sections={sectionContentMap.shaders}/>
-                            <RightNavigation sections={sectionContentMap.shaders}/>
                         </div>
                     </Route>
                 </Switch>

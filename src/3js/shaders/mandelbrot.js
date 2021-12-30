@@ -17,6 +17,9 @@ export class MandelbrotShader extends CustomShader {
         },
         u_angle: {
             value: 0.0
+        },
+        u_palette: {
+            value: new THREE.TextureLoader().load('./textures/pal.png')
         }
     };
 
@@ -40,6 +43,7 @@ export class MandelbrotShader extends CustomShader {
         uniform vec2 u_pos;
         uniform vec2 u_scale;
         uniform float u_angle;
+        uniform sampler2D u_palette;
         varying vec2 vUv;
 
         // Rotate around a point in 2D space
@@ -64,6 +68,8 @@ export class MandelbrotShader extends CustomShader {
                 z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + transform;
                 if (length(z) > 2.0) break;
             }
+
+            // gl_FragColor = texture2D(u_palette, vec2((i == MAX_ITERATIONS ? 0.0 : i) / 100.0));
             gl_FragColor = vec4(vec3(i / MAX_ITERATIONS), 1.0);
         }
     `;
