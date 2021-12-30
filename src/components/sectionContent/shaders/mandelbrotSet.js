@@ -58,11 +58,49 @@ export default function MandelbrotSet({type, title}) {
             <h1 className='title'>{title}</h1>
         </div>
         <div className='body'>
-            <p>The Mandelbrot set has become popular outside mathematics both for its aesthetic appeal and as an example of a complex structure arising from the application of simple rules. It is one of the best-known examples of mathematical visualization, mathematical beauty, and motif.</p>
+            <p>The 'Hello world!' of fractals. The Mandelbrot set has become popular outside mathematics both for its aesthetic appeal and as an example of a complex structure arising from the application of simple rules. It is one of the best-known examples of mathematical visualization, mathematical beauty, and motif. I'm a huge fan of Fractal geometry as it always gives amazing results (limited only by the hardware we use) - even better if the application of mathematics looks clean and <i>simple</i>. Wikipedia explains the <a href={'//en.wikipedia.org/wiki/Mandelbrot_set'} target='_blank' rel='noopener noreferrer'>Mandelbrot set</a> better than I ever could.</p>
             {isReady && <div ref={sceneContainer} onMouseMove={sceneMouseMove} className='canvas-container standard-margin-bottom' style={{ height: '1090px' }}>
                 {/* <div ref={sceneUI} className='canvas-container canvas-container__ui' style={{ height: '1090px' }}></div> */}
             </div>}
             {!isReady && <LoadingOverlay click={() => setIsReady(true)}/>}
+            <pre><code>
+{`precision highp float;
+#define MAX_ITERATIONS 255.0
+
+uniform vec2 u_resolution;
+uniform float u_time;
+uniform vec2 u_pos;
+uniform vec2 u_scale;
+uniform float u_angle;
+varying vec2 vUv;
+
+// Rotate around a point in 2D space
+vec2 rotate(vec2 p, vec2 pivot, float a) {
+    float s = sin(a);
+    float c = cos(a);
+
+    p -= pivot;
+    p = vec2(p.x * c - p.y * s, p.x * s + p.y * c);
+    p += pivot;
+
+    return p;
+}
+
+void main() {
+    vec2 transform = vec2(u_pos + (vUv - 0.5) * u_scale);
+    transform = rotate(transform, u_pos, u_angle);
+
+    vec2 z = vec2(0, 0);
+    float i;
+    for (i = 0.0; i < MAX_ITERATIONS; i++) {
+        z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + transform;
+        if (length(z) > 2.0) break;
+    }
+
+    gl_FragColor = vec4(vec3(i / MAX_ITERATIONS), 1.0);
+}
+`}
+            </code></pre>
         </div>
         </>
     );

@@ -38,8 +38,8 @@ export class MandelbrotShader extends CustomShader {
         precision highp float;
         #define MAX_ITERATIONS 255.0
 
-        uniform vec2 u_resolution;  // Canvas size in pixels
-        uniform float u_time;       // Elapsed time since instantiated
+        uniform vec2 u_resolution;
+        uniform float u_time;
         uniform vec2 u_pos;
         uniform vec2 u_scale;
         uniform float u_angle;
