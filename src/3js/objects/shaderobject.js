@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { SceneObject } from './sceneobject';
 import { SinShader } from '../shaders/sinShader';
 import { MandelbrotShader } from '../shaders/mandelbrot';
+import { JuliaShader } from '../shaders/julia';
 
 export class ShaderObject extends SceneObject {
     properties = {
@@ -17,7 +18,8 @@ export class ShaderObject extends SceneObject {
 
     shaderMap = {
         sinShader: SinShader,
-        mandelbrot: MandelbrotShader
+        mandelbrot: MandelbrotShader,
+        julia: JuliaShader,
     }
 
     constructor(settings) {

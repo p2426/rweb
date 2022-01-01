@@ -43,6 +43,9 @@ export const sectionContentMap = {
     shaders: [{
         props: { type: 'shaders', title: 'mandelbrot fractal' },
         filename: 'mandelbrotSet',
+    }, {
+        props: { type: 'shaders', title: 'julia set' },
+        filename: 'juliaSet',
     }],
     scenes: [{
         props: { type: 'scenes', title: 'a manéo experience' },

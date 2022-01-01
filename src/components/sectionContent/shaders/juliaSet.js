@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Scene } from "../../../3js/scene";
-import { MandelbrotShaderObject } from "../../../3js/shaders/shaderObjects/mandelbrotShaderObject";
+import { JuliaShaderObject } from "../../../3js/shaders/shaderObjects/juliaShaderObject";
+import '../../../scss/sectionContent/juliaSet.scss';
 
-export default function MandelbrotSet({type, title}) {
+export default function JuliaSet({type, title}) {
     const sceneContainer = useRef();
-    const sceneUI = useRef();
+    const seedXInput = useRef();
+    const seedYInput = useRef();
     const [isReady, setIsReady] = useState(false);
+    const [seedX, setSeedX] = useState(0.35);
+    const [seedY, setSeedY] = useState(0.4);
     let scene = useRef();
     let shaderObject = useRef();
 
@@ -28,10 +32,12 @@ export default function MandelbrotSet({type, title}) {
             alpha: false
         });
 
-        shaderObject.current = new MandelbrotShaderObject({ shader: 'mandelbrot' });
+        shaderObject.current = new JuliaShaderObject({ shader: 'julia' });
 
         scene.current.addObjectToScene(shaderObject.current);
 
+        seedChange({ target: seedXInput.current }, true, false);
+        seedChange({ target: seedYInput.current }, false, true);
         sceneContainer.current.addEventListener('wheel', sceneOnWheel);
     }, [isReady]);
 
@@ -49,6 +55,23 @@ export default function MandelbrotSet({type, title}) {
         shaderObject.current.addScale(scaleFactor, scaleFactor);
     }
 
+    const seedChange = (e, isX, isY) => {
+        const value = e.target.value;
+        if (value > e.target.attributes.max.value) {
+            e.target.value = Number(e.target.attributes.max.value);
+        } else if (value < e.target.attributes.min.value) {
+            e.target.value = Number(e.target.attributes.min.value);
+        }
+
+        if (isX) {
+            setSeedX(value);
+            shaderObject.current?.setSeedX(value);
+        } else {
+            setSeedY(value);
+            shaderObject.current?.setSeedY(value);
+        }
+    }
+
     return (
         <>
         <div className='header'>
@@ -56,7 +79,15 @@ export default function MandelbrotSet({type, title}) {
             <h1 className='title'>{title}</h1>
         </div>
         <div className='body'>
-            <p>The 'Hello world!' of fractals. The Mandelbrot set has become popular outside mathematics both for its aesthetic appeal and as an example of a complex structure arising from the application of simple rules. It is one of the best-known examples of mathematical visualization, mathematical beauty, and motif. I'm a huge fan of Fractal geometry as it always gives amazing results (limited only by the hardware we use) - even better if the application of mathematics looks clean and <i>simple</i>. Wikipedia explains the <a href={'//en.wikipedia.org/wiki/Mandelbrot_set'} target='_blank' rel='noopener noreferrer'>Mandelbrot set</a> better than I ever could. Still in the process of deciding how I want to colour the fractal - also if it should be user-driven, check back on that soon.</p>
+            <p>The Julia set is closely related to the Mandelbrot, with very similar calculations, in fact for every point on the complex plane a julia set can be made. The difference is that the Julia set adds a <i>seed</i> per iteration onto the current complex number, instead of starting from 0 - which results and ranges from a dust-like shape to flower-like shapes.</p>
+            <p>As opposed to using the iterations to colour the pixels outright, there is a <a href={'//www.iquilezles.org/www/articles/mset_smooth/mset_smooth.htm'} target='_blank' rel='noopener noreferrer'>smoothing technique</a> to mix colours based on the double logerithmic dot product of the polynomial - used in this fractal.</p>
+            <p>You can control the seed components with the inputs below, by typing or once clicked with the up and down keys.</p>
+            <div className="julia__controls">
+                <label>seed.x</label>
+                <input ref={seedXInput} type='number' min={0} max={1} step={0.001} defaultValue={0.35} onChange={(e) => { seedChange(e, true, false); }}/>
+                <label>seed.y</label>
+                <input ref={seedYInput} type='number' min={0} max={1} step={0.001} defaultValue={0.4} onChange={(e) => { seedChange(e, false, true); }}/>
+            </div>
             {isReady && <div ref={sceneContainer} onMouseMove={sceneMouseMove} className='canvas-container standard-margin-bottom' style={{ height: '1090px' }}></div>}
             {!isReady && <LoadingOverlay click={() => setIsReady(true)}/>}
             <pre><code>
@@ -68,6 +99,7 @@ uniform float u_time;
 uniform vec2 u_pos;
 uniform vec2 u_scale;
 uniform float u_angle;
+uniform vec2 u_seed;
 varying vec2 vUv;
 
 // Rotate around a point in 2D space
@@ -83,17 +115,21 @@ vec2 rotate(vec2 p, vec2 pivot, float a) {
 }
 
 void main() {
-    vec2 transform = vec2(u_pos + (vUv - 0.5) * u_scale);
-    transform = rotate(transform, u_pos, u_angle);
+    vec2 z = vec2(u_pos + (vUv - 0.5) * u_scale);
+    z = rotate(z, u_pos, u_angle);
+    z.x += 0.5;
 
-    vec2 z = vec2(0, 0);
     float i;
     for (i = 0.0; i < MAX_ITERATIONS; i++) {
-        z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + transform;
+        z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + u_seed;
         if (length(z) > 2.0) break;
     }
 
-    gl_FragColor = vec4(vec3(i / MAX_ITERATIONS), 1.0);
+    float smoothCol = i - log2(log2(dot(z, z)));
+    smoothCol = mix(i, smoothCol, 1.0);
+    vec3 col = vec3(0.5 + 0.5 * cos(3.0 + smoothCol * 0.15 + vec3(0.0, 0.6, 1.0)));
+
+    gl_FragColor = vec4(col, 1.0);
 }
 `}
             </code></pre>
