@@ -71,9 +71,8 @@ export class JuliaShader extends CustomShader {
 
             float smoothCol = i - log2(log2(dot(z, z)));
             smoothCol = mix(i, smoothCol, 1.0);
-            vec3 col = vec3(0.5 + 0.5 * cos(3.0 + smoothCol * 0.15 + vec3(0.0, 0.6, 1.0)));
 
-            gl_FragColor = vec4(col, 1.0);
+            gl_FragColor = vec4(vec3(0.5 + 0.5 * cos(3.0 + smoothCol * 0.15 + vec3(0.0, 0.6, 1.0))), 1.0);
         }
     `;
 
