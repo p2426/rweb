@@ -17,6 +17,9 @@ export const sectionContentMap = {
     }, {
         props: { type: 'web', title: 'orphaned elements' },
         filename: 'orphanedElements',
+    }, {
+        props: { type: 'web', title: 'charting data' },
+        filename: 'chartingData',
     }],
     threejs: [{
         props: { type: 'threejs', title: 'wrapping three.js' },
