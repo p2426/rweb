@@ -12,9 +12,9 @@ export default function ChartingData({type, title}) {
             parent: container.current,
             width: 600,
             height: 600,
-            animated: false,
+            animated: true,
             interactable: true,
-            updateInterval: 1
+            updateInterval: 3
         });
 
         return () => chart.current?.dispose();
