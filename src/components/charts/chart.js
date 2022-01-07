@@ -81,9 +81,7 @@ export default class Chart {
     }
 
     // Logic to run once a new frame renders
-    frameUpdate() {
-        console.log(this.time.ticker, this.time.tickerCount);
-    }
+    frameUpdate() {}
 
     pause(state) {
         this.paused = state;
