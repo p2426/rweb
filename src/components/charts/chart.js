@@ -3,13 +3,15 @@ export default class Chart {
     canvas;
     context;
     hitCanvas;
+    hitCanvasContext;
 
+    // Dimensions
     height = 300;
     width = 300;
 
-    // Rendering
+    // Animation
     animated = false;
-    updateRate = 5;
+    updateInterval = 5;
     frameRequest;
     time = {
         now: 0,
@@ -17,7 +19,13 @@ export default class Chart {
         deltaTime: 0,
         elapsed: 0,
         ticker: 0,
+        tickerCount: 0
     }
+
+    // Interactable
+    interactable = false;
+
+    // Pausing
     paused = false;
     inView;
     autoPauser = new IntersectionObserver(([entry]) => {
@@ -25,19 +33,26 @@ export default class Chart {
         this.pause(!this.inView);
     });
 
-    constructor({ parent, width, height, animated, updateRate }) {
+    constructor({ parent, width, height, animated, updateInterval, interactable }) {
         this.parent = parent;
         this.width = width || this.width;
         this.height = height || this.height;
         this.animated = animated || this.animated;
-        this.updateRate = updateRate || this.updateRate;
+        this.updateInterval = updateInterval || this.updateInterval;
+        this.interactable = interactable || this.interactable;
 
         this.createCanvas();
 
+        if (this.interactable) {
+            this.bindInteractableEvents();
+            this.hitCanvas = new HitCanvas({
+                width: this.width,
+                height: this.height
+            });
+        }
+
         if (this.animated) {
             this.pause(false);
-
-            // Auto-pauser
             this.autoPauser.observe(this.parent);
         }
     }
@@ -56,9 +71,10 @@ export default class Chart {
         this.time.elapsed += this.time.deltaTime;
         this.time.ticker += this.time.deltaTime;
 
-        if (this.time.ticker > this.updateRate) {
+        if (this.time.ticker > this.updateInterval) {
             this.frameUpdate();
             this.time.ticker = 0;
+            this.time.tickerCount += 1;
         }
 
         this.time.then = performance.now();
@@ -66,7 +82,7 @@ export default class Chart {
 
     // Logic to run once a new frame renders
     frameUpdate() {
-        console.log(this.time.ticker);
+        console.log(this.time.ticker, this.time.tickerCount);
     }
 
     pause(state) {
@@ -80,6 +96,7 @@ export default class Chart {
         }
     }
 
+    // Canvas
     createCanvas() {
         this.canvas = document.createElement('canvas');
 
@@ -100,5 +117,116 @@ export default class Chart {
 
     setCanvasHeight(v) {
         this.canvas.setAttribute('height', v);
+    }
+
+    clearCanvas() {
+        this.context.clearRect(0, 0, this.width, this.height);
+        this.hitCanvas?.clearCanvas();
+    }
+
+    // Events
+    bindInteractableEvents() {
+        this.canvas.addEventListener('click', this.handleClick.bind(this));
+    }
+
+    handleClick(e) {
+        const hit = this.detectHittableObject(e);
+        hit?.click();
+    }
+
+    detectHittableObject(e) {
+        const x = e.layerX;
+        const y = e.layerY;
+        const hitImageData = this.hitCanvas.context.getImageData(x, y, 1, 1).data;
+        return this.hitCanvas.getHit(hitImageData);
+    }
+
+    // Cleanup
+    dispose() {
+        this.pause(true);
+        this.canvas.removeEventListener('click', this.handleClick);
+    }
+}
+
+// This class represents a non-visible canvas. The purpose of this class is to be drawn to and assign a random unique colour to the drawing,
+// so it can be hit detected when a regular document event is fired, like click, mouseover, etc.
+// Before drawing an object to this canvas, the 'setHitAttributes({})' function must be used to apply the random colour, and be able to pass
+// functions that fire based on the event that is called, for example, the object should contain a key of 'click' and the value be
+// a function that will be called, when a click event happens in the visible canvas
+// ** Revisit this approach as detecting hits requires hittable objects to be drawn twice, once to this invisible canvas,
+// and again for the visible canvas
+// This approach was used as the native Hit Region functionally will/has become deprecated
+class HitCanvas {
+    canvas;
+    context;
+
+    width;
+    height;
+
+    hittables = {};
+
+    constructor(settings) {
+        this.width = settings.width;
+        this.height = settings.height;
+
+        this.canvas = document.createElement('canvas');
+        this.setCanvasWidth(this.width);
+        this.setCanvasHeight(this.height);
+        this.context = this.canvas.getContext('2d');
+    }
+
+    getUniqueColour() {
+        while(true) {
+            const r = Math.round(Math.random() * 255);
+            const g = Math.round(Math.random() * 255);
+            const b = Math.round(Math.random() * 255);
+            const result = `rgb(${r},${g},${b})`;
+            if (!this.hittables[result]) {
+                return result;
+            }
+        }
+    }
+
+    setHitAttributes(data) {
+        const uniqueColour = this.getUniqueColour();
+        this.context.fillStyle = uniqueColour;
+        this.hittables[uniqueColour] = new HittableCanvasObject(data);
+    }
+
+    getHit(rgba = []) {
+        if (rgba[3] === 0) {
+            return;
+        }
+        return this.hittables[`rgb(${rgba[0]},${rgba[1]},${rgba[2]})`];
+    }
+
+    clearCanvas() {
+        this.context.clearRect(0, 0, this.width, this.height);
+        this.hittables = {};
+    }
+
+    setCanvasWidth(v) {
+        this.canvas.setAttribute('width', v);
+    }
+
+    setCanvasHeight(v) {
+        this.canvas.setAttribute('height', v);
+    }
+}
+
+class HittableCanvasObject {
+    data = {};
+
+    constructor(data = {}) {
+        this.data = data;
+        this.assignFunctions();
+    }
+
+    assignFunctions() {
+        for (const [key, value] of Object.entries(this.data)) {
+            if (value instanceof Function) {
+                this[key] = value;
+            }
+        }
     }
 }

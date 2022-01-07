@@ -1,18 +1,23 @@
 import { useEffect, useRef } from 'react';
 import '../../../scss/chart.scss';
 import Chart from '../../charts/chart';
+import { LineChart } from '../../charts/lineChart';
 
 export default function ChartingData({type, title}) {
     const container = useRef();
+    const chart = useRef();
 
     useEffect(() => {
-        new Chart({
+        chart.current = new LineChart({
             parent: container.current,
             width: 600,
             height: 600,
-            animated: true,
-            updateRate: 1
+            animated: false,
+            interactable: true,
+            updateInterval: 1
         });
+
+        return () => chart.current?.dispose();
     }, []);
 
     return (
