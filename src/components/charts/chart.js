@@ -31,6 +31,8 @@ export default class Chart {
     autoPauser = new IntersectionObserver(([entry]) => {
         this.inView = entry.isIntersecting;
         this.pause(!this.inView);
+    }, {
+        threshold: 0.1
     });
 
     constructor({ parent, width, height, animated, updateInterval, interactable }) {
@@ -54,6 +56,7 @@ export default class Chart {
         if (this.animated) {
             this.pause(false);
             this.autoPauser.observe(this.parent);
+            document.addEventListener('visibilitychange', this.handleDocumentVisibility.bind(this), false);
         }
     }
 
@@ -132,6 +135,11 @@ export default class Chart {
         hit?.click();
     }
 
+    handleDocumentVisibility(e) {
+        if (!this.inView) return;
+        this.pause(document.visibilityState === 'hidden');
+    }
+
     detectHittableObject(e) {
         const x = e.layerX;
         const y = e.layerY;
@@ -142,6 +150,7 @@ export default class Chart {
     // Cleanup
     dispose() {
         this.pause(true);
+        document.removeEventListener('visibilitychange', this.handleDocumentVisibility.bind(this));
         this.canvas.removeEventListener('click', this.handleClick);
     }
 }

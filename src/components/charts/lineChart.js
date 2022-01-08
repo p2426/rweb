@@ -19,7 +19,7 @@ export class LineChart extends Chart {
     };
 
     // Units
-    unitFont = '12px serif';
+    unitFont = '12px system-ui';
     unitFontSize = 12;
     unitLineLength = 5;
 
@@ -30,7 +30,7 @@ export class LineChart extends Chart {
     // Graph offsets
     topOffset = 10;
     bottomOffset = 50;
-    rightOffset = 10;
+    rightOffset = 50;
     leftOffset = 50;
 
     // Graph bounds
@@ -143,6 +143,7 @@ export class LineChart extends Chart {
                 this.hitCanvas.setHitAttributes({
                     click: function() {
                         console.log('I am:', this);
+                        console.log('My data is:', key, v);
                     },
                     mousemove: function() {
                         console.log('I am:', this);

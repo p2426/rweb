@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
-import '../../../scss/chart.scss';
-import Chart from '../../charts/chart';
 import { LineChart } from '../../charts/lineChart';
+import '../../../scss/chart.scss';
 
 export default function ChartingData({type, title}) {
     const container = useRef();
