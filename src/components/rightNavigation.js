@@ -1,11 +1,15 @@
 import '../scss/navigation.scss';
 import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function RightNavigation({sections}) {
     const ul = useRef();
     const items = useRef([]);
     const mainSections = useRef();
-    let [sectionResized, setSectionResized] = useState(0);
+    const location = useLocation();
+    const [sectionLoaded, setSectionLoaded] = useState([]);
+    const [sectionImporting, setSectionImporting] = useState(null);
+    let sectionDimensions = useRef([]);
 
     // Bind event to a target element's scroll to update the style of the items in the list,
     // when the section is scrolled to.
@@ -14,7 +18,7 @@ export default function RightNavigation({sections}) {
         const main = document.querySelector('main');
         mainSections.current = Array.from(main.querySelectorAll('.section'));
 
-        const sectionDimensions = mainSections.current.map(section => {
+        sectionDimensions.current = mainSections.current.map(section => {
             const bounds = section.getBoundingClientRect();
             return {
                 // No ways of rounding will make the vertical bounds connect, need to minus 1
@@ -24,7 +28,7 @@ export default function RightNavigation({sections}) {
         });
 
         const bindMainScroll = (e) => {
-            sectionDimensions.forEach((section, index) => {
+            sectionDimensions.current.forEach((section, index) => {
                 // In a range; set the active state on the nav item, removing active on any others
                 if (document.documentElement.scrollTop >= section.top && document.documentElement.scrollTop < section.bottom && !items.current[index].classList.contains('active')) {
                     items.current[index].classList.add('active');
@@ -37,23 +41,45 @@ export default function RightNavigation({sections}) {
 
         document.addEventListener('scroll', bindMainScroll);
         return () => document.removeEventListener('scroll', bindMainScroll);
-    }, [sectionResized]);
+    }, [sectionLoaded]);
+
+    useEffect(() => {
+        setSectionLoaded([]);
+    }, [location]);
 
     // For the bolding of items in this component to be accurate to which section is in the viewport,
     // we should recalculate bounds of sections once they have been loaded and therefore resized
     useEffect(() => {
-        const runSectionResized = () => {
-            setSectionResized(sectionResized += 1);
+        const runSectionLoaded = (e) => {
+            setSectionLoaded(sectionLoaded => [...sectionLoaded, e.detail.title]);
         };
-        document.body.addEventListener('SectionResized', runSectionResized);
-        return () => document.body.removeEventListener('SectionResized', runSectionResized);
+        const runSectionImporting = (e) => {
+            setSectionImporting(e.detail.title);
+        }
+        document.body.addEventListener('SectionLoaded', runSectionLoaded);
+        document.body.addEventListener('SectionImporting', runSectionImporting);
+        return () => {
+            document.body.removeEventListener('SectionLoaded', runSectionLoaded);
+            document.body.removeEventListener('SectionImporting', runSectionImporting);
+        }
     }, []);
+
+    const handleItemClick = (e, index) => {
+        window.scrollTo({
+            top: sectionDimensions.current[index].top,
+            behavior: 'smooth'
+        })
+    }
 
     return (
         <nav>
             <ul ref={ul} className='right after-strip--vertical'>
                 {sections.map((section, index) => {
-                    return <li key={index} ref={el => items.current[index] = el}>{section.props.title}</li>
+                    return <li key={index}
+                               ref={el => items.current[index] = el}
+                               onClick={(e) => handleItemClick(e, index)}
+                               className={sectionLoaded.includes(section.props.title) ? 'loaded' : 
+                                          sectionImporting === section.props.title ? 'loading' : ''}>{section.props.title}</li>
                 })}
             </ul>
         </nav>
