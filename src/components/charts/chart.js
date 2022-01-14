@@ -226,10 +226,10 @@ class HittableCanvasObject {
 
     constructor(data = {}) {
         this.data = data;
-        this.assignFunctions();
+        this.bindEvents();
     }
 
-    assignFunctions() {
+    bindEvents() {
         for (const [key, value] of Object.entries(this.data)) {
             if (value instanceof Function) {
                 this[key] = value;
