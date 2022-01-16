@@ -20,6 +20,9 @@ export const sectionContentMap = {
     }, {
         props: { type: 'web', title: 'charting data' },
         filename: 'chartingData',
+    }, {
+        props: { type: 'web', title: 'node backend test' },
+        filename: 'nodeBackendTest',
     }],
     threejs: [{
         props: { type: 'threejs', title: 'wrapping three.js' },
