@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export default function NodeBackendTest({type, title}) {
 
     useEffect(() => {
-        fetch('/api/test')
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/test`)
         .then(response => response.json())
         .then(response => console.log(response));
     }, []);
