@@ -18,6 +18,9 @@ export const sectionContentMap = {
         props: { type: 'web', title: 'orphaned elements' },
         filename: 'orphanedElements',
     }, {
+        props: { type: 'web', title: 'neural networks' },
+        filename: 'neuralNetworks',
+    }, {
         props: { type: 'web', title: 'charting data' },
         filename: 'chartingData',
     }, {
