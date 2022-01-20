@@ -11,7 +11,8 @@ export default function NeuralNetworks({type, title}) {
     const lstmTrainingData = useRef([['rock', 'paper', 'scissors', 'rock']]);
     const didPredict = useRef();
 
-    const brainOutputEl = useRef();
+    const AIOutputEl = useRef();
+    const [AIMood, setAIMood] = useState();
 
     const [score, setScore] = useState({
         outcome: '---',
@@ -79,7 +80,7 @@ export default function NeuralNetworks({type, title}) {
 
     const updateBrainOutput = (item) => setBrainOutput(state => [...state, item]);
 
-    const scrollBrainOutputToBottom = () => brainOutputEl.current.scrollTo(0, brainOutputEl.current.scrollHeight);
+    const scrollBrainOutputToBottom = () => AIOutputEl.current.scrollTo(0, AIOutputEl.current.scrollHeight);
 
     const AIPredictOutcome = (prediction) => {
         const weights = neuralNet.current.run({ [prediction]: 1 });
@@ -171,7 +172,8 @@ export default function NeuralNetworks({type, title}) {
             <p>Neural Networks is something that I've always wanted to get into, especially because it's perfect for creating realistic AI in games - typically as gamers we've been subject to 'static' NPCs that will follow state based on RNG. Nodes in a Neural Network <i>start off</i> assosiated with random values, but quickly learn rules/patterns over time, and can result in varied behaviour and decisions.</p>
             <p>Using <a href={'//brain.js.org/#/'} target='_blank' rel='noopener noreferrer'>brain.js</a>, let's teach our Neural Network the rules of a very simple game - Rock, Paper, Scissors. Not only that, but by feeding in the decisions of the player, we can build up a larger training set over time, and the Neural Network will attempt to predict the player's choices, as well as understanding which move it should then take to beat the player.</p>
             <p>AI in the browser is difficult for a number of reasons - JavaScript is singlethreaded, which means processing should be kept to a minimum to not lock-up the browser, but to get more accurate results we need a larger set of training data.. but that takes more processing. It takes a lot of tweaking to get a smooth result, even for a simple game like Rock, Paper, Scissors.</p>
-            <p>Be aware, your browser might get a bit choppy when playing.</p>
+            <p>To this end, we will only give the AI's LSTM (Long Short-term Memory) a training set of 13 player moves and a max iteration of 200 - in order to predict what move a player will make next. Not a <i>great</i> AI, but serves the purpose for what we need it for. The 'other part' of its brain will be a standard Neural Network, feeding in the rules of the game, which doesn't <i>need</i> to be retrained over time - it's <i>just</i> Rock, Paper, Scissors.</p>
+            <p>Be aware, your browser might get a bit choppy when playing as the AI 'connects the nodes' to predict your next move.</p>
             <div className='neural-networks-container'>
                 <div className='player-options'>
                     {!neuralNetTrained && <button onClick={trainNeuralNet}>Train NeuralNetwork</button>}
@@ -185,7 +187,7 @@ export default function NeuralNetworks({type, title}) {
                 </div>
                 {neuralNetTrained && <ScoreBoard score={score}/>}
                 <div className='cpu-container'>
-                    <pre ref={brainOutputEl} className='cpu-brain-output'>
+                    <pre ref={AIOutputEl} className='cpu-brain-output'>
                     {brainOutput.length > 0 &&
                         brainOutput.map((out, i) => typeof out === 'object' ? <code key={i}>{JSON.stringify(out)}</code> : <code key={i} className='cpu-brain-output--comment'>{out}</code>)
                     }
@@ -195,7 +197,7 @@ export default function NeuralNetworks({type, title}) {
                         </>
                     }
                     </pre>
-                    <CPUChip/>
+                    <CPUChip AIMood={AIMood}/>
                 </div>
             </div>
         </div>
@@ -203,7 +205,7 @@ export default function NeuralNetworks({type, title}) {
     );
 }
 
-const CPUChip = () => {
+const CPUChip = ({ AIMood }) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
             <path d="M34 31H146C147.657 31 149 32.3431 149 34V146C149 147.657 147.657 149 146 149H34C32.3431 149 31 147.657 31 146V34C31 32.3431 32.3431 31 34 31Z" stroke="black" strokeWidth="2"/>
