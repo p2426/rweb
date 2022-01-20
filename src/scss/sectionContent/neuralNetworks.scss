@@ -89,5 +89,67 @@
                 margin: .5rem 0;
             }
         }
+
+        &-inner-chip {
+            &--win {
+                animation: CPUInnerChipWin 1s;
+            }
+            &--draw {
+                animation: CPUInnerChipDraw 1s;
+            }
+            &--lose {
+                animation: CPUInnerChipLose 1s;
+            }
+        }
+        &--win {
+            animation: CPUWin 1s;
+        }
+        &--draw {
+            animation: CPUDraw 1s;
+        }
+        &--lose {
+            animation: CPULose 1s;
+        }
     }
+}
+
+@keyframes CPUWin {
+    0% { transform: scale(1) }
+    50% { transform: scale(1.3) }
+    100% { transform: scale(1) }
+}
+
+@keyframes CPUInnerChipWin {
+    0% { fill: transparent; }
+    50% { fill: green; }
+    100% { fill: transparent; }
+}
+
+@keyframes CPUDraw {
+    0% { transform: rotate(0deg) }
+    50% { transform: rotate(25deg) }
+    100% { transform: rotate(0deg) }
+}
+
+@keyframes CPUInnerChipDraw {
+    0% { fill: transparent; }
+    50% { fill: rgb(235, 178, 56); }
+    100% { fill: transparent; }
+}
+
+@keyframes CPULose {
+    0% { transform: translateX(0) }
+    10% { transform: translateX(-25px) }
+    20% { transform: translateX(25px) }
+    30% { transform: translateX(-25px) }
+    40% { transform: translateX(25px) }
+    50% { transform: translateX(-25px) }
+    60% { transform: translateX(25px) }
+    100% { transform: translateX(0) }
+}
+
+@keyframes CPUInnerChipLose {
+    0% { fill: transparent; }
+    50% { fill: red; }
+    100% { fill: transparent; }
 }

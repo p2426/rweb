@@ -12,7 +12,10 @@ export default function NeuralNetworks({type, title}) {
     const didPredict = useRef();
 
     const AIOutputEl = useRef();
-    const [AIMood, setAIMood] = useState();
+    const [AIMood, setAIMood] = useState({
+        state: null,
+        counter: 0
+    });
 
     const [score, setScore] = useState({
         outcome: '---',
@@ -159,6 +162,12 @@ export default function NeuralNetworks({type, title}) {
                 AIChoice: '---',
             });
         }, 1500);
+
+        // Set AI mood
+        setAIMood({
+            state: outcome === 'you won!' ? 'lose' : outcome === 'you lost!' ? 'win' : 'draw',
+            counter: AIMood.counter + 1
+        });
     }
 
     return (
@@ -206,10 +215,21 @@ export default function NeuralNetworks({type, title}) {
 }
 
 const CPUChip = ({ AIMood }) => {
+    const svg = useRef();
+    const innerChip = useRef();
+
+    useEffect(() => {
+        if (!AIMood.counter) return;
+        svg.current.classList = `cpu--${AIMood.state}`;
+        innerChip.current.classList = `cpu-inner-chip--${AIMood.state}`;
+    }, [AIMood]);
+
+    const clearClasses = (e) => e.target.classList = '';
+
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
+        <svg ref={svg} onAnimationEnd={clearClasses} xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
             <path d="M34 31H146C147.657 31 149 32.3431 149 34V146C149 147.657 147.657 149 146 149H34C32.3431 149 31 147.657 31 146V34C31 32.3431 32.3431 31 34 31Z" stroke="black" strokeWidth="2"/>
-            <path d="M50 47H132C133.657 47 135 48.3431 135 50V132C135 133.657 133.657 135 132 135H50C48.3431 135 47 133.657 47 132V50C47 48.3431 48.3431 47 50 47Z" stroke="black" strokeWidth="2"/>
+            <path ref={innerChip} d="M50 47H132C133.657 47 135 48.3431 135 50V132C135 133.657 133.657 135 132 135H50C48.3431 135 47 133.657 47 132V50C47 48.3431 48.3431 47 50 47Z" stroke="black" strokeWidth="2"/>
             <line x1="150" y1="49" x2="160" y2="49" stroke="black" strokeWidth="2"/>
             <line x1="150" y1="69" x2="160" y2="69" stroke="black" strokeWidth="2"/>
             <line x1="150" y1="91" x2="160" y2="91" stroke="black" strokeWidth="2"/>
