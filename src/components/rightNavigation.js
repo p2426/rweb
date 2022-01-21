@@ -18,14 +18,17 @@ export default function RightNavigation({sections}) {
         const main = document.querySelector('main');
         mainSections.current = Array.from(main.querySelectorAll('.section'));
 
-        sectionDimensions.current = mainSections.current.map(section => {
-            const bounds = section.getBoundingClientRect();
-            return {
-                // No ways of rounding will make the vertical bounds connect, need to minus 1
-                top: (Math.round(bounds.top) + Math.round(document.documentElement.scrollTop)) - 1,
-                bottom: Math.round(bounds.bottom) + Math.round(document.documentElement.scrollTop)
-            }
-        });
+        const calculateSectionBounds = () => {
+            sectionDimensions.current = mainSections.current.map(section => {
+                const bounds = section.getBoundingClientRect();
+                return {
+                    // No ways of rounding will make the vertical bounds connect, need to minus 1
+                    top: (Math.round(bounds.top) + Math.round(document.documentElement.scrollTop)) - 1,
+                    bottom: Math.round(bounds.bottom) + Math.round(document.documentElement.scrollTop)
+                }
+            });
+        }
+        calculateSectionBounds();
 
         const bindMainScroll = (e) => {
             sectionDimensions.current.forEach((section, index) => {
@@ -39,8 +42,12 @@ export default function RightNavigation({sections}) {
             });
         };
 
+        window.addEventListener('resize', calculateSectionBounds);
         document.addEventListener('scroll', bindMainScroll);
-        return () => document.removeEventListener('scroll', bindMainScroll);
+        return () => {
+            window.removeEventListener('resize', calculateSectionBounds);
+            document.removeEventListener('scroll', bindMainScroll);
+        }
     }, [sectionLoaded]);
 
     useEffect(() => {
