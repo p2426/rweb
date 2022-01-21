@@ -7,16 +7,8 @@ export class LineChart extends Chart {
     yMeasurements = 10;
     yUnit = 100;
     yUnitMax = undefined;
-    dataLength = 3;
-    data = { 
-        Monday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
-        Tuesday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
-        Wednesday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
-        Thursday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
-        Friday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
-        Saturday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
-        Sunday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
-    };
+    dataLength;
+    data;
 
     // Units
     unitFont = '12px system-ui';
@@ -43,8 +35,9 @@ export class LineChart extends Chart {
         }
     };
 
-    constructor(node) {
-        super(node);
+    constructor(options, data) {
+        super(options);
+        this.data = data;
         this.interpretData();
         this.redrawGraph();
         this.plotPoints();
@@ -54,6 +47,7 @@ export class LineChart extends Chart {
     // measurement - eg. 10, 100, 1000, etc
     // data - in the form of { x: [], y: [] }
     interpretData(measurement = this.yUnit, data = this.data) {
+        this.dataLength = Object.values(this.data).reduce((a,b) => a.length > b.length ? a : b).length;
         const dataMin = 0;
         const dataMax = Math.max(...Object.values(data).flat());
         this.yUnitMax = Math.ceil(dataMax / measurement) * measurement;
@@ -219,7 +213,7 @@ export class LineChart extends Chart {
 
     // Util
     randomiseData() {
-        this.data = { 
+        this.data = {
             Monday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
             Tuesday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
             Wednesday: [...Array(this.dataLength)].map(i => Math.round(Math.random() * 1000)),
