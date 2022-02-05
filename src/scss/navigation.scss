@@ -105,3 +105,10 @@ nav {
         }
     }
 }
+
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+    }
+}

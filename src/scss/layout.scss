@@ -123,3 +123,15 @@ button {
         width: 100%;
     }
 }
+
+@media (max-width: 768px) {
+    .layout {
+        width: 100%;
+        margin: 0;
+    }
+    .flex {
+        &--column-mobile {
+            flex-direction: column;
+        }
+    }
+}

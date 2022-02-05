@@ -76,3 +76,12 @@
     0% { opacity: 0; transform: translateY(-500%); }
     100% { opacity: 1; transform: translateY(0); }
 }
+
+@media (max-width: 768px) {
+    .section {
+        & .body {
+            width: 100%;
+            margin: 0;
+        }
+    }
+}

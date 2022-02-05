@@ -7,3 +7,9 @@ main {
     margin: 0 1rem;
     width: 80%;
 }
+
+@media (max-width: 768px) {
+    main {
+        width: 100%;
+    }
+}
