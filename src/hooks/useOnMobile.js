@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 
-export default function useOnMobile(mq) {
-    const [isBreakpoint, setIsBreakpoint] = useState(window.matchMedia(mq).matches);
+export default function useOnMobile(query = '(max-width: 768px)') {
+    const [isBreakpoint, setIsBreakpoint] = useState(window.matchMedia(query).matches);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia(mq);
+        const mq = window.matchMedia(query);
         const updateState = (e) => {
             setIsBreakpoint(e.matches);
         }
-        mediaQuery.addEventListener('change', updateState);
-        return () => mediaQuery.removeEventListener('change', updateState);
+        mq.addEventListener('change', updateState);
+        return () => mq.removeEventListener('change', updateState);
     });
 
     return isBreakpoint;

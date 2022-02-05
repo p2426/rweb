@@ -1,11 +1,10 @@
 import { useRef } from 'react';
-import { useEffect } from 'react/cjs/react.development';
 import useOnMobile from '../../../hooks/useOnMobile';
 import useOnScreen from '../../../hooks/useOnScreen';
 import '../../../scss/sectionContent/drawingSVGs.scss';
 
 export default function DrawingSVGs({type, title}) {
-    const isMobile = useOnMobile('(max-width: 768px)');
+    const isMobile = useOnMobile();
 
     return (
         <>
