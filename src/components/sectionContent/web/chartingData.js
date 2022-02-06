@@ -30,7 +30,8 @@ export default function ChartingData({type, title}) {
     }, []);
 
     useEffect(() => {
-        isMobile ? chart.current.resizeCanvas(350, 350) : chart.current.resizeCanvas(600, 600);
+        const maxWidth = chart.current.parent.clientWidth;
+        isMobile ? chart.current.resizeCanvas(maxWidth, maxWidth) : chart.current.resizeCanvas(600, 600);
         chart.current.redrawGraph();
     }, [isMobile]);
 
