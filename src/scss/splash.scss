@@ -171,3 +171,18 @@
     75% { filter: drop-shadow(0 0 3px var(--about)); stroke: var(--about); }
     100% { filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); stroke: black; }
 }
+
+@media (max-width: 768px) {
+    .splash {
+        & .pentagons {
+            transform: translate(-50%, -75%) scale(3);
+        }
+        & .subject-load-circle {
+            bottom: 0;
+        }
+    }
+    @keyframes PentsScaleDown {
+        0% { transform: translate(-50%, -75%) scale(3) rotate(0deg); }
+        100% { transform: translate(-50%, -75%) scale(0.8) rotate(90deg); }
+    }
+}

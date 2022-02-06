@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import translateWithMouse from '../global/translateWithMouse';
+import useOnMobile from '../hooks/useOnMobile';
 import useOnScreen from '../hooks/useOnScreen';
 import '../scss/splash.scss';
 
@@ -15,6 +16,7 @@ export default function Splash({subjects}) {
     const currentPath = history.location.pathname.slice(1);
     const isOnScreen = useOnScreen(splash);
     const isPathAbout = currentPath === 'about';
+    const isMobile = useOnMobile();
 
     // Bind translations of various elements to document body on mousemove, and listen for any Subject content loading
     useEffect(() => {
@@ -105,7 +107,7 @@ export default function Splash({subjects}) {
             </div>
             <Pentagons subjects={subjects.map(s => s.toLowerCase())} currentSubject={currentSubject} isOnScreen={isOnScreen}/>
             <div ref={subjectLoadContainer} className='subject-load-circle'>
-                <SubjectLoadIndicator/>
+                <SubjectLoadIndicator mobile={isMobile}/>
             </div>
         </div>
     );
@@ -143,7 +145,7 @@ export const SubjectTitle = ({currentSubject}) => {
     return <h1>{currentSubject}</h1>
 }
 
-export const SubjectLoadIndicator = () => {
+export const SubjectLoadIndicator = ({ mobile }) => {
     const element = useRef();
 
     const animationEnd = (e) => {
@@ -158,7 +160,7 @@ export const SubjectLoadIndicator = () => {
 
     return (
         <svg ref={element} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-            <circle onAnimationEnd={animationEnd} cx="20" cy="20" r="16" stroke="black" strokeWidth="4"/>
+            <circle onAnimationEnd={animationEnd} cx="20" cy="20" r="16" stroke="black" strokeWidth={mobile ? 3 : 4}/>
         </svg>
     );
 }
