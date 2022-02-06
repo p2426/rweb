@@ -1,6 +1,7 @@
 import '../../../scss/sectionContent/neuralNetworks.scss';
 import { useEffect, useRef, useState } from 'react';
 import * as Brain from 'brain.js/dist/brain-browser.js';
+import useOnMobile from '../../../hooks/useOnMobile';
 
 export default function NeuralNetworks({type, title}) {
     const neuralNet = useRef();
@@ -10,6 +11,7 @@ export default function NeuralNetworks({type, title}) {
     const playerChoices = useRef(['rock', 'paper', 'scissors']);
     const lstmTrainingData = useRef([['rock', 'paper', 'scissors', 'rock']]);
     const didPredict = useRef();
+    const isMobile = useOnMobile();
 
     const AIOutputEl = useRef();
     const [AIMood, setAIMood] = useState({
@@ -83,7 +85,7 @@ export default function NeuralNetworks({type, title}) {
 
     const updateBrainOutput = (item) => setBrainOutput(state => [...state, item]);
 
-    const scrollBrainOutputToBottom = () => AIOutputEl.current.scrollTo(0, AIOutputEl.current.scrollHeight);
+    const scrollBrainOutputToBottom = () => AIOutputEl.current?.scrollTo(0, AIOutputEl.current.scrollHeight);
 
     const AIPredictOutcome = (prediction) => {
         const weights = neuralNet.current.run({ [prediction]: 1 });
@@ -183,32 +185,34 @@ export default function NeuralNetworks({type, title}) {
             <p>AI in the browser is difficult for a number of reasons - JavaScript is singlethreaded, which means processing should be kept to a minimum to not lock-up the browser, but to get more accurate results we need a larger set of training data.. but that takes more processing. It takes a lot of tweaking to get a smooth result, even for a simple game like Rock, Paper, Scissors.</p>
             <p>To this end, we will only give the AI's LSTM (Long Short-term Memory) a training set of 13 player moves and a max iteration of 200 - in order to predict what move a player will make next. Not a <i>great</i> AI, but serves the purpose for what we need it for. The 'other part' of its brain will be a standard Neural Network, feeding in the rules of the game, which doesn't <i>need</i> to be retrained over time - it's <i>just</i> Rock, Paper, Scissors.</p>
             <p>Be aware, your browser might get a bit choppy when playing as the AI 'connects the nodes' to predict your next move.</p>
-            <div className='neural-networks-container'>
-                <div className='player-options'>
-                    {!neuralNetTrained && <button onClick={trainNeuralNet}>Train NeuralNetwork</button>}
-                    {neuralNetTrained &&
-                        <>
-                        <button onClick={() => PlayerChose('rock')}>Rock</button>
-                        <button onClick={() => PlayerChose('paper')}>Paper</button>
-                        <button onClick={() => PlayerChose('scissors')}>Scissors</button>
-                        </>
-                    }
+            {isMobile ? <pre><code>{`Game available on desktop version`}</code></pre> : 
+                <div className='neural-networks-container'>
+                    <div className='player-options'>
+                        {!neuralNetTrained && <button onClick={trainNeuralNet}>Train NeuralNetwork</button>}
+                        {neuralNetTrained &&
+                            <>
+                            <button onClick={() => PlayerChose('rock')}>Rock</button>
+                            <button onClick={() => PlayerChose('paper')}>Paper</button>
+                            <button onClick={() => PlayerChose('scissors')}>Scissors</button>
+                            </>
+                        }
+                    </div>
+                    {neuralNetTrained && <ScoreBoard score={score}/>}
+                    <div className='cpu-container'>
+                        <pre ref={AIOutputEl} className='cpu-brain-output'>
+                        {brainOutput.length > 0 &&
+                            brainOutput.map((out, i) => typeof out === 'object' ? <code key={i}>{JSON.stringify(out)}</code> : <code key={i} className='cpu-brain-output--comment'>{out}</code>)
+                        }
+                        {brainOutput.length < 1 &&
+                            <>
+                            <code className='cpu-brain-output--comment'>...</code>
+                            </>
+                        }
+                        </pre>
+                        <CPUChip AIMood={AIMood}/>
+                    </div>
                 </div>
-                {neuralNetTrained && <ScoreBoard score={score}/>}
-                <div className='cpu-container'>
-                    <pre ref={AIOutputEl} className='cpu-brain-output'>
-                    {brainOutput.length > 0 &&
-                        brainOutput.map((out, i) => typeof out === 'object' ? <code key={i}>{JSON.stringify(out)}</code> : <code key={i} className='cpu-brain-output--comment'>{out}</code>)
-                    }
-                    {brainOutput.length < 1 &&
-                        <>
-                        <code className='cpu-brain-output--comment'>...</code>
-                        </>
-                    }
-                    </pre>
-                    <CPUChip AIMood={AIMood}/>
-                </div>
-            </div>
+                }
         </div>
         </>
     );

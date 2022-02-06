@@ -125,6 +125,14 @@ export default class Chart {
         this.hitCanvas?.clearCanvas();
     }
 
+    resizeCanvas(width = this.width, height = this.height) {
+        this.width = width;
+        this.height = height;
+        this.setCanvasHeight(this.width);
+        this.setCanvasWidth(this.height);
+        this.clearCanvas();
+    }
+
     // Events
     bindInteractableEvents() {
         this.canvas.addEventListener('click', this.handleClick.bind(this));

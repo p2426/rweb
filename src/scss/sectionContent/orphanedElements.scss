@@ -25,3 +25,20 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .section .body {
+        .usage {
+            &-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                margin: 0;
+            }
+            &-stats-container {
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
