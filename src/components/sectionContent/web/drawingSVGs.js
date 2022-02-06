@@ -1,11 +1,8 @@
 import { useRef } from 'react';
-import useOnMobile from '../../../hooks/useOnMobile';
 import useOnScreen from '../../../hooks/useOnScreen';
 import '../../../scss/sectionContent/drawingSVGs.scss';
 
 export default function DrawingSVGs({type, title}) {
-    const isMobile = useOnMobile();
-
     return (
         <>
         <div className='header'>
@@ -19,7 +16,7 @@ export default function DrawingSVGs({type, title}) {
                     <path d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
                 </svg>
                 <pre><code>
-{isMobile ? `Code available on desktop version` : `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
+{`<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
     <path d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
 </svg>`}
                 </code></pre>
@@ -30,7 +27,7 @@ export default function DrawingSVGs({type, title}) {
                     <path className='drawing-example' d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
                 </svg>
                 <pre><code>
-{isMobile ? `Code available on desktop version` : `.drawing-example {
+{`.drawing-example {
     stroke-dasharray: 375;
     stroke-dashoffset: 0;
 }`}
@@ -39,7 +36,7 @@ export default function DrawingSVGs({type, title}) {
                     <path className='drawing-example-two' d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
                 </svg>
                 <pre><code>
-{isMobile ? `Code available on desktop version` : `.drawing-example-two {
+{`.drawing-example-two {
     stroke-dasharray: 375;
     stroke-dashoffset: 150;
 }`}
@@ -50,7 +47,7 @@ export default function DrawingSVGs({type, title}) {
             <div className='flex flex--centre-vertical flex--column-mobile'>
                 <AnimatedPath/>
                 <pre><code>
-{isMobile ? `Code available on desktop version` : `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
+{`<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
     <path class='drawing-example-three'
           d="M30.6646 75.7909L90 30.6284L149.335 75.7909L126.662 148.895H53.3379L30.6646 75.7909Z" stroke="black"/>
 </svg>

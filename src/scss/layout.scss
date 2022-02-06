@@ -125,6 +125,10 @@ button {
 }
 
 @media (max-width: 768px) {
+    pre {
+        width: 100%;
+        overflow-x: scroll;
+    }
     .layout {
         width: 100%;
         margin: 0;

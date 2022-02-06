@@ -1,8 +1,4 @@
-import useOnMobile from "../../../hooks/useOnMobile";
-
 export default function SPASubdirectoryHandling({type, title}) {
-    const isMobile = useOnMobile();
-
     return (
         <>
         <div className='header'>
@@ -13,7 +9,7 @@ export default function SPASubdirectoryHandling({type, title}) {
             <p>I suppose this is quite a niche case - but works well for a personal portfolio like this website because there is very little server interaction, just dynamic API fetches. If your Web Hosting Service caps the amount of pages you can have, or charges you more per page, you will most likely resort to creating an SPA (Single Page Application) - which have their ups and downs. But with some server-side tweaks and a nifty front-end framework like React, it can be made more managable.</p>
             <p>Firstly, you will want to intercept requests to the server for pages, giving more control to the browser - to do this I am using the <a href={'//www.npmjs.com/package/react-router-dom'} target='_blank' rel='noopener noreferrer'>react-router-dom</a> package, which has super easy-to-use components for this purpose. Let's look behind the curtain and see how I have set up this website to use the three components extracted from the package.</p>
             <pre><code>
-{isMobile ? `Code available on desktop version` : `import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+{`import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 ...
 export default function App() {
     return (
@@ -53,7 +49,7 @@ export default function App() {
             <p><b>But wait</b>, you may say, 'There <i>is</i> no subdirectory or even page on my server that matches my route'. You may have set up the above Router, Switches and Routes with exact paths, and then in the address bar navigate to <code>www.mywebsite.com/contact</code> to then be hit by a <code>404 Not Found</code>. It works within the application because we are within the Router, but entering a URL with a subdirectory outside of the application will return a 404, because you're right, there <i>is</i> no subdirectory on your server.</p>
             <p>We can fix that with more routing. I am using an Apache server and have to change the configuration within the <code>.htaccess</code> file in the root. The idea is to re-route traffic back to the only page of the SPA, instead of looking for others. With that in place, the Routing components can then work their magic - resulting in hybrid server/client-side routing logic. Here's the setup:</p>
             <pre><code>
-{isMobile ? `Code available on desktop version` : `# Allow redirecting of paths to index, where React Router will handle them
+{`# Allow redirecting of paths to index, where React Router will handle them
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
