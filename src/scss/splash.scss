@@ -26,6 +26,11 @@
                 stroke-dashoffset: 60;
             }
 
+            &--mobile {
+                display: none;
+                position: absolute;
+            }
+
             &--draw line:first-child {
                 animation: SelectionDraw .5s linear 1s forwards;
             }
@@ -180,7 +185,28 @@
         & .subject-load-circle {
             bottom: 0;
         }
+        & .selections {
+            top: 0;
+            left: 0;
+
+            & .selection {
+                display: none;
+
+                &--mobile {
+                    display: block;
+                    background-color: transparent;
+
+                    &-no-display {
+                        display: none;
+                    }
+                }
+            }
+        }
+        & .subject-title {
+            display: none;
+        }
     }
+
     @keyframes PentsScaleDown {
         0% { transform: translate(-50%, -75%) scale(3) rotate(0deg); }
         100% { transform: translate(-50%, -75%) scale(0.8) rotate(90deg); }
