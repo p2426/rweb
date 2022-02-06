@@ -30,7 +30,7 @@ export default function ChartingData({type, title}) {
     }, []);
 
     useEffect(() => {
-        chart.current.resizeCanvas(350, 350);
+        isMobile ? chart.current.resizeCanvas(350, 350) : chart.current.resizeCanvas(600, 600);
     }, [isMobile]);
 
     return (
